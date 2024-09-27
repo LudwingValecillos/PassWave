@@ -6,6 +6,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
+import Events from "./pages/Events";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -17,6 +18,7 @@ function App() {
       <Route path="/" element={<MainLayout />}>
       <Route index element={<Navigate to="Home" replace />} />
       <Route path="home" element={<Home />} />
+      <Route path="events" element={<Events />} />
       </Route>
       <Route path="/register" element={<Register />} />
 
