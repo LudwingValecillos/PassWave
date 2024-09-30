@@ -7,6 +7,7 @@ import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Events from "./pages/Events";
+import Login from "./pages/Login";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -19,6 +20,7 @@ function App() {
       <Route index element={<Navigate to="Home" replace />} />
       <Route path="home" element={<Home />} />
       <Route path="events" element={<Events />} />
+      <Route path="login" element={<Login />} />
       </Route>
       <Route path="/register" element={<Register />} />
 
