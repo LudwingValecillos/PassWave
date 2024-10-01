@@ -28,7 +28,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-[#F2D22E]">
       <div className="flex flex-col items-center relative">
         {/* WELCOME text */}
         <h2
