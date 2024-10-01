@@ -24,7 +24,7 @@ function UserMenu() {
           </ul>
         </li>
         <li><Link to="/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</Link></li>
-        <li><Link to="/logout" className="block px-4 py-2 hover:bg-gray-100">Logout</Link></li>
+        <li onClick={() => localStorage.clear()}><Link to="/login" className="block px-4 py-2 hover:bg-gray-100">Logout</Link></li>
       </ul>
     </div>
   );

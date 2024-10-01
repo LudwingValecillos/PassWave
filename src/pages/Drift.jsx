@@ -1,9 +1,9 @@
 import React from 'react'
 
-function Oratory() {
+function Drift() {
   return (
     <div>Oratory</div>
   )
 }
 
-export default Oratory
+export default Drift
