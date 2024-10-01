@@ -16,7 +16,7 @@ const Header = () => {
         <div className="flex h-full items-center justify-between p-8 border-black border-4 rounded-3xl bg-[#f5f5f5af] ">
           {/* Logo section */}
           <div className="flex-1 md:flex md:items-center md:gap-12">
-            <a className="flex justify-center items-center gap-5" href="#">
+            <Link to="/home" className="flex justify-center items-center gap-5">
               <img src="/src/assets/waveLogo.png" alt="Logo" className="h-24" />
               <div className="relative inline-block">
                 <img
@@ -25,7 +25,7 @@ const Header = () => {
                   className="inline-block w-36 h-auto"
                 />
               </div>
-            </a>
+            </Link>
           </div>
 
           {/* Navigation and User Icon */}
