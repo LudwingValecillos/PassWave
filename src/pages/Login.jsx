@@ -2,15 +2,34 @@ import React, { useState, useEffect } from 'react';
 import '../styles/login.css';
 import LabelInput from '../components/LabelInput';
 import PasswordInput from '../components/PasswordInput';
+import axios from 'axios';
+import { em } from 'framer-motion/client';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) =>  {
         e.preventDefault();
+
+        const user = {
+            email: username,
+            password: password
+        }
         console.log('Logging in:', { username, password });
+        try {
+            const res = await axios.post(
+              "http://localhost:8080/api/auth/login",user);
+            localStorage.setItem("token", res.data);
+            console.log(res.data);
+      
+            navigate("/home");
+            // dispatch(loadClient());
+          } catch (err) {
+            alertError(err.response.data)
+            
+          }
     };
 
     const handleMouseMove = (e) => {
@@ -54,6 +73,10 @@ const Login = () => {
         { x: window.innerWidth * 0.8, y: window.innerHeight * 0.3 }, // Decimonovena flecha
         { x: window.innerWidth * 0.2, y: window.innerHeight * 0.7 }, // Vigésima flecha
         { x: window.innerWidth * 0.8, y: window.innerHeight * 0.7 }, // Vigésima primera flecha
+        { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 }, // Vigésima segunda flecha (centro)
+        { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 }, // Vigésima tercera flecha (centro)
+        { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 }, // Vigésima cuarta flecha (centro)
+        { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 }, // Vigésima quinta flecha (centro)
     ];
     
 
@@ -63,8 +86,17 @@ const Login = () => {
             <div className="absolute inset-0 bg-no-repeat bg-center bg-cover" style={{ backgroundImage: "url('https://source.unsplash.com/random/1920x1080?color')", opacity: 0.2 }}></div>
             <div className="flex items-center justify-center h-full relative z-10">
                 <div className="bg-[#f5f5f5c9] rounded-lg  shadow-lg p-8 w-full max-w-xl text-center transition-transform transform hover:scale-105 hover:shadow-2xl hover:bg-[#f5f5f5fa]">
-                    <h1 className="text-3xl font-bold mb-6">Welcome to the Cultural Center</h1>
                     <form onSubmit={handleSubmit}>
+                    <div className="flex-1 justify-center py-5 md:flex md:items-center">
+                            <img src="/src/assets/waveLogo.png" alt="Logo" className="h-24" />
+                            <div className="relative inline-block">
+                                <img
+                                src="/src/assets/WaveCen.gif"
+                                alt="WaveCenter Logo"
+                                className="inline-block w-36 h-auto"
+                                />
+                            </div>
+                        </div>
                         <div className="mb-4">
                            
                             <LabelInput name="username" title="Username" onChange={(e) => setUsername(e.target.value)} />

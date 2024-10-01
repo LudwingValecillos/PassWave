@@ -53,7 +53,7 @@ const PasswordInput = ({ name, title, onChange }) => {
           autoComplete="off"
           style={{ padding: '0.5rem 0.75rem' }}  // Asegura que el padding interno sea suficiente
         />
-        <span className="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-[#C4DFFE] px-1 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 
+        <span className="pointer-events-none absolute font-bold start-2.5 top-0 -translate-y-1/2 bg-[#C4DFFE] px-1 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 
         peer-placeholder-shown:text-lg peer-placeholder-shown:bg-transparent peer-focus:top-0 peer-focus:text-xs peer-focus:bg-[#C4DFFE] rounded">
           {title}
         </span>
