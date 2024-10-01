@@ -1,5 +1,6 @@
-import React from 'react';
-import { useState } from 'react';
+
+import React, { useState } from 'react';
+import '../styles/login.css'; 
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -7,11 +8,13 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle login logic here
+
+
         console.log('Logging in:', { username, password });
     };
 
     return (
+
         <div className="relative overflow-hidden h-screen">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-green-400 opacity-70"></div>
             <div className="absolute inset-0 bg-no-repeat bg-center bg-cover" style={{ backgroundImage: "url('https://source.unsplash.com/random/1920x1080?color')", opacity: 0.2 }}></div>
@@ -55,6 +58,7 @@ const Login = () => {
                 </div>
             </div>
         </div>
+
     );
 };
 
