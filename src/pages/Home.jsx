@@ -37,6 +37,7 @@ const Home = () => {
         >
           WELCOME
         </h2>
+        <img src="/src/assets/slogan2.gif" alt="Slogan" className="w-80 h-auto mt-0" />
 
         {/* Image with adjusted styles and scroll-based movement */}
         <img
