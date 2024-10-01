@@ -1,3 +1,5 @@
+import { createReducer } from "@reduxjs/toolkit";
+import { loadEvents } from "../actions/eventsAction";
 
 const initialState = {
     events: [
@@ -40,4 +42,26 @@ const initialState = {
             ticketsAvailable:0
         },
     ],
+    status: "idle",
+    error: null,
 };
+
+
+const eventReducer = createReducer(initialState, (builder) => {
+    builder
+      // Manejo de loadClient
+      .addCase(loadEvents.fulfilled, (state, action) => {
+        state.client = action.payload;
+        state.status = "success";
+      })
+      .addCase(loadEvents.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(loadEvents.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      })
+  
+  });
+  
+  export default eventReducer;
