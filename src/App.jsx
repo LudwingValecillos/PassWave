@@ -10,10 +10,10 @@ import Events from "./pages/Events";
 import Login from "./pages/Login";
 
 import ReservaPage from "./pages/ReservaPage";
-import Show from './pages/Show';
-import Expositions from './pages/Expositions';
+import Show from './pages/AllEvent';
+import Expositions from './pages/Tide';
 import Oratory from './pages/Oratory';
-import Concerts from './pages/Concerts';
+import Concerts from './pages/Creast';
 
 
 function App() {
