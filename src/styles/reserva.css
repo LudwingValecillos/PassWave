@@ -10,22 +10,24 @@ html {
 body {
   background-color: #ecf0f3;
   font-family: futura-pt, sans-serif;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  /* -webkit-tap-highlight-color: rgba(0,0,0,0); */
 }
 #container {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  width: 100%;
-  height: 100vh;
+
+ 
+  /* width: 100%; */
+  /* height: 100vh; */
 }
 .box {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  width: 200px;
+  width: 1200px;
   padding: 20px;
   border-radius: 10px;
   background: #ecf0f3;
@@ -34,18 +36,29 @@ body {
 }
 
 .caseta {
-  background-color: #ecf0f3;
-  border-radius: 15px;
-  box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.2), 
-              -7px -7px 15px rgba(255, 255, 255, 0.7),
-              inset 2px 2px 5px rgba(0, 0, 0, 0.1), 
-              inset -2px -2px 5px rgba(255, 255, 255, 0.9);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* border-radius: 8px; Rounded corners */
+    box-shadow: -2px -2px 8px rgba(255, 255, 255, 1),
+              -2px -2px 12px rgba(255, 255, 255, 0.5),
+              inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+              2px 2px 8px rgba(0, 0, 0, 0.15);
+  color: #f252a5;
+  cursor: pointer;
+  border: none;
+  background: none;
+  border-radius: 40px;
 }
+
 .caseta:hover {
-  transform: scale(1.05);
-  box-shadow: 9px 9px 16px rgba(0, 0, 0, 0.3), 
-              -9px -9px 16px rgba(255, 255, 255, 0.6);
+    fill: #f252a5; /* Change color on hover */
+    box-shadow: inset -2px -2px 8px rgba(255, 255, 255, 1),
+              inset -2px -2px 12px rgba(255, 255, 255, 0.5),
+              inset 2px 2px 4px rgba(255, 255, 255, 0.1),
+              inset 2px 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.selected {
+    /* Styles for when caseta is selected */
+    filter: none; /* Remove shadow */
 }
 
 .modal {

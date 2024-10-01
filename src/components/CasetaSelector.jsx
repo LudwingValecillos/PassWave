@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import '../styles/reserva.css';
 const CasetaSelector = () => {
     const smallCasetaWidth = 30;
     const smallCasetaHeight = 30;
@@ -15,9 +15,9 @@ const CasetaSelector = () => {
         setHoveredCaseta(casetaNumber);
     };
 
-    const handleMouseLeave = () => {
-        setHoveredCaseta(null);
-    };
+    // const handleMouseLeave = () => {
+    //     setHoveredCaseta(null);
+    // };
 
     const handleCasetaClick = (casetaNumber) => {
         if (selectedCasetas.includes(casetaNumber)) {
@@ -42,40 +42,31 @@ const CasetaSelector = () => {
     };
 
     return (
-        <div className="flex justify-between items-center h-screen bg-gradient-to-r from-blue-300 to-blue-500">
-            <svg viewBox="0 0 500 350" className="bg-white border-4 border-gray-400 shadow-lg rounded-lg">
+        <div id="container">
+            
+            <svg viewBox="0 0 500 350" className="box">
                 {/* Escenario */}
                 <rect x="200" y="20" width="100" height="40" className="fill-red-600 shadow-md rounded-lg"></rect>
                 <text x="250" y="45" className="text-xs font-bold fill-white" textAnchor="middle">Escenario</text>
 
-                {/* Casetas Grandes */}
-                {[...Array(5)].map((_, index) => (
-                    <g key={`big-left-${index}`}>
-                        <rect
-                            x={20}
-                            y={80 + index * (largeCasetaHeight + pasilloWidth)}
-                            width={largeCasetaWidth}
-                            height={largeCasetaHeight}
-                            className={`fill-blue-300 stroke-gray-600 stroke-2 cursor-pointer transition-transform duration-300 ease-in-out 
-                                ${hoveredCaseta === index + 1 ? 'scale-105' : 'scale-100'}
-                                ${isSelected(index + 1) ? 'fill-blue-500' : 'fill-blue-300'}
-                                shadow-lg rounded-lg`}
-                            onMouseEnter={() => handleMouseEnter(index + 1)}
-                            onMouseLeave={handleMouseLeave}
-                            onClick={() => handleCasetaClick(index + 1)}
-                        />
-                        {hoveredCaseta === index + 1 && (
-                            <text
-                                x={50}
-                                y={100 + index * (largeCasetaHeight + pasilloWidth)}
-                                className="fill-black text-lg font-semibold"
-                            >
-                                {index + 1}
-                            </text>
-                        )}
-                    </g>
-                ))}
+           {/* Casetas Grandes - Izquierda */}
+{[...Array(5)].map((_, index) => (
+    // <g key={`big-left-${index}`}>
+        <rect
+            x={20}
+            y={80 + index * (largeCasetaHeight + pasilloWidth)}
+            width={largeCasetaWidth}
+            height={largeCasetaHeight}
+            className={`caseta ${hoveredCaseta === index + 1 ? 'hovered' : ''} ${isSelected(index + 1) ? 'selected' : ''}`}
+            onMouseEnter={() => handleMouseEnter(index + 1)}
+            // onMouseLeave={handleMouseLeave}
+            onClick={() => handleCasetaClick(index + 1)}
+        />
+      
+    // </g>
+))}
 
+                {/* Casetas Grandes - Derecha */}
                 {[...Array(5)].map((_, index) => (
                     <g key={`big-right-${index}`}>
                         <rect
@@ -83,23 +74,12 @@ const CasetaSelector = () => {
                             y={80 + index * (largeCasetaHeight + pasilloWidth)}
                             width={largeCasetaWidth}
                             height={largeCasetaHeight}
-                            className={`fill-blue-300 stroke-gray-600 stroke-2 cursor-pointer transition-transform duration-300 ease-in-out 
-                                ${hoveredCaseta === index + 6 ? 'scale-105' : 'scale-100'}
-                                ${isSelected(index + 6) ? 'fill-blue-500' : 'fill-blue-300'}
-                                shadow-lg rounded-lg`}
+                            className={`caseta ${hoveredCaseta === index + 6 ? 'hovered' : ''} ${isSelected(index + 6) ? 'selected' : ''}`}
                             onMouseEnter={() => handleMouseEnter(index + 6)}
-                            onMouseLeave={handleMouseLeave}
+                            // onMouseLeave={handleMouseLeave}
                             onClick={() => handleCasetaClick(index + 6)}
                         />
-                        {hoveredCaseta === index + 6 && (
-                            <text
-                                x={470}
-                                y={100 + index * (largeCasetaHeight + pasilloWidth)}
-                                className="fill-black text-lg font-semibold"
-                            >
-                                {index + 6}
-                            </text>
-                        )}
+                       
                     </g>
                 ))}
 
@@ -112,23 +92,13 @@ const CasetaSelector = () => {
                                 y={80 + rowIndex * (smallCasetaHeight + pasilloWidth)}
                                 width={smallCasetaWidth}
                                 height={smallCasetaHeight}
-                                className={`fill-green-300 stroke-gray-600 stroke-2 cursor-pointer transition-transform duration-300 ease-in-out 
-                                    ${hoveredCaseta === 10 + rowIndex * 5 + colIndex + 1 ? 'scale-105' : 'scale-100'}
-                                    ${isSelected(10 + rowIndex * 5 + colIndex + 1) ? 'fill-green-500' : 'fill-green-300'}
-                                    shadow-lg rounded-lg`}
+                                className={`caseta   ${hoveredCaseta === 10 + rowIndex * 5 + colIndex + 1 ? 'hovered' : ''} ${isSelected(10 + rowIndex * 5 + colIndex + 1) ? 'selected' : ''}`}
+                               
                                 onMouseEnter={() => handleMouseEnter(10 + rowIndex * 5 + colIndex + 1)}
-                                onMouseLeave={handleMouseLeave}
+                                // onMouseLeave={handleMouseLeave}
                                 onClick={() => handleCasetaClick(10 + rowIndex * 5 + colIndex + 1)}
                             />
-                            {hoveredCaseta === 10 + rowIndex * 5 + colIndex + 1 && (
-                                <text
-                                    x={165 + colIndex * (smallCasetaWidth + pasilloWidth)}
-                                    y={100 + rowIndex * (smallCasetaHeight + pasilloWidth)}
-                                    className="fill-black text-lg font-semibold"
-                                >
-                                    {10 + rowIndex * 5 + colIndex + 1}
-                                </text>
-                            )}
+                            
                         </g>
                     ))
                 ))}
@@ -143,7 +113,7 @@ const CasetaSelector = () => {
 
             {/* Modal con casetas seleccionadas */}
             {showModal && (
-                <div className="fixed right-0 top-0 h-full w-64 bg-white shadow-lg p-4 rounded-lg">
+                <div className="modal">
                     <h2 className="text-lg font-semibold mb-4">Casetas Seleccionadas</h2>
                     <ul>
                         {selectedCasetas.map((casetaNumber) => (
@@ -153,7 +123,7 @@ const CasetaSelector = () => {
                         ))}
                     </ul>
                     <button
-                        className="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-700 transition duration-300"
+                        className="mt-4"
                         onClick={() => setShowModal(false)}
                     >
                         Cerrar
