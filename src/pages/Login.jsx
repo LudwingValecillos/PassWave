@@ -84,7 +84,7 @@ const Login = () => {
         <div className="relative overflow-hidden h-screen">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-green-400 opacity-70"></div>
             <div className="absolute inset-0 bg-no-repeat bg-center bg-cover" style={{ backgroundImage: "url('https://source.unsplash.com/random/1920x1080?color')", opacity: 0.2 }}></div>
-            <div className="flex items-center justify-center h-full relative z-10">
+            <div className="box-shadowee flex items-center justify-center h-full relative z-10">
                 <div className="bg-[#f5f5f5c9] rounded-lg  shadow-lg p-8 w-full max-w-xl text-center transition-transform transform hover:scale-105 hover:shadow-2xl hover:bg-[#f5f5f5fa]">
                     <form onSubmit={handleSubmit}>
                     <div className="flex-1 justify-center py-5 md:flex md:items-center">
