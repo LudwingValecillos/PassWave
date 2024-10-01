@@ -1,142 +1,320 @@
-import React, { useState, useEffect } from 'react';
-import '../styles/login.css';
-import LabelInput from '../components/LabelInput';
-import PasswordInput from '../components/PasswordInput';
-import axios from 'axios';
-import { em } from 'framer-motion/client';
+import { useEffect, useState } from "react";
+import LabelInput from "../components/LabelInput";
+import PasswordInput from "../components/PasswordInput";
+import axios from "axios";
+import EmailInput from "../components/EmailInput";
+import Aos from "aos";
+import { a, to } from "@react-spring/web";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+// import Image from "next/image"
 
 const Login = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isLoginActive, setIsLoginActive] = useState(true);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
-    const handleSubmit = async (e) =>  {
-        e.preventDefault();
+  const [registerFirstName, setRegisterFirstName] = useState("");
+  const [registerLastName, setRegisterLastName] = useState("");
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const [registerConfirmPassword, setRegisterConfirmPassword] = useState("");
+  const navigate = useNavigate();
 
-        const user = {
-            email: username,
-            password: password
-        }
-        console.log('Logging in:', { username, password });
-        try {
-            const res = await axios.post(
-              "http://localhost:8080/api/auth/login",user);
-            localStorage.setItem("token", res.data);
-            console.log(res.data);
-      
-            navigate("/home");
-            // dispatch(loadClient());
-          } catch (err) {
-            alertError(err.response.data)
-            
-          }
+  const toggleForm = () => {
+    setIsLoginActive(!isLoginActive);
+  };
+
+  const handleMouseMove = (e) => {
+    setMousePosition({ x: e.clientX, y: e.clientY });
+  };
+  useEffect(() => {
+    Aos.init({ duration: 1000 });
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
     };
+  }, []);
 
-    const handleMouseMove = (e) => {
-        setMousePosition({ x: e.clientX, y: e.clientY });
+  const calculateAngle = (arrowPosition) => {
+    const deltaX = mousePosition.x - arrowPosition.x;
+    const deltaY = mousePosition.y - arrowPosition.y;
+    return Math.atan2(deltaY, deltaX) * (180 / Math.PI); // Convierte de radianes a grados
+  };
+
+  const arrowPositions = [
+    { x: window.innerWidth / 2, y: window.innerHeight * 0.1 },
+    { x: window.innerWidth / 2.5, y: window.innerHeight * 0.85 },
+    { x: window.innerWidth / 1.6, y: window.innerHeight * 0.85 },
+    { x: window.innerWidth * 0.8, y: window.innerHeight / 2 },
+    { x: window.innerWidth * 0.2, y: window.innerHeight / 2 },
+    { x: window.innerWidth * 0.9, y: window.innerHeight * 0.1 },
+    { x: window.innerWidth * 0.1, y: window.innerHeight * 0.1 },
+    { x: window.innerWidth * 0.1, y: window.innerHeight * 0.85 },
+    { x: window.innerWidth * 0.9, y: window.innerHeight * 0.85 },
+    { x: window.innerWidth * 0.2, y: window.innerHeight * 0.3 },
+    { x: window.innerWidth * 0.8, y: window.innerHeight * 0.3 },
+    { x: window.innerWidth * 0.2, y: window.innerHeight * 0.7 },
+    { x: window.innerWidth * 0.8, y: window.innerHeight * 0.7 },
+  ];
+
+  const alerError = (msg) => {
+    Swal.fire({
+        title: "Oops! Something went wrong.",
+        text: msg,
+        icon: "error",
+      });
+  }
+
+  const alerSuccess = (msg) => {
+    Swal.fire({
+        title: "Success!",
+        text: msg,
+        icon: "success",
+      });
+  }
+  const handleLogin = async (e) => {
+    e.preventDefault();
+  
+    // Validación de email
+    if (!loginEmail || !/\S+@\S+\.\S+/.test(loginEmail)) {
+        alerError("Please enter a valid email address.");
+      return;
+    }
+  
+    // Validación de contraseña (mínimo 8 caracteres)
+    // if (!loginPassword || loginPassword.length < 8) {
+    //     alerError("Password must be at least 8 characters long.");
+    //   return;
+    // }
+  
+    const user = { email: loginEmail, password: loginPassword };
+  
+    try {
+      const response = await axios.post("http://localhost:8080/api/auth/login", user);
+      alerSuccess("Login successful. Welcome back to WaveCompany. You can now access your account and enjoy our services.");
+      navigate("/home");
+      localStorage.setItem("token", response.data.token);
+    } catch (error) {
+      alerError(error.response.data);
+    }
+  };
+  const handleRegister = async (e) => {
+    e.preventDefault();
+  
+    // First Name validation
+    if (!registerFirstName || registerFirstName.length < 2) {
+      alerError("First name must be at least 2 characters long.");
+      return;
+    }
+  
+    // Last Name validation
+    if (!registerLastName || registerLastName.length < 2) {
+      alerError("Last name must be at least 2 characters long.");
+      return;
+    }
+  
+    // Email validation
+    if (!registerEmail || !/\S+@\S+\.\S+/.test(registerEmail)) {
+      alerError("Please enter a valid email address.");
+      return;
+    }
+  
+    // Password validation
+    if (
+      !registerPassword || 
+      registerPassword.length < 8 
+    ) {
+      alerError(
+        "Password must be at least 8 characters long and include uppercase, lowercase, a number, and a special character."
+      );
+      return;
+    }
+  
+    const user = {
+      firstName: registerFirstName,
+      lastName: registerLastName,
+      email: registerEmail,
+      password: registerPassword,
     };
+  
+    try {
+      const response = await axios.post("http://localhost:8080/api/auth/register", user);
+      alerSuccess("You have successfully registered. You may now log in.");
+      toggleForm();
+    } catch (error) {
+      alerError(error.response.data);
+    }
+  };
+  
 
-    useEffect(() => {
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => {
-            window.removeEventListener('mousemove', handleMouseMove);
-        };
-    }, []);
+  return (
+    <div
+      className="flex justify-center items-center min-h-screen bg-gray-100 p-4"
+      data-aos="flip-left"
+    >
+      <div
+        className="w-full z-10 max-w-3xl bg-white rounded-lg shadow-lg overflow-hidden"
+        data-aos="flip-right"
+      >
+        <div className="relative flex flex-col md:flex-row h-[600px] md:h-[500px]">
+          {/* Login Form */}
+          <div
+            className={`absolute inset-0 w-full md:w-1/2 p-8 transition-all duration-500 ease-in-out ${
+              isLoginActive
+                ? "translate-x-0 opacity-100 z-10"
+                : "translate-x-full opacity-0 z-0"
+            }`}
+          >
+            <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
+            <form className="space-y-4" onSubmit={(e) => handleLogin(e)}>
+              <div className="space-y-2">
+                <LabelInput
+                  name="username"
+                  title="Username"
+                  onChange={(e) => setLoginEmail(e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <PasswordInput
+                  name="password"
+                  title="Password"
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                />
+              </div>
+              <button className="w-full" type="submit">
+                Login
+              </button>
+            </form>
+          </div>
 
-    // Función para calcular el ángulo en función de la posición de la flecha y la posición del mouse
-    const calculateAngle = (arrowPosition) => {
-        const deltaX = mousePosition.x - arrowPosition.x;
-        const deltaY = mousePosition.y - arrowPosition.y;
-        return Math.atan2(deltaY, deltaX) * (180 / Math.PI); // Convierte de radianes a grados
-    };
+          {/* Signup Form */}
+          <div
+            className={`absolute inset-0 w-full md:w-1/2 p-8 transition-all duration-500 ease-in-out ${
+              isLoginActive
+                ? "translate-x-full opacity-0 z-0"
+                : "translate-x-0 opacity-100 z-10"
+            } md:translate-x-full`}
+          >
+            <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>
+            <form className="space-y-4" onSubmit={handleRegister}>
+              <div className="space-y-2">
+                <LabelInput
+                  name="firstname"
+                  title="First name"
+                  onChange={(e) => setRegisterFirstName(e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <LabelInput
+                  name="lastname"
+                  title="Last name"
+                  onChange={(e) => setRegisterLastName(e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <EmailInput
+                  name="email"
+                  title="Email"
+                  onChange={(e) => setRegisterEmail(e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <PasswordInput
+                  name="password"
+                  title="Password"
+                  onChange={(e) => setRegisterPassword(e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <PasswordInput
+                  name="confirmpassword"
+                  title="Confirm Password"
+                  onChange={(e) => setRegisterConfirmPassword(e.target.value)}
+                />
+              </div>
+              <button className="w-full" type="submit">
+                Sign Up
+              </button>
+            </form>
+          </div>
 
-    // Posiciones fijas de las flechas
-    const arrowPositions = [
-        { x: window.innerWidth / 2, y: window.innerHeight * 0.2 }, // Primera flecha
-        { x: window.innerWidth / 2, y: window.innerHeight * 0.8 }, // Segunda flecha
-        { x: window.innerWidth * 0.8, y: window.innerHeight / 2 }, // Tercera flecha
-        { x: window.innerWidth * 0.2, y: window.innerHeight / 2 }, // Cuarta flecha
-        { x: window.innerWidth * 0.9, y: window.innerHeight * 0.1 }, // Quinta flecha
-        { x: window.innerWidth * 0.1, y: window.innerHeight * 0.1 }, // Sexta flecha
-        { x: window.innerWidth * 0.1, y: window.innerHeight * 0.9 }, // Séptima flecha
-        { x: window.innerWidth * 0.9, y: window.innerHeight * 0.9 }, // Octava flecha
-        { x: window.innerWidth * 0.3, y: window.innerHeight * 0.3 }, // Novena flecha
-        { x: window.innerWidth * 0.7, y: window.innerHeight * 0.3 }, // Décima flecha
-        { x: window.innerWidth * 0.3, y: window.innerHeight * 0.7 }, // Undécima flecha
-        { x: window.innerWidth * 0.7, y: window.innerHeight * 0.7 }, // Duodécima flecha
-        { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 }, // Decimotercera flecha (centro)
-        { x: window.innerWidth * 0.4, y: window.innerHeight * 0.2 }, // Decimocuarta flecha
-        { x: window.innerWidth * 0.6, y: window.innerHeight * 0.2 }, // Decimoquinta flecha
-        { x: window.innerWidth * 0.4, y: window.innerHeight * 0.8 }, // Decimosexta flecha
-        { x: window.innerWidth * 0.6, y: window.innerHeight * 0.8 }, // Decimoséptima flecha
-        { x: window.innerWidth * 0.2, y: window.innerHeight * 0.3 }, // Decimoctava flecha
-        { x: window.innerWidth * 0.8, y: window.innerHeight * 0.3 }, // Decimonovena flecha
-        { x: window.innerWidth * 0.2, y: window.innerHeight * 0.7 }, // Vigésima flecha
-        { x: window.innerWidth * 0.8, y: window.innerHeight * 0.7 }, // Vigésima primera flecha
-        { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 }, // Vigésima segunda flecha (centro)
-        { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 }, // Vigésima tercera flecha (centro)
-        { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 }, // Vigésima cuarta flecha (centro)
-        { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 }, // Vigésima quinta flecha (centro)
-    ];
-    
+          {/* Image Section */}
+          <div
+            className={`absolute inset-y-0 w-full md:w-1/2 transition-transform duration-500 ease-in-out  ${
+              isLoginActive ? "translate-x-full" : "translate-x-0"
+            }`}
+          >
+            <a href="#" className="group relative block bg-black ">
+              <img
+                alt=""
+                src="https://i.ibb.co/3pTB00j/collage-Login.jpg"
+                className="absolute inset-0 h-full w-full object-cover opacity-50 transition-opacity group-hover:opacity-30"
+              />
 
-    return (
-        <div className="relative overflow-hidden h-screen">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-green-400 opacity-70"></div>
-            <div className="absolute inset-0 bg-no-repeat bg-center bg-cover" style={{ backgroundImage: "url('https://source.unsplash.com/random/1920x1080?color')", opacity: 0.2 }}></div>
-            <div className="flex items-center justify-center h-full relative z-10">
-                <div className="bg-[#f5f5f5c9] rounded-lg  shadow-lg p-8 w-full max-w-xl text-center transition-transform transform hover:scale-105 hover:shadow-2xl hover:bg-[#f5f5f5fa]">
-                    <form onSubmit={handleSubmit}>
-                    <div className="flex-1 justify-center py-5 md:flex md:items-center">
-                            <img src="/src/assets/waveLogo.png" alt="Logo" className="h-24" />
-                            <div className="relative inline-block">
-                                <img
-                                src="/src/assets/WaveCen.gif"
-                                alt="WaveCenter Logo"
-                                className="inline-block w-36 h-auto"
-                                />
-                            </div>
-                        </div>
-                        <div className="mb-4">
-                           
-                            <LabelInput name="username" title="Username" onChange={(e) => setUsername(e.target.value)} />
-                        </div>
-                        <div className="mb-6">
-                            <PasswordInput name="password" title="Password" onChange={(e) => setPassword(e.target.value)} />
-                        
-                        </div>
-                        <button type="submit" className="bg-yellow-500 text-white font-semibold py-2 rounded-lg w-full hover:bg-yellow-400 transition duration-300 transform hover:scale-105">
-                            Log In
-                        </button>
-                    </form>
-                    <p className="mt-4 text-red-600">
-                        Don't have an account? <a href="#" className="underline text-blue-500">Sign up here</a>
+              <div className="relative p-4 sm:p-6 lg:p-8 text-center">
+                <p className="text-xl font-bold uppercase tracking-widest bg-[#000000be] text-white border-b-white border-b-4 border rounded-3xl">
+                  Wave Company
+                </p>
+
+                <p className="text-xl font-bold text-white sm:text-2xl">
+                  Where every wave is a new cultural experience.
+                </p>
+
+                <div className="mt-32 sm:mt-48 ">
+                  <div className="translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
+                    <p className="text-base text-white ">
+                      Welcome to WaveCompany! 🎶✨ Here you can access your
+                      account to discover everything our cultural center has to
+                      offer. If you are not yet part of our community, register
+                      in a few simple steps and start enjoying our events,
+                      workshops and exclusive activities. Log in with your email
+                      and password, or create a new account if it's your first
+                      time. We are waiting for you to experience culture in
+                      every wave! 🌊
                     </p>
+                  </div>
                 </div>
-            </div>
-
-            {/* Flechas que apuntan al mouse */}
-            {arrowPositions.map((position, index) => {
-                const arrowAngle = calculateAngle(position);
-                return (
-                    <div
-                        key={index}
-                        className="absolute"
-                        style={{
-                            left: position.x,
-                            top: position.y,
-                            transform: `translate(-50%, -50%) rotate(${arrowAngle}deg)`,
-                            width: '150px', // Cambia según sea necesario
-                            height: '150px', // Cambia según sea necesario
-                            backgroundImage: "url('https://png.pngtree.com/png-vector/20230430/ourmid/pngtree-right-arrow-vector-png-image_6745379.png')", // Cambia a la ruta de tu flecha
-                            backgroundSize: 'contain',
-                            backgroundRepeat: 'no-repeat',
-                        }}
-                    />
-                );
-            })}
+              </div>
+            </a>
+          </div>
         </div>
-    );
+
+        {/* Toggle Button */}
+        <div className="text-center p-4 bg-gray-50 relative z-50 mt-20">
+          <button variant="link" onClick={toggleForm}>
+            {isLoginActive
+              ? "Need an account? Sign Up"
+              : "Already have an account? Login"}
+          </button>
+        </div>
+      </div>
+      {arrowPositions.map((position, index) => {
+        const arrowAngle = calculateAngle(position);
+        return (
+          <div
+            key={index}
+            className="absolute z-0"
+            style={{
+              left: position.x,
+              top: position.y,
+              transform: `translate(-50%, -50%) rotate(${arrowAngle}deg)`,
+              width: "150px", // Cambia según sea necesario
+              height: "150px", // Cambia según sea necesario
+              backgroundImage:
+                "url('https://png.pngtree.com/png-vector/20230430/ourmid/pngtree-right-arrow-vector-png-image_6745379.png')", // Cambia a la ruta de tu flecha
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+            }}
+          />
+        );
+      })}
+    </div>
+  );
 };
 
 export default Login;

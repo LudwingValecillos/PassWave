@@ -37,8 +37,8 @@ function Nav() {
             variants={buttonVariants}
             initial="rest"
             whileHover="hover"
-            whileTap="pressed"
-          >
+            whileTap="pressed">
+          
             <Link to="/tide" className="bg-[#05c7f2] text-white px-4 py-2 rounded-full shadow-lg transition">
               TIDE
             </Link>
@@ -90,7 +90,7 @@ function Nav() {
               whileHover="hover"
               whileTap="pressed"
             >
-              <Link to="/sign" className="text-blue-500 px-4 py-2 rounded-full shadow-lg transition">
+              <Link to="/login" className="text-blue-500 px-4 py-2 rounded-full shadow-lg transition">
                 SIGN
               </Link>
             </motion.div>
