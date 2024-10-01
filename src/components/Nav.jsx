@@ -20,10 +20,11 @@ function Nav() {
             whileTap="pressed"
           >
             <Link
-              to="/concerts"
+              to="/wavecrest"
               className="bg-[#04bf9d] text-white px-4 py-2 rounded-full shadow-lg transition"
             >
-              CONCERTS
+              WAVE CREST
+
             </Link>
           </motion.div>
         </li>
@@ -35,10 +36,11 @@ function Nav() {
             whileTap="pressed"
           >
             <Link
-              to="/expositions"
+              to="/thetidalbeat"
               className="bg-[#05c7f2] text-white px-4 py-2 rounded-full shadow-lg transition"
             >
-              EXPOSITIONS
+              THE TIDAL BEAT
+
             </Link>
           </motion.div>
         </li>
@@ -50,10 +52,11 @@ function Nav() {
             whileTap="pressed"
           >
             <Link
-              to="/oratory"
+              to="/wavelounge"
               className="bg-[#f2d22e] text-white px-4 py-2 rounded-full shadow-lg transition"
             >
-              ORATORY
+              WAVE LOUNGE
+
             </Link>
           </motion.div>
         </li>
@@ -65,12 +68,30 @@ function Nav() {
             whileTap="pressed"
           >
             <Link
-              to="/shows"
+              to="/events"
               className="bg-[#f20505] text-white px-4 py-2 rounded-full shadow-lg transition"
             >
-              SHOWS
+              ALL EVENTS
+
             </Link>
           </motion.div>
+        </li>
+        <li>
+        <Link
+              to="/"
+              className=" text-white py-2 lg transition"
+            >
+              Login
+
+            </Link>
+        </li>
+        <li>
+          <Link
+            to="/register"
+            className="text-white py-2 transition"
+          >
+            Register
+          </Link>
         </li>
       </ul>
     </nav>

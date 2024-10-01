@@ -22,16 +22,8 @@
     "react-dom": "^18.3.1",
     "react-font-loader": "^2.0.0",
     "react-router-dom": "^6.26.2",
-<<<<<<< HEAD
     "react-wavify": "^1.11.1",
     "sweetalert2": "^11.14.1"
-=======
-    "react-scripts": "^5.0.1",
-    "react-wavify": "^1.11.1",
-    "simplex-noise": "^4.0.3",
-    "sweetalert2": "^11.14.1",
-    "three": "^0.169.0"
->>>>>>> 12731e6fee73c853367b6d33700434562e0c1182
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
