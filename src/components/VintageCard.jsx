@@ -1,8 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-
-const VintageCard = ({ title, imageUrl, buttonText, backgroundColor, fontFamily }) => {
+const VintageCard = ({ title, imageUrl, buttonText, backgroundColor, fontFamily = "'Rubik Bubbles', cursive" }) => {
   return (
     <div
       className="relative w-full h-[500px] overflow-hidden"
@@ -21,7 +20,7 @@ const VintageCard = ({ title, imageUrl, buttonText, backgroundColor, fontFamily 
         initial={{ x: '-100%' }} // Comienza fuera de la pantalla a la izquierda
         animate={{ x: ['-100%', '100%'] }} // Se mueve de izquierda a derecha
         transition={{ duration: 20, ease: 'linear', repeat: Infinity }} // Movimiento continuo
-        style={{ fontFamily }}
+        style={{ fontFamily }} // Aplicar la fuente
       >
         {title}
       </motion.h2>
@@ -32,7 +31,7 @@ const VintageCard = ({ title, imageUrl, buttonText, backgroundColor, fontFamily 
         initial={{ x: '100%' }} // Comienza fuera de la pantalla a la derecha
         animate={{ x: ['100%', '-100%'] }} // Se mueve de derecha a izquierda
         transition={{ duration: 20, ease: 'linear', repeat: Infinity }} // Movimiento continuo
-        style={{ fontFamily }}
+        style={{ fontFamily }} // Aplicar la fuente
       >
         {title}
       </motion.h2>
