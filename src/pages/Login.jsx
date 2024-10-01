@@ -67,111 +67,100 @@ const Login = () => {
 
   const alerError = (msg) => {
     Swal.fire({
-        title: "Oops! Something went wrong.",
-        text: msg,
-        icon: "error",
-      });
-  }
+      title: "Oops! Something went wrong.",
+      text: msg,
+      icon: "error",
+    });
+  };
 
   const alerSuccess = (msg) => {
-    // Swal.fire({
-    //     title: "Success!",
-    //     text: msg,
-    //     icon: "success",
-    //   });
     Swal.fire({
-      imageUrl: "../assets/waveLogo.png",
-      title: msg,
-      width: 600,
-      padding: "3em",
-      color: "#716add",
-      background: "#fff url(/images/trees.png)",
-      backdrop: `
-        rgba(0,0,123,0.4)
-        url("/images/nyan-cat.gif")
-        left top
-        no-repeat
-      `
+      title: "Success!",
+      text: msg,
+      icon: "success",
     });
-  }
+  };
   const handleLogin = async (e) => {
     e.preventDefault();
-  
+
     // Validación de email
     if (!loginEmail || !/\S+@\S+\.\S+/.test(loginEmail)) {
-        alerError("Please enter a valid email address.");
+      alerError("Please enter a valid email address.");
       return;
     }
-  
+
     // Validación de contraseña (mínimo 8 caracteres)
     // if (!loginPassword || loginPassword.length < 8) {
     //     alerError("Password must be at least 8 characters long.");
     //   return;
     // }
-  
+
     const user = { email: loginEmail, password: loginPassword };
-  
+
     try {
-      const response = await axios.post("http://localhost:8080/api/auth/login", user);
-      alerSuccess("Login successful. Welcome back to WaveCompany. You can now access your account and enjoy our services.");
+      const response = await axios.post(
+        "http://localhost:8080/api/auth/login",
+        user
+      );
+      alerSuccess(
+        "Login successful. Welcome back to WaveCompany. You can now access your account and enjoy our services."
+      );
       navigate("/home");
       console.log(response.data);
-      
+
       localStorage.setItem("token", response.data);
       dispatch(loadClient());
     } catch (error) {
-
       alerError(error.response.data);
     }
   };
   const handleRegister = async (e) => {
     e.preventDefault();
-  
+
     // First Name validation
     if (!registerFirstName || registerFirstName.length < 2) {
       alerError("First name must be at least 2 characters long.");
       return;
     }
-  
+
     // Last Name validation
     if (!registerLastName || registerLastName.length < 2) {
       alerError("Last name must be at least 2 characters long.");
       return;
     }
-  
+
     // Email validation
     if (!registerEmail || !/\S+@\S+\.\S+/.test(registerEmail)) {
       alerError("Please enter a valid email address.");
       return;
     }
-  
+
     // Password validation
-    if (
-      !registerPassword || 
-      registerPassword.length < 8 
-    ) {
+    if (!registerPassword || registerPassword.length < 8) {
       alerError(
         "Password must be at least 8 characters long and include uppercase, lowercase, a number, and a special character."
       );
       return;
     }
-  
+
     const user = {
       firstName: registerFirstName,
       lastName: registerLastName,
       email: registerEmail,
       password: registerPassword,
     };
-  
+
     try {
-      const response = await axios.post("http://localhost:8080/api/auth/register", user);
+      const response = await axios.post(
+        "http://localhost:8080/api/auth/register",
+        user
+      );
       alerSuccess("You have successfully registered. You may now log in.");
       toggleForm();
     } catch (error) {
       alerError(error.response.data);
     }
   };
-  
 
   return (
     <div
@@ -207,7 +196,10 @@ const Login = () => {
                   onChange={(e) => setLoginPassword(e.target.value)}
                 />
               </div>
-              <button className="w-full flex justify-center items-center bg-black text-white py-2 rounded-3xl duration-100 hover:bg-white hover:text-black hover:border-2 hover:border-black hover:shadow-2xl hover:font-bold" type="submit">
+              <button
+                className="w-full flex justify-center items-center bg-black text-white py-2 rounded-3xl duration-100 hover:bg-white hover:text-black hover:border-2 hover:border-black hover:shadow-2xl hover:font-bold"
+                type="submit"
+              >
                 Login
               </button>
             </form>
@@ -258,7 +250,10 @@ const Login = () => {
                   onChange={(e) => setRegisterConfirmPassword(e.target.value)}
                 />
               </div>
-              <button className="w-full flex justify-center items-center bg-black text-white py-2 rounded-3xl duration-100 hover:bg-white hover:text-black hover:border-2 hover:border-black hover:shadow-2xl hover:font-bold" type="submit">
+              <button
+                className="w-full flex justify-center items-center bg-black text-white py-2 rounded-3xl duration-100 hover:bg-white hover:text-black hover:border-2 hover:border-black hover:shadow-2xl hover:font-bold"
+                type="submit"
+              >
                 Sign Up
               </button>
             </form>
@@ -289,14 +284,14 @@ const Login = () => {
                 <div className="mt-32 sm:mt-48 ">
                   <div className="translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
                     <p className="text-base text-white ">
-                      Welcome to WaveCenter!✨ Here you can access your
-                      account to discover everything our cultural center has to
-                      offer. If you are not yet part of our community, register
-                      in a few simple steps and start enjoying our events,
-                      workshops and exclusive activities. Log in with your email
-                      and password, or create a new account if it's your first
-                      time. We are waiting for you to experience culture in
-                      every wave! 🌊
+                      Welcome to WaveCenter!✨ Here you can access your account
+                      to discover everything our cultural center has to offer.
+                      If you are not yet part of our community, register in a
+                      few simple steps and start enjoying our events, workshops
+                      and exclusive activities. Log in with your email and
+                      password, or create a new account if it's your first time.
+                      We are waiting for you to experience culture in every
+                      wave! 🌊
                     </p>
                   </div>
                 </div>
