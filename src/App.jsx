@@ -30,13 +30,14 @@ function App() {
       <Route path="expositions" element={<Expositions />} />
       <Route path="oratory" element={<Oratory />} />
 
-      <Route path="login" element={<Login />} />
       <Route path="shows" element={<Show />} />
 
 
       <Route path="/reserva" element={<ReservaPage />} />
 
       </Route>
+      <Route path="login" element={<Login />} />
+
       <Route path="/register" element={<Register />} />
 
     </Routes>
