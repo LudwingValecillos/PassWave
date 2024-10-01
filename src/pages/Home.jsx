@@ -85,6 +85,18 @@ const Home = () => {
           hoverText="Crest is an open space designed for unstructured music concerts, where attendees can enjoy performances while standing. The area fosters a free-flowing, relaxed environment perfect for spontaneous musical expression. It’s the go-to spot for energetic, outdoor events where the connection between artists and the crowd feels more intimate and interactive, providing a laid-back, fun atmosphere. Crest is ideal for fans who love the freedom of movement and vibrant, immersive experiences that come with informal live performances."
         />
       </div>
+{/* Slide Promocional */}
+<div className="relative w-full h-[100px] bg-black overflow-hidden flex items-center justify-center"> {/* Añadir flex para centrar */}
+  <motion.div
+    className="white text-3xl text-center text-white z-10"
+    initial={{ x: '100%' }}
+    animate={{ x: ['100%', '-100%'] }}
+    transition={{ duration: 10, ease: 'linear', repeat: Infinity }}
+    style={{ fontFamily: "'Rubik Bubbles', cursive" }}
+  >
+ Catch the Wave of Creativity and Connection—Experience a Fusion of Art and Community That Inspires and Transforms. 
+  </motion.div>
+</div>
 
       {/* Card 2 */}
       <div data-aos="fade-up" className="w-full">
@@ -98,6 +110,19 @@ const Home = () => {
         />
       </div>
 
+      {/* Slide Promocional */}
+<div className="relative w-full h-[100px] bg-black overflow-hidden flex items-center justify-center"> {/* Añadir flex para centrar */}
+  <motion.div
+    className="white text-3xl text-center text-white z-10"
+    initial={{ x: '100%' }}
+    animate={{ x: ['100%', '-100%'] }}
+    transition={{ duration: 10, ease: 'linear', repeat: Infinity }}
+    style={{ fontFamily: "'Rubik Bubbles', cursive" }}
+  >
+ Catch the Wave of Creativity and Connection—Experience a Fusion of Art and Community That Inspires and Transforms. 
+  </motion.div>
+</div>
+
       {/* Card 3 */}
       <div data-aos="fade-up" className="w-full">
         <VintageCard 
@@ -109,6 +134,19 @@ const Home = () => {
           hoverText="Drift is a modern amphitheater where attendees can enjoy seated performances with tickets, ensuring a clear view and excellent acoustics. It’s designed for audiences seeking a comfortable, immersive experience while watching live performances, such as orchestras, plays, or musical shows. The structured seating arrangement provides an orderly yet intimate setting, allowing for a more focused engagement with the event. Drift is the perfect venue for those who prefer a seated, well-organized environment while enjoying high-quality entertainment."
         />
       </div>
+
+      {/* Slide Promocional */}
+<div className="relative w-full h-[100px] bg-yellow-500 overflow-hidden flex items-center justify-center"> {/* Añadir flex para centrar */}
+  <motion.div
+    className="white text-3xl text-center text-black z-10"
+    initial={{ x: '100%' }}
+    animate={{ x: ['100%', '-100%'] }}
+    transition={{ duration: 10, ease: 'linear', repeat: Infinity }}
+    style={{ fontFamily: "'Rubik Bubbles', cursive" }}
+  >
+ Catch the Wave of Creativity and Connection—Experience a Fusion of Art and Community That Inspires and Transforms. 
+  </motion.div>
+</div>
 
       {/* Card 4 */}
       <div data-aos="fade-up" className="w-full">

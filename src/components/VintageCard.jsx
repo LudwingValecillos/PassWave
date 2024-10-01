@@ -1,8 +1,9 @@
 import React from 'react';
 
-const VintageCard = ({ title, imageUrl, buttonText, backgroundColor, fontFamily = "'Rubik Bubbles', cursive", hoverText }) => {
+
+const VintageCard = ({ title, imageUrl, buttonText, fontFamily = "'Rubik Bubbles', cursive", hoverText }) => {
   return (
-    <a href="#" className="group relative block" style={{ backgroundColor }}>
+    <a href="#" className="group relative block">
       {/* Imagen y título */}
       <div className="relative w-full h-[600px] overflow-hidden">
         <h2
@@ -17,8 +18,8 @@ const VintageCard = ({ title, imageUrl, buttonText, backgroundColor, fontFamily 
         <img
           src={imageUrl}
           alt="Vintage"
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 z-10" // Imagen detrás del título
-          style={{ padding: '16px', boxSizing: 'border-box' }}
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 z-10" // Imagen ocupando 100% del div
+          style={{ padding: '0', boxSizing: 'border-box' }} // Eliminamos el padding
         />
         <button className="absolute bottom-4 right-4 bg-teal-600 text-white px-4 py-2 rounded z-30"> {/* Aumento z-index para el botón */}
           {buttonText}
