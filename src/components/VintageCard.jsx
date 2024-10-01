@@ -1,46 +1,41 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 
 
-const VintageCard = ({ title, imageUrl, buttonText, backgroundColor, fontFamily }) => {
+const VintageCard = ({ title, imageUrl, buttonText, fontFamily = "'Rubik Bubbles', cursive", hoverText }) => {
   return (
-    <div
-      className="relative w-full h-[500px] overflow-hidden"
-      style={{ backgroundColor }} // Aplicar el color de fondo
-    >
-      <img
-        src={imageUrl}
-        alt="Vintage"
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{ padding: '16px', boxSizing: 'border-box' }} // Padding uniforme
-      />
+    <a href="#" className="group relative block">
+      {/* Imagen y título */}
+      <div className="relative w-full h-[600px] overflow-hidden">
+        <h2
+          className="absolute inset-0 flex items-center justify-center text-9xl font-bold text-white z-20" // Título más grande
+          style={{
+            fontFamily,
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)', // Sombra de texto
+          }}
+        >
+          {title}
+        </h2>
+        <img
+          src={imageUrl}
+          alt="Vintage"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 z-10" // Imagen ocupando 100% del div
+          style={{ padding: '0', boxSizing: 'border-box' }} // Eliminamos el padding
+        />
+        <button className="absolute bottom-4 right-4 bg-teal-600 text-white px-4 py-2 rounded z-30"> {/* Aumento z-index para el botón */}
+          {buttonText}
+        </button>
+      </div>
 
-      {/* Título de la izquierda */}
-      <motion.h2
-        className="absolute bottom-12 left-0 w-full text-left text-2xl font-serif text-white z-10 px-4" // Asegura que ocupe el ancho total
-        initial={{ x: '-100%' }} // Comienza fuera de la pantalla a la izquierda
-        animate={{ x: ['-100%', '100%'] }} // Se mueve de izquierda a derecha
-        transition={{ duration: 20, ease: 'linear', repeat: Infinity }} // Movimiento continuo
-        style={{ fontFamily }}
-      >
-        {title}
-      </motion.h2>
+      {/* Texto que aparece al hacer hover */}
+      <div className="absolute inset-0 p-4 sm:p-6 lg:p-8 flex items-end justify-center text-center z-30"> {/* Aumenté z-index para que el hover text aparezca correctamente */}
+        <div className="translate-y-8 opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
+          <p className="text-white text-2xl">{hoverText}</p> {/* Aumenté el tamaño del texto de hover */}
+        </div>
+      </div>
 
-      {/* Título de la derecha */}
-      <motion.h2
-        className="absolute bottom-4 right-0 w-full text-right text-2xl font-serif text-white z-10 px-4" // Asegura que ocupe el ancho total
-        initial={{ x: '100%' }} // Comienza fuera de la pantalla a la derecha
-        animate={{ x: ['100%', '-100%'] }} // Se mueve de derecha a izquierda
-        transition={{ duration: 20, ease: 'linear', repeat: Infinity }} // Movimiento continuo
-        style={{ fontFamily }}
-      >
-        {title}
-      </motion.h2>
-
-      <button className="absolute bottom-4 right-4 bg-teal-600 text-white px-4 py-2 rounded z-10">
-        {buttonText}
-      </button>
-    </div>
+      {/* Fondo negro semitransparente al hacer hover */}
+      <div className="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-50 z-10" />
+    </a>
   );
 };
 

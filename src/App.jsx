@@ -5,12 +5,14 @@ import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-
 import ReservaPage from "./pages/ReservaPage";
-import Crest from "./pages/Crest";
-import Tide from "./pages/Tide";
-import Drift from "./pages/Drift";
-import AllEvents from "./pages/allEvents";
+
+import Tide from './pages/Tide';
+import Crest from './pages/Crest';
+import Drift from './pages/Drift';
+import AllEvent from './pages/AllEvent';
+
+
 
 function App() {
   const [count, setCount] = useState(0);
@@ -18,22 +20,28 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<MainLayout />}>
 
-            <Route index element={<Navigate to="Home" replace />} />
-            <Route path="home" element={<Home />} />
-            <Route path="crest" element={<Crest />} />
-            <Route path="tide" element={<Tide />} />
-            <Route path="drift" element={<Drift />} />
-            <Route path="allevents" element={<AllEvents />} />
-            <Route path="/reserva" element={<ReservaPage />} />
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+      <Route index element={<Navigate to="Home" replace />} />
+      <Route path="home" element={<Home />} />
+      <Route path="crest" element={<Crest />} />
+      <Route path="tide" element={<Tide />} />
+      <Route path="drift" element={<Drift/>} />
 
-          </Route>
+      <Route path="events" element={<AllEvent />} />
 
-          <Route path="login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
+
+      <Route path="/reserva" element={<ReservaPage />} />
+
+      </Route>
+      <Route path="login" element={<Login />} />
+
+      <Route path="/register" element={<Register />} />
+
+    </Routes>
+
+       
       </BrowserRouter>
     </>
   );
