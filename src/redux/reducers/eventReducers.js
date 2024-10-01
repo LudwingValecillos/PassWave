@@ -49,10 +49,9 @@ const initialState = {
 
 const eventReducer = createReducer(initialState, (builder) => {
     builder
-      // Manejo de loadClient
       .addCase(loadEvents.fulfilled, (state, action) => {
-        state.client = action.payload;
-        state.status = "success";
+        state.events = [...state.events, ...action.payload];
+      state.status = "success";
       })
       .addCase(loadEvents.pending, (state) => {
         state.status = "loading";
