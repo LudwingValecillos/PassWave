@@ -1,0 +1,43 @@
+
+const initialState = {
+    events: [
+        {
+            id:0,
+            name:"",
+            description:"",
+            date:"",
+            ticketPrice:0,
+            place:{
+                id:0,
+                name:"",
+                ticketMaxCapacity:0,
+                standMaxCapacity:0,
+                description:""
+            },
+            images:[
+                "",
+            ],
+            stands:[
+                {
+                    id:0,
+                    locations:[
+                        0,
+                    ],
+                    size:"",
+                    price:0
+                },
+            ],
+            tickets:[
+                {
+                    id:0,
+                    eventName:"",
+                    purchaseDate:""
+                },
+            ],
+            artists:[
+                "",
+            ],
+            ticketsAvailable:0
+        },
+    ],
+};
