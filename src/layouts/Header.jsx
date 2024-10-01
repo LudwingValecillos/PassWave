@@ -38,10 +38,7 @@ const Header = () => {
                 whileHover="hover"
                 whileTap="pressed"
               >
-                {/* Envolvemos el ícono de usuario con el Link al registro */}
-                <Link to="/login">
-                  <img src="/src/assets/user.png" className="w-8" alt="User" />
-                </Link>
+           
               </motion.a>
             </div>
 
