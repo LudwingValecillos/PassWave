@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Events from "./pages/Events";
 import Login from "./pages/Login";
+import ReservaPage from "./pages/ReservaPage";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -21,6 +22,7 @@ function App() {
       <Route path="home" element={<Home />} />
       <Route path="events" element={<Events />} />
       <Route path="login" element={<Login />} />
+      <Route path="/reserva" element={<ReservaPage />} />
       </Route>
       <Route path="/register" element={<Register />} />
 
