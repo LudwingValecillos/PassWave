@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
-import Events from "./pages/Events";
 import Login from "./pages/Login";
 import ReservaPage from "./pages/ReservaPage";
+
 import Tide from './pages/Tide';
 import Crest from './pages/Crest';
 import Drift from './pages/Drift';
 import AllEvent from './pages/AllEvent';
+
 
 
 function App() {
@@ -21,6 +20,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
+
     <Routes>
       <Route path="/" element={<MainLayout />}>
       <Route index element={<Navigate to="Home" replace />} />
@@ -40,6 +40,8 @@ function App() {
       <Route path="/register" element={<Register />} />
 
     </Routes>
+
+       
       </BrowserRouter>
     </>
   );
