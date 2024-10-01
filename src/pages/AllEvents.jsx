@@ -1,9 +1,9 @@
 import React from 'react'
 
-function Show() {
+function AllEvents() {
   return (
     <div>Show</div>
   )
 }
 
-export default Show
+export default AllEvents

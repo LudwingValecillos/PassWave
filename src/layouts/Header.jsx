@@ -1,17 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { motion } from 'framer-motion'; // Asegúrate de que esto esté importado
+import { motion } from "framer-motion"; // Asegúrate de que esto esté importado
 import Nav from "../components/Nav";
 
 const buttonVariants = {
   rest: { scale: 1 },
-  hover: { scale: 1.1, transition: { type: "spring", stiffness: 400, damping: 10 } },
-  pressed: { scale: 0.95, transition: { type: "spring", stiffness: 400, damping: 10 } }
+  hover: {
+    scale: 1.1,
+    transition: { type: "spring", stiffness: 400, damping: 10 },
+  },
+  pressed: {
+    scale: 0.95,
+    transition: { type: "spring", stiffness: 400, damping: 10 },
+  },
 };
 
 const Header = () => {
+  console.log(status);
+  
+
   return (
-    <header className=" w-full h-32 z-50 sticky top-0 ">
+    <header className=" w-full h-32 z-50 sticky top-0  bg-black">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 h-full p-10 ">
         <div className="flex h-full items-center justify-between p-8 border-black border-4 rounded-3xl bg-[#f5f5f5af] ">
           {/* Logo section */}
@@ -37,11 +46,8 @@ const Header = () => {
                 initial="rest"
                 whileHover="hover"
                 whileTap="pressed"
-              >
-           
-              </motion.a>
+              ></motion.a>
             </div>
-
             {/* Botón para el menú hamburguesa en pantallas pequeñas */}
             <div className="block md:hidden">
               <button className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75">

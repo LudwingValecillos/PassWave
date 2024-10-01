@@ -4,12 +4,10 @@ import PasswordInput from "../components/PasswordInput";
 import axios from "axios";
 import EmailInput from "../components/EmailInput";
 import Aos from "aos";
-import { a, to } from "@react-spring/web";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { loadClient } from "../redux/actions/clientActions";
 import { useDispatch } from "react-redux";
-// import Image from "next/image"
 
 const Login = () => {
   const [isLoginActive, setIsLoginActive] = useState(true);

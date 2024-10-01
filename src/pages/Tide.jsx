@@ -1,9 +1,9 @@
 import React from 'react'
 
-function Expositions() {
+function Tide() {
   return (
     <div>Expositions</div>
   )
 }
 
-export default Expositions
+export default Tide
