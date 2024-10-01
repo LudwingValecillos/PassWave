@@ -8,12 +8,11 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Events from "./pages/Events";
 import Login from "./pages/Login";
-
 import ReservaPage from "./pages/ReservaPage";
-import Show from './pages/AllEvent';
-import Expositions from './pages/Tide';
-import Oratory from './pages/Oratory';
-import Concerts from './pages/Creast';
+import Tide from './pages/Tide';
+import Crest from './pages/Crest';
+import Drift from './pages/Drift';
+import AllEvent from './pages/AllEvent';
 
 
 function App() {
@@ -26,11 +25,11 @@ function App() {
       <Route path="/" element={<MainLayout />}>
       <Route index element={<Navigate to="Home" replace />} />
       <Route path="home" element={<Home />} />
-      <Route path="concerts" element={<Concerts />} />
-      <Route path="expositions" element={<Expositions />} />
-      <Route path="oratory" element={<Oratory />} />
+      <Route path="crest" element={<Crest />} />
+      <Route path="tide" element={<Tide />} />
+      <Route path="drift" element={<Drift/>} />
 
-      <Route path="shows" element={<Show />} />
+      <Route path="events" element={<AllEvent />} />
 
 
       <Route path="/reserva" element={<ReservaPage />} />
