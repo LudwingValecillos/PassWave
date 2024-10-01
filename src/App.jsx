@@ -9,6 +9,13 @@ import Register from "./pages/Register";
 import Events from "./pages/Events";
 import Login from "./pages/Login";
 
+import ReservaPage from "./pages/ReservaPage";
+import Show from './pages/Show';
+import Expositions from './pages/Expositions';
+import Oratory from './pages/Oratory';
+import Concerts from './pages/Concerts';
+
+
 function App() {
   const [count, setCount] = useState(0);
 
@@ -19,8 +26,16 @@ function App() {
       <Route path="/" element={<MainLayout />}>
       <Route index element={<Navigate to="Home" replace />} />
       <Route path="home" element={<Home />} />
-      <Route path="events" element={<Events />} />
+      <Route path="concerts" element={<Concerts />} />
+      <Route path="expositions" element={<Expositions />} />
+      <Route path="oratory" element={<Oratory />} />
+
       <Route path="login" element={<Login />} />
+      <Route path="shows" element={<Show />} />
+
+
+      <Route path="/reserva" element={<ReservaPage />} />
+
       </Route>
       <Route path="/register" element={<Register />} />
 
