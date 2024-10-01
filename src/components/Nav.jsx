@@ -1,6 +1,7 @@
-import React from 'react'; 
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import UserMenu from './UserMenu'; // Importamos el menú de usuario
 
 const buttonVariants = {
   rest: { scale: 1 },
@@ -9,8 +10,15 @@ const buttonVariants = {
 };
 
 function Nav() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Estado de autenticación
+  const [showUserMenu, setShowUserMenu] = useState(false); // Estado para mostrar menú
+
+  const handleUserIconClick = () => {
+    setShowUserMenu(!showUserMenu); // Alternar menú de usuario
+  };
+
   return (
-    <nav aria-label="Global" className="hidden md:block nav-container">
+    <nav aria-label="Global" className="hidden md:block nav-container relative">
       <ul className="flex flex-wrap justify-center font-bold gap-6 md:gap-8 lg:gap-12">
         <li>
           <motion.div
@@ -19,12 +27,8 @@ function Nav() {
             whileHover="hover"
             whileTap="pressed"
           >
-            <Link
-              to="/wavecrest"
-              className="bg-[#04bf9d] text-white px-4 py-2 rounded-full shadow-lg transition"
-            >
-              WAVE CREST
-
+            <Link to="/crest" className="bg-[#04bf9d] text-white px-4 py-2 rounded-full shadow-lg transition">
+              CREST
             </Link>
           </motion.div>
         </li>
@@ -35,12 +39,8 @@ function Nav() {
             whileHover="hover"
             whileTap="pressed"
           >
-            <Link
-              to="/thetidalbeat"
-              className="bg-[#05c7f2] text-white px-4 py-2 rounded-full shadow-lg transition"
-            >
-              THE TIDAL BEAT
-
+            <Link to="/tide" className="bg-[#05c7f2] text-white px-4 py-2 rounded-full shadow-lg transition">
+              TIDE
             </Link>
           </motion.div>
         </li>
@@ -51,12 +51,8 @@ function Nav() {
             whileHover="hover"
             whileTap="pressed"
           >
-            <Link
-              to="/wavelounge"
-              className="bg-[#f2d22e] text-white px-4 py-2 rounded-full shadow-lg transition"
-            >
-              WAVE LOUNGE
-
+            <Link to="/drift" className="bg-[#f2d22e] text-white px-4 py-2 rounded-full shadow-lg transition">
+              DRIFT
             </Link>
           </motion.div>
         </li>
@@ -67,31 +63,38 @@ function Nav() {
             whileHover="hover"
             whileTap="pressed"
           >
-            <Link
-              to="/events"
-              className="bg-[#f20505] text-white px-4 py-2 rounded-full shadow-lg transition"
-            >
-              ALL EVENTS
-
+            <Link to="/events" className="bg-[#f20505] text-white px-4 py-2 rounded-full shadow-lg transition">
+              ALL-EVENTS
             </Link>
           </motion.div>
         </li>
         <li>
-        <Link
-              to="/"
-              className=" text-white py-2 lg transition"
+          {isLoggedIn ? (
+            <div className="relative">
+              <motion.div
+                variants={buttonVariants}
+                initial="rest"
+                whileHover="hover"
+                whileTap="pressed"
+              >
+                <button onClick={handleUserIconClick}>
+                  <img src="/src/assets/user.png" className="w-8" alt="User" />
+                </button>
+              </motion.div>
+              {showUserMenu && <UserMenu />} {/* Mostramos el menú de usuario */}
+            </div>
+          ) : (
+            <motion.div
+              variants={buttonVariants}
+              initial="rest"
+              whileHover="hover"
+              whileTap="pressed"
             >
-              Login
-
-            </Link>
-        </li>
-        <li>
-          <Link
-            to="/register"
-            className="text-white py-2 transition"
-          >
-            Register
-          </Link>
+              <Link to="/sign" className="text-blue-500 px-4 py-2 rounded-full shadow-lg transition">
+                SIGN
+              </Link>
+            </motion.div>
+          )}
         </li>
       </ul>
     </nav>
