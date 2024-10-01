@@ -3,7 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { motion } from "framer-motion";
 import VintageCard from "../components/VintageCard"; 
-import ConcertsImage from "../assets/Concerts.png"; 
+import ConcertsImage from "../assets/1.png"; 
 import Expositions from "../assets/2.png";
 import Oratory from "../assets/3.png";
 import Shows from "../assets/4.png";
@@ -80,6 +80,8 @@ const Home = () => {
           title="Rhythms of the Tides - Echoes Unplugged - Tidal Beat Fest - Rock Tides Concert - Waves of Sound Concert" 
           imageUrl={ConcertsImage} 
           buttonText="+ Info"
+          backgroundColor="#04bf9d"
+          fontFamily="'Chelsea Market'" 
         />
       </div>
 
