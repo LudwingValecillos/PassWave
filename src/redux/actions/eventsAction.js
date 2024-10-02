@@ -9,8 +9,6 @@ const token = localStorage.getItem("token");
 
     try {
       const response = await axios.get("http://localhost:8080/api/event/all",);
-      console.log(response);
-      
       return response.data; // Devuelve los datos del cliente directamente
     } catch (error) {
       console.error("Error loading client:", error);
