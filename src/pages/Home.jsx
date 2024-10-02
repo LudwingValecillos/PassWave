@@ -78,7 +78,7 @@ const Home = () => {
       {/* Card 1: Color de fondo #04bf9d */}
       <div data-aos="fade-up" className="w-full">
         <VintageCard 
-          title="CREAST" 
+          title="CREST" 
           imageUrl={ConcertsImage} 
           buttonUrl="" 
           backgroundColor="#04bf9d"
