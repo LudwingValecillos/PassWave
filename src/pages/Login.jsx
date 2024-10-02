@@ -312,7 +312,7 @@ const Login = () => {
         return (
           <div
             key={index}
-            className="absolute z-0 hover:bg-white hover:shadow-2xl hover:rounded-full"
+            className="absolute z-0"
             style={{
               left: position.x,
               top: position.y,

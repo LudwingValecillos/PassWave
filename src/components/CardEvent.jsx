@@ -2,11 +2,11 @@ import React from "react";
 
 function CardEvent(props) {
   return (
-    <article className="block rounded-lg p-4 bg-white shadow-sm shadow-indigo-100 ">
+    <article className="block w-[500px] h-[500px] rounded-lg p-4 bg-white shadow-sm shadow-indigo-100 border-black border-2 ">
       <img
         alt=""
-        src="https://images.unsplash.com/photo-1613545325278-f24b0cae1224?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-        className="h-56 w-full rounded-md object-cover"
+        src={props.img}
+        className="h-60 w-full rounded-md "
       />
 
       <div className="mt-2">

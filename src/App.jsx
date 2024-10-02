@@ -6,11 +6,10 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ReservaPage from "./pages/ReservaPage";
-
 import Tide from './pages/Tide';
 import Crest from './pages/Crest';
 import Drift from './pages/Drift';
-import AllEvent from './pages/AllEvent';
+import AllEvents from "./pages/AllEvents";
 
 
 
@@ -29,7 +28,7 @@ function App() {
       <Route path="tide" element={<Tide />} />
       <Route path="drift" element={<Drift/>} />
 
-      <Route path="events" element={<AllEvent />} />
+      <Route path="allevents" element={<AllEvents />} />
 
 
       <Route path="/reserva" element={<ReservaPage />} />

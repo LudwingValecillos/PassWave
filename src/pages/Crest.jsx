@@ -3,7 +3,7 @@ import React from 'react'
 function Crest() {
   return (
 
-    <div>Crest</div>
+    <div className='bg-green-300' >Crest</div>
 
   )
 }
