@@ -10,6 +10,7 @@ import Tide from './pages/Tide';
 import Crest from './pages/Crest';
 import Drift from './pages/Drift';
 import AllEvents from "./pages/AllEvents";
+import EventDetails from "./components/EventDetails";
 
 
 
@@ -27,8 +28,8 @@ function App() {
       <Route path="crest" element={<Crest />} />
       <Route path="tide" element={<Tide />} />
       <Route path="drift" element={<Drift/>} />
-
       <Route path="allevents" element={<AllEvents />} />
+      <Route path="event/:id" element={<EventDetails />} />
 
 
       <Route path="/reserva" element={<ReservaPage />} />
