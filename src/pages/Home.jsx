@@ -7,6 +7,7 @@ import ConcertsImage from "../assets/1.png";
 import Expositions from "../assets/2.png";
 import Oratory from "../assets/3.png";
 import Shows from "../assets/4.png";
+import ImageComponent from '../components/ImageComponent';
 
 const Home = () => {
   useEffect(() => {
@@ -79,7 +80,7 @@ const Home = () => {
         <VintageCard 
           title="CREAST" 
           imageUrl={ConcertsImage} 
-          buttonText="+ Info"
+          buttonUrl="" 
           backgroundColor="#04bf9d"
           fontFamily="'Bebas Neue', sans-serif"
           hoverText="Crest is an open space designed for unstructured music concerts, where attendees can enjoy performances while standing. The area fosters a free-flowing, relaxed environment perfect for spontaneous musical expression. It’s the go-to spot for energetic, outdoor events where the connection between artists and the crowd feels more intimate and interactive, providing a laid-back, fun atmosphere. Crest is ideal for fans who love the freedom of movement and vibrant, immersive experiences that come with informal live performances."
@@ -103,7 +104,7 @@ const Home = () => {
         <VintageCard 
           title="TIDE" 
           imageUrl={Expositions} 
-          buttonText="+ Details"
+          buttonUrl="/tide"
           backgroundColor="#05c7f2"
           fontFamily="'Bebas Neue', sans-serif"
           hoverText="Tide is a versatile convention hall equipped for a range of events, from trade shows to cultural exhibitions. With ample room for setting up stands, it caters to both vendors and visitors, allowing for general ticket sales and open entry. The space is adaptable to various configurations, whether you're hosting corporate conventions, public expos, or even educational fairs. Tide offers the perfect mix of functionality and accessibility, making it an excellent venue for large-scale gatherings where business and culture come together."
@@ -128,7 +129,7 @@ const Home = () => {
         <VintageCard 
           title="DRIFT" 
           imageUrl={Oratory}
-          buttonText="Learn More"
+          buttonUrl="/drift"
           backgroundColor="#f2d22e"
           fontFamily="'Bebas Neue', sans-serif"
           hoverText="Drift is a modern amphitheater where attendees can enjoy seated performances with tickets, ensuring a clear view and excellent acoustics. It’s designed for audiences seeking a comfortable, immersive experience while watching live performances, such as orchestras, plays, or musical shows. The structured seating arrangement provides an orderly yet intimate setting, allowing for a more focused engagement with the event. Drift is the perfect venue for those who prefer a seated, well-organized environment while enjoying high-quality entertainment."
@@ -153,11 +154,15 @@ const Home = () => {
         <VintageCard 
           title=" ALL EVENTS" 
           imageUrl={Shows} 
-          buttonText="Explore"
+          buttonUrl="/events"
           backgroundColor="#f20505"
           fontFamily="'Bebas Neue', sans-serif"
           hoverText="Is the central hub where all upcoming events hosted at the cultural center are displayed. Whether it's concerts, conventions, or theatrical performances, this space offers a comprehensive view of what’s happening across all venues, including Crest, Tide, and Drift. Visitors can browse through a diverse range of entertainment options, with details on each event, schedules, and ticketing information. It's the perfect spot to plan your next cultural experience, ensuring you don’t miss out on any of the exciting activities available at the center."
         />
+      </div>
+      
+      <div>
+      <ImageComponent />
       </div>
 
     </div>

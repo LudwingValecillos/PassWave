@@ -1,16 +1,16 @@
 import React from 'react';
+import ImageComponent from './ImageComponent';
 
-
-const VintageCard = ({ title, imageUrl, buttonText, fontFamily = "'Rubik Bubbles', cursive", hoverText }) => {
+const VintageCard = ({ title, imageUrl, buttonUrl, fontFamily = "'Rubik Bubbles', cursive", hoverText }) => {
   return (
     <a href="#" className="group relative block">
       {/* Imagen y título */}
       <div className="relative w-full h-[600px] overflow-hidden">
         <h2
-          className="absolute inset-0 flex items-center justify-center text-9xl font-bold text-white z-20" // Título más grande
+          className="absolute inset-0 flex items-center justify-center text-9xl font-bold text-white z-20"
           style={{
             fontFamily,
-            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)', // Sombra de texto
+            textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)',
           }}
         >
           {title}
@@ -18,18 +18,19 @@ const VintageCard = ({ title, imageUrl, buttonText, fontFamily = "'Rubik Bubbles
         <img
           src={imageUrl}
           alt="Vintage"
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 z-10" // Imagen ocupando 100% del div
-          style={{ padding: '0', boxSizing: 'border-box' }} // Eliminamos el padding
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 z-10"
         />
-        <button className="absolute bottom-4 right-4 bg-teal-600 text-white px-4 py-2 rounded z-30"> {/* Aumento z-index para el botón */}
-          {buttonText}
-        </button>
+
+        {/* Colocar ImageComponent como botón */}
+        <div className="absolute top-1/2 right-4 transform -translate-y-1/2 z-30">
+          <ImageComponent buttonUrl={buttonUrl} />
+        </div>
       </div>
 
       {/* Texto que aparece al hacer hover */}
-      <div className="absolute inset-0 p-4 sm:p-6 lg:p-8 flex items-end justify-center text-center z-30"> {/* Aumenté z-index para que el hover text aparezca correctamente */}
+      <div className="absolute inset-0 p-4 sm:p-6 lg:p-8 flex items-end justify-center text-center z-30">
         <div className="translate-y-8 opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
-          <p className="text-white text-2xl">{hoverText}</p> {/* Aumenté el tamaño del texto de hover */}
+          <p className="text-white text-2xl">{hoverText}</p>
         </div>
       </div>
 
