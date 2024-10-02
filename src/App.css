@@ -44,3 +44,4 @@ body {
   color: #888;
 }
 
+@import '@shadcn/ui/styles.css';
