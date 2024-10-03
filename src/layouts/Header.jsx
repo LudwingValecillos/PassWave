@@ -20,9 +20,9 @@ const Header = () => {
   
 
   return (
-    <header className=" w-full h-32 z-50 sticky top-0  bg-black">
+    <header className=" w-full h-32 z-50 sticky top-0 "  >
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 h-full p-10 ">
-        <div className="flex h-full items-center justify-between p-8 border-black border-4 rounded-3xl bg-[#f5f5f5af] ">
+        <div className="flex h-full items-center justify-between p-8 border-black border-4 rounded-3xl bg-[#f5f5f5] ">
           {/* Logo section */}
           <div className="flex-1 md:flex md:items-center md:gap-12">
             <Link to="/home" className="flex justify-center items-center gap-5">

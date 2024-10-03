@@ -93,7 +93,7 @@ function Nav() {
               whileHover="hover"
               whileTap="pressed"
             >
-              <Link to="/login" className="text-blue-500 px-4 py-2 rounded-full shadow-lg transition">
+              <Link to="/login" className="text-blue-500 px-4 py-2 rounded-full shadow-lg transition bg-[#ffffff]">
                 SIGN
               </Link>
             </motion.div>
