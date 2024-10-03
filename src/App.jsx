@@ -11,6 +11,7 @@ import Crest from './pages/Crest';
 import Drift from './pages/Drift';
 import AllEvents from "./pages/AllEvents";
 import EventDetails from "./components/EventDetails";
+import AdminEventForm from "./components/AdminEventForm";
 
 
 
@@ -19,7 +20,7 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter ClassName="App">
 
     <Routes>
       <Route path="/" element={<MainLayout />}>
@@ -29,10 +30,14 @@ function App() {
       <Route path="tide" element={<Tide />} />
       <Route path="drift" element={<Drift/>} />
       <Route path="allevents" element={<AllEvents />} />
+      {/* <Route path="event/:id" element={<EventDetails />} />
+       */}
       <Route path="event/:id" element={<EventDetails />} />
 
-
       <Route path="/reserva" element={<ReservaPage />} />
+
+      <Route path="/createEvent" element={<AdminEventForm />} />
+
 
       </Route>
       <Route path="login" element={<Login />} />
