@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import CardForm from '../components/CardForm';
 
 export default function PerfilUsuario() {
   const [activeTab, setActiveTab] = useState("perfil")
@@ -126,11 +127,14 @@ export default function PerfilUsuario() {
                     <p>{card.cardHolder}</p>
                   </div>
                 </div>
+                
               ))}
+              <CardForm/>
             </div>
           )}
         </div>
       </div>
     </div>
+    
   )
 }
