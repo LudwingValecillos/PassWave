@@ -2,17 +2,16 @@ import React from "react";
 
 function Buttonw(props) {
   return (
-    <a className="group relative inline-block focus:outline-none focus:ring " href="#">
-    <span
-      className="absolute inset-0 translate-x-1.5 translate-y-1.5 bg-yellow-300 transition-transform group-hover:translate-x-0 group-hover:translate-y-0"
-    ></span>
-  
-    <span
-      className="relative inline-block border-2 border-current px-8 py-3 text-sm font-bold uppercase tracking-widest text-black group-active:text-opacity-75"
+    <a
+      className="group relative inline-block focus:outline-none focus:ring " 
     >
-      {props.title}
-    </span>
-  </a>
+      <span className="absolute inset-0 translate-x-0 translate-y-0 bg-[#F2BB13] transition-transform group-hover:translate-x-1.5 group-hover:translate-y-1.5 rounded-3xl"></span>
+
+      <span className="relative inline-block border-2 border-current px-8 py-3 font-bold tracking-widest rounded-3xl">
+
+       <strong className="text-black">{props.title}</strong> 
+      </span>
+    </a>
   );
 }
 
