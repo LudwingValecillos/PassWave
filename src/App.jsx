@@ -11,6 +11,7 @@ import Crest from './pages/Crest';
 import Drift from './pages/Drift';
 import AllEvents from "./pages/AllEvents";
 import EventDetails from "./components/EventDetails";
+import MyPurchases from "./pages/MyPurchases";
 
 
 
