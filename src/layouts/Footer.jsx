@@ -6,8 +6,8 @@ function Footer() {
   return (
     <>
       {/* <img src="/src/assets/wave-haikei.svg" alt="" className="w-full" /> */}
-    <Wave fill='#05C7F2' />
-      <footer className="bg-[#05C7F2] p-5"> {/* Reducido el padding a 5 */}
+    <Wave fill='#F2BB13' />
+      <footer className="bg-[#F2BB13] p-5"> {/* Reducido el padding a 5 */}
         <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8 rounded-md" style={{ backgroundColor: 'rgba(255, 255, 255, 0.5)' }}> {/* Opacidad del 50% */}
           <div className="flex-1 justify-center md:flex md:items-center md:gap-12">
             <a className="flex justify-center items-center gap-5" href="#">

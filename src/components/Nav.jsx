@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import UserMenu from './UserMenu'; // Importamos el menú de usuario
+import { useSelector } from "react-redux";
 
 const buttonVariants = {
   rest: { scale: 1 },
@@ -12,6 +13,8 @@ const buttonVariants = {
 function Nav() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Estado de autenticación
   const [showUserMenu, setShowUserMenu] = useState(false); // Estado para mostrar menú
+  const status = useSelector((state) => state.client.status);
+
 
   const handleUserIconClick = () => {
     setShowUserMenu(!showUserMenu); // Alternar menú de usuario
@@ -19,7 +22,7 @@ function Nav() {
 
   return (
     <nav aria-label="Global" className="hidden md:block nav-container relative">
-      <ul className="flex flex-wrap justify-center font-bold gap-6 md:gap-8 lg:gap-12">
+      <ul className="flex flex-wrap justify-center items-center font-bold gap-6 md:gap-8 lg:gap-12">
         <li>
           <motion.div
             variants={buttonVariants}
@@ -63,13 +66,13 @@ function Nav() {
             whileHover="hover"
             whileTap="pressed"
           >
-            <Link to="/events" className="bg-[#f20505] text-white px-4 py-2 rounded-full shadow-lg transition">
+            <Link to="/allEvents" className="bg-[#f20505] text-white px-4 py-2 rounded-full shadow-lg transition">
               ALL-EVENTS
             </Link>
           </motion.div>
         </li>
         <li>
-          {isLoggedIn ? (
+          {status === "success" ? (
             <div className="relative">
               <motion.div
                 variants={buttonVariants}
@@ -78,7 +81,7 @@ function Nav() {
                 whileTap="pressed"
               >
                 <button onClick={handleUserIconClick}>
-                  <img src="/src/assets/user.png" className="w-8" alt="User" />
+                  <img src="/src/assets/user.png" className="w-6" alt="User" />
                 </button>
               </motion.div>
               {showUserMenu && <UserMenu />} {/* Mostramos el menú de usuario */}
@@ -90,7 +93,7 @@ function Nav() {
               whileHover="hover"
               whileTap="pressed"
             >
-              <Link to="/login" className="text-blue-500 px-4 py-2 rounded-full shadow-lg transition">
+              <Link to="/login" className="text-blue-500 px-4 py-2 rounded-full shadow-lg transition bg-[#ffffff]">
                 SIGN
               </Link>
             </motion.div>
