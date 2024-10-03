@@ -15,9 +15,10 @@ const CasetaSelector = () => {
     const handleCasetaClick = (casetaNumber) => {
         if (selectedCasetas.includes(casetaNumber)) {
             setSelectedCasetas(selectedCasetas.filter(caseta => caseta !== casetaNumber));
-        } else if (selectedCasetas.length < 2) {
+        } else if (selectedCasetas.length < 3) {
             setSelectedCasetas([...selectedCasetas, casetaNumber]);
             setShowModal(true);
+            onSelect(newSelection);
         } else {
             alert("Solo puedes seleccionar un máximo de 2 casetas.");
         }

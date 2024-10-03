@@ -18,12 +18,12 @@ function UserMenu() {
           <Link to="/my-purchases" className="block px-4 py-2 hover:bg-gray-100">
             My Purchases
           </Link>
-          <ul className="pl-4">
+          {/* <ul className="pl-4">
             <li><Link to="/tickets" className="block px-4 py-1 hover:bg-gray-100">Tickets</Link></li>
             <li><Link to="/stand" className="block px-4 py-1 hover:bg-gray-100">Stand</Link></li>
-          </ul>
+          </ul> */}
         </li>
-        <li><Link to="/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</Link></li>
+   
         <li onClick={() => localStorage.clear()}><Link to="/login" className="block px-4 py-2 hover:bg-gray-100">Logout</Link></li>
       </ul>
     </div>

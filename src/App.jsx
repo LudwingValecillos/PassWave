@@ -10,8 +10,12 @@ import Tide from './pages/Tide';
 import Crest from './pages/Crest';
 import Drift from './pages/Drift';
 import AllEvents from "./pages/AllEvents";
+
 import EventDetails from "./components/EventDetails";
 import AdminEventForm from "./components/AdminEventForm";
+
+import MyPurchases from './pages/MyPurchases';  
+
 
 
 
@@ -30,11 +34,14 @@ function App() {
       <Route path="tide" element={<Tide />} />
       <Route path="drift" element={<Drift/>} />
       <Route path="allevents" element={<AllEvents />} />
+
       {/* <Route path="event/:id" element={<EventDetails />} />
        */}
       <Route path="event/:id" element={<EventDetails />} />
 
+
       <Route path="/reserva" element={<ReservaPage />} />
+      <Route path="/my-purchases" element={<MyPurchases />} />
 
       <Route path="/createEvent" element={<AdminEventForm />} />
 

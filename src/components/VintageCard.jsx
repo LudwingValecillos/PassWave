@@ -1,6 +1,9 @@
 import React from 'react';
+import ImageComponent from './ImageComponent';
+
 
 const VintageCard = ({ title, imageUrl, buttonText, fontFamily = "'Rubik Bubbles', cursive", hoverText, applyHover = false }) => {
+
   return (
     <a href="#" className={`group relative block ${applyHover ? 'hover:opacity-100' : ''}`}>
       {/* Imagen y título */}
@@ -18,6 +21,7 @@ const VintageCard = ({ title, imageUrl, buttonText, fontFamily = "'Rubik Bubbles
           src={imageUrl}
           alt="Vintage"
           className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 z-10"
+
           style={{ padding: '0', boxSizing: 'border-box' }}
         />
       </div>
@@ -25,6 +29,7 @@ const VintageCard = ({ title, imageUrl, buttonText, fontFamily = "'Rubik Bubbles
       {/* Texto que aparece al hacer hover */}
       <div className={`absolute inset-0 p-4 sm:p-6 lg:p-8 flex items-end justify-center text-center z-30 transition-all ${applyHover ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'} group-hover:translate-y-0 group-hover:opacity-100`}>
         <p className="text-white text-2xl">{hoverText}</p>
+
       </div>
 
       {/* Fondo negro semitransparente al hacer hover */}
