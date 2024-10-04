@@ -1,8 +1,11 @@
 import React from "react";
 
-function Button2({ title, isActive }) {
+function Button2({ title, isActive, onClick }) {
   return (
-    <a className="group relative inline-block focus:outline-none focus:ring">
+    <a
+      className="group relative inline-block focus:outline-none focus:ring"
+      onClick={onClick} // Asigna la función onClick aquí
+    >
       <span
         className={`absolute inset-0 transition-transform rounded-3xl
         ${isActive ? "translate-x-1 translate-y-1" : "group-hover:translate-x-1 group-hover:translate-y-1"} bg-black`}
@@ -23,3 +26,4 @@ function Button2({ title, isActive }) {
 }
 
 export default Button2;
+

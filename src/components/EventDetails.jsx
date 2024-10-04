@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Button2 from "./Button2";
 import Buttonw from "./Buttonw";
@@ -12,7 +14,8 @@ import {
   Users,
   DollarSign,
 } from "lucide-react";
-import { loadEvents } from "../redux/actions/eventsAction";
+
+import { loadEvents, selectEvent } from "../redux/actions/eventsAction";
 
 const EventDetails = () => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -20,6 +23,7 @@ const EventDetails = () => {
   const { id } = useParams();
   const eventId = Number(id);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const event = useSelector((state) =>
     state.events.events.find((event) => event.id === eventId)
@@ -31,7 +35,7 @@ const EventDetails = () => {
   useEffect(() => {
     dispatch(loadEvents());
     setIsVisible(true);
-  }, []);
+  }, [dispatch]);
 
   const nextImage = () => {
     setCurrentImage((prev) => (prev + 1) % event.images.length);
@@ -46,6 +50,16 @@ const EventDetails = () => {
   if (!event) {
     return <div className="text-center text-2xl mt-10">Event not found</div>;
   }
+
+  const handleBuyTicketClick = () => {
+    if (event) {
+      console.log("Buy ticket button clicked");
+      dispatch(selectEvent(event)); // Almacena el evento en el estado
+      navigate("/event-ticket-system"); // Redirige a la ruta deseada
+    } else {
+      console.log("Event not loaded yet");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#F2F2F2] px-4 sm:px-6 lg:px-8 font-comic-sans ">
@@ -183,6 +197,7 @@ const EventDetails = () => {
               </>
             )}
           </div>
+
         </div>
       </div>
     </div>

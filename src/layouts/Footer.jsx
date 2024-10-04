@@ -11,7 +11,7 @@ function Footer() {
         <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8 rounded-md" style={{ backgroundColor: 'rgba(255, 255, 255, 0.5)' }}> {/* Opacidad del 50% */}
           <div className="flex-1 justify-center md:flex md:items-center md:gap-12">
             <a className="flex justify-center items-center gap-5" href="#">
-              <img src="/src/assets/logo.png" alt="" className="h-24" />
+              <img src="/src/assets/logoOk.png" alt="" className="h-24" />
               <div className="relative inline-block">
                 <img
                   src="/src/assets/WaveCen.gif"

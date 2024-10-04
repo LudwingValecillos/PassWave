@@ -5,6 +5,7 @@ import TicketComponent from '../components/TicketComponent';
 
 
 
+
 export default function MyPurchases() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
@@ -12,6 +13,7 @@ export default function MyPurchases() {
         <PerfilUsuario />
 
         <TicketComponent />
+   
 
 
     </div>
