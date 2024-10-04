@@ -1,6 +1,8 @@
 import React, { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { motion, AnimatePresence } from "framer-motion"
 import CasetaSelector from "../components/CasetaSelector"
+import { loadEvents } from "../redux/actions/eventsAction"
 import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon, Tent, MapPin, CreditCard, CheckCircle, X } from "lucide-react"
 
 const steps = [
@@ -10,11 +12,19 @@ const steps = [
   { title: "Confirmación", description: "Revisa y confirma tu reserva", icon: CheckCircle },
 ]
 
-const ferias = [
-  { id: 1, name: "Feria de Abril 2024", date: "20-27 de Abril, 2024", location: "Sevilla" },
-  { id: 2, name: "Feria de San Mateo 2024", date: "15-22 de Septiembre, 2024", location: "Logroño" },
-  { id: 3, name: "Feria de Málaga 2024", date: "10-17 de Agosto, 2024", location: "Málaga" },
-]
+  const events = useSelector((state) => state.events.events || []);
+  const dispatch = useDispatch();
+  console.log(events);
+
+  useEffect(() => {
+    Aos.init({ duration: 500 });
+  }, []);
+
+  useEffect(() => {
+    if (!events.length || events[0].name === '') {
+      dispatch(loadEvents());
+    }
+  }, [dispatch, events]);
 
 
 const PaymentForm = ({ onPaymentComplete }) => {
@@ -38,46 +48,26 @@ const PaymentForm = ({ onPaymentComplete }) => {
     setCardData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const validateCardData = (data) => {
+    const errors = [];
+    if (!data.cardHolder) errors.push("Por favor ingresa el nombre del titular.");
+    if (!/^\d{16}$/.test(data.number)) errors.push("Número de tarjeta inválido.");
+    if (!data.thruDate || new Date(data.thruDate) <= new Date()) errors.push("Fecha de vencimiento inválida.");
+    if (!/^\d{3}$/.test(data.cvv)) errors.push("CVV inválido.");
+    if (!data.cardType) errors.push("Selecciona el tipo de tarjeta.");
+    if (!data.paymentNetwork) errors.push("Selecciona la red de pago.");
+    return errors;
+};
+
+const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // Validaciones
-    if (!cardData.cardHolder) {
-      alert("Por favor ingresa el nombre del titular.");
-      return;
+    const errors = validateCardData(cardData);
+    if (errors.length) {
+        alert(errors.join("\n"));
+        return;
     }
-    
-    if (!/^\d{16}$/.test(cardData.number)) {
-      alert("Por favor ingresa un número de tarjeta válido (16 dígitos numéricos).");
-      return;
-    }
-    
-    const today = new Date();
-    const enteredDate = new Date(cardData.thruDate);
-    
-    if (!cardData.thruDate || enteredDate <= today) {
-      alert("Por favor ingresa una fecha de vencimiento válida.");
-      return;
-    }
-    
-    if (!/^\d{3}$/.test(cardData.cvv)) {
-      alert("Por favor ingresa un CVV válido (3 dígitos numéricos).");
-      return;
-    }
-    
-    if (!cardData.cardType) {
-      alert("Por favor selecciona el tipo de tarjeta.");
-      return;
-    }
-    
-    if (!cardData.paymentNetwork) {
-      alert("Por favor selecciona la red de pago.");
-      return;
-    }
-    
-    console.log('Procesando pago con:', cardData);
     onPaymentComplete(cardData);
-  };
+};
   
 
   const formatThruDate = (date) => {
@@ -200,16 +190,25 @@ const ReservaPage = () => {
   const [currentStep, setCurrentStep] = useState(0)
   const [selectedFeria, setSelectedFeria] = useState(null)
   const [selectedCasetas, setSelectedCasetas] = useState([])
+  const [selectedSeats, setSelectedSeats] = useState([])
+  const [selectedVenue, setSelectedVenue] = useState(null)
   const [date, setDate] = useState(null)
   const [paymentData, setPaymentData] = useState(null)
 
   const handleFeriaSelection = (e) => {
     const feriaId = parseInt(e.target.value)
-    setSelectedFeria(ferias.find(feria => feria.id === feriaId))
+    setSelectedFeria(events.find(feria => feria.id === feriaId))
   }
 
   const handleCasetaSelection = (casetas) => {
     setSelectedCasetas(casetas)
+  }
+  const handleSeatSelection = (selectedSeats) => {
+    setSelectedSeats(selectedSeats);  
+  }
+
+  const handleVenueSelection = (selectedVenue) => {
+    setSelectedFeria(selectedVenue);  
   }
 
   const handlePaymentComplete = (cardData) => {
@@ -301,9 +300,9 @@ const ReservaPage = () => {
                   className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
                 >
                   <option value="">Elige tu feria</option>
-                  {ferias.map((feria) => (
-                    <option key={feria.id} value={feria.id}>
-                      {feria.name}
+                  {events.map((event) => (
+                    <option key={event.id} value={event.id}>
+                      {event.name}
                     </option>
                   ))}
                 </select>
@@ -319,11 +318,14 @@ const ReservaPage = () => {
                 )}
               </motion.div>
             )}
-            {currentStep === 1 && (
-              <motion.div variants={itemVariants}>
-                <CasetaSelector onSelect={handleCasetaSelection} />
-              </motion.div>
-            )}
+           {/* Aquí usamos el ternario para decidir qué componente renderizar */}
+          {currentStep === 1 && (
+            selectedFeria?.type === 'caseta' 
+              ? <CasetaSelector onCasetaSelect={handleCasetaSelection} />
+              : selectedFeria?.type === 'seat'
+              ? <SeatSelector onSeatSelect={handleSeatSelection} />
+              : <MusicVenue onVenueSelect={handleVenueSelection} />
+          )}
             {currentStep === 2 && (
               <motion.div variants={itemVariants}>
                 <PaymentForm onPaymentComplete={handlePaymentComplete} />
