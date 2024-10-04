@@ -1,7 +1,11 @@
 import React, { useState } from "react"
+import Aos from 'aos';
 import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import CasetaSelector from "../components/CasetaSelector"
+import MusicVenue from "../components/MusicVenue"
+import SeatSelector from "../components/SeatSelector"
 import { loadEvents } from "../redux/actions/eventsAction"
 import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon, Tent, MapPin, CreditCard, CheckCircle, X } from "lucide-react"
 
@@ -11,20 +15,6 @@ const steps = [
   { title: "Realiza el Pago", description: "Ingresa los datos de tu tarjeta", icon: CreditCard },
   { title: "Confirmación", description: "Revisa y confirma tu reserva", icon: CheckCircle },
 ]
-
-  const events = useSelector((state) => state.events.events || []);
-  const dispatch = useDispatch();
-  console.log(events);
-
-  useEffect(() => {
-    Aos.init({ duration: 500 });
-  }, []);
-
-  useEffect(() => {
-    if (!events.length || events[0].name === '') {
-      dispatch(loadEvents());
-    }
-  }, [dispatch, events]);
 
 
 const PaymentForm = ({ onPaymentComplete }) => {
@@ -194,6 +184,21 @@ const   ReservaPage = () => {
   const [selectedVenue, setSelectedVenue] = useState(null)
   const [date, setDate] = useState(null)
   const [paymentData, setPaymentData] = useState(null)
+
+  const events = useSelector((state) => state.events.events || []);
+  const dispatch = useDispatch();
+  console.log(events);
+
+  useEffect(() => {
+    Aos.init({ duration: 500 });
+  }, []);
+
+  useEffect(() => {
+    if (!events.length || events[0].name === '') {
+      dispatch(loadEvents());
+    }
+  }, [dispatch, events]);
+
 
   const handleFeriaSelection = (e) => {
     const feriaId = parseInt(e.target.value)
