@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 
 import { loadEvents, selectEvent } from "../redux/actions/eventsAction";
+import { log } from "console";
 
 const EventDetails = () => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -27,7 +28,12 @@ const EventDetails = () => {
   const event = useSelector((state) =>
     state.events.events.find((event) => event.id === eventId)
   );
-  console.log(event);
+  const status = useSelector((state) => state.client.status);
+
+  
+  console.log(status);
+  
+  
 
   window.scrollTo(0, 0);
 
