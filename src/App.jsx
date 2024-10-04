@@ -15,6 +15,7 @@ import EventDetails from "./components/EventDetails";
 import AdminEventForm from "./components/AdminEventForm";
 
 import MyPurchases from './pages/MyPurchases';  
+import EventTicketSystem from "./pages/EventTicketSystem";
 
 
 
@@ -44,6 +45,8 @@ function App() {
       <Route path="/my-purchases" element={<MyPurchases />} />
 
       <Route path="/createEvent" element={<AdminEventForm />} />
+      <Route path="/event-ticket-system" element={<EventTicketSystem />} /> 
+      
 
 
       </Route>

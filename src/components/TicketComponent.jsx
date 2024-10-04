@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
+
 const TicketPage = () => {
   const ticketRef = useRef();
 
