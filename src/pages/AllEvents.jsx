@@ -15,6 +15,8 @@ function AllEvents() {
 
 
   useEffect(() => {
+  window.scrollTo(0, 0);
+
     Aos.init({ duration: 500 });
   }, []);
 

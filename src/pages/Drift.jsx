@@ -5,6 +5,8 @@ import Oratory from "../assets/3.png";
 
 
 function Drift() {
+  window.scrollTo(0, 0);
+
   return (
     <>
     <div data-aos="fade-up" className="w-full">

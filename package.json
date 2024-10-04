@@ -20,6 +20,8 @@
     "axios": "^1.7.7",
     "chroma-js": "^3.1.1",
     "framer-motion": "^11.9.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.2",
     "lucide-react": "^0.447.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

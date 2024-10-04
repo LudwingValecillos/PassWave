@@ -65,7 +65,7 @@ const SketchCardEvent = React.memo(({ title, img, date, quotas, artists, price }
         >
           <DollarSign className="h-6 w-6 text-black mx-auto stroke-[2]" />
           <p className="text-center text-black text-xs mt-1 font-bold">Price</p>
-          <p className="text-center text-black font-bold">${price}</p>
+          <p className="text-center text-black font-bold">${price.toLocaleString()}</p>
         </div>
       </div>
 

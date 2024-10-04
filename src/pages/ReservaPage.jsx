@@ -361,7 +361,7 @@ const events =
 //   // ... (CasetaSelector component remains unchanged)
 // }
 
-const ReservaPage = () => {
+const   ReservaPage = () => {
   const [currentStep, setCurrentStep] = useState(0)
   const [selectedFeria, setSelectedFeria] = useState(null)
   const [selectedCasetas, setSelectedCasetas] = useState([])

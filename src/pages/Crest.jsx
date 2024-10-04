@@ -4,13 +4,17 @@ import VintageCard from '../components/VintageCard'
 import ConcertsImage from "../assets/1.png";
 
 
+
+
 function Crest() {
+  window.scrollTo(0, 0);
+
   return (
 
     <>
     <div data-aos="fade-up" className="w-full">
         <VintageCard
-          title="CREAST"
+          title="CREST"
           imageUrl={ConcertsImage}
           buttonText="+ Info"
           backgroundColor="#04bf9d"
@@ -19,7 +23,7 @@ function Crest() {
           applyHover={true}
       />
       </div>
-    <PrintCardEvenes id={1}/>
+    <PrintCardEvenes id={2}/>
 
     </>
 
