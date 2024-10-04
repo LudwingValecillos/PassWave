@@ -95,7 +95,7 @@ const EventDetails = () => {
             </div>
             <div className="flex items-center mb-2 lg:mb-0 transform hover:scale-105 transition-transform">
               <Ticket className="mr-2 text-green-600" />
-              <span className="text-lg font-bold">${event.ticketPrice}</span>
+              <span className="text-lg font-bold">${event.ticketPrice.toLocaleString()}</span>
             </div>
             <div className="flex items-center transform hover:scale-105 transition-transform">
               <Users className="mr-2 text-purple-600" />
