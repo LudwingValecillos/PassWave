@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -183,10 +184,20 @@ const EventDetails = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <Button2 title="Buy Ticket Now!" onClick={handleBuyTicketClick} />
-  {event.stands.length > 0 && <Buttonw title="Rent a Stand!"/>}
-</div>
-          
+            {event.stands.length == 0 ? (
+              <Button2 title="Buy Ticket Now!" />
+            ) : (
+              <>
+                {" "}
+                <Button2 title="Buy Ticket Now!" />{" "}
+                
+                <Link to={`/reserva/${event.id}`}>
+                <Buttonw title="Rent a Stand!" />{" "}
+                </Link>
+              </>
+            )}
+          </div>
+
         </div>
       </div>
     </div>
