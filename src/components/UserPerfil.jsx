@@ -53,7 +53,7 @@ export default function PerfilUsuario() {
 
         <div className="pt-24 px-6 pb-6 w-full">
           <div className="flex justify-center space-x-4 mb-8">
-            {["perfil", "tickets", "stands", "tarjetas"].map((tab) => (
+            {["perfil", "tickets", "stands"].map((tab) => (
               <button
                 key={tab}
                 className={`py-2 px-4 text-lg font-medium rounded-full transition-all duration-300 ${
@@ -121,7 +121,7 @@ export default function PerfilUsuario() {
               </div>
             )}
 
-            {activeTab === "tarjetas" && (
+            {/* {activeTab === "tarjetas" && (
               <div className="space-y-6">
                 <h3 className="text-2xl font-bold text-gray-800 mb-4">Your Cards</h3>
                 {client.cards.map((card) => (
@@ -134,12 +134,12 @@ export default function PerfilUsuario() {
                       <p className="text-gray-600">{card.cardHolder}</p>
                     </div>
                   </div>
-                ))}
-                <div className="mt-8">
+                ))} */}
+                {/* <div className="mt-8">
                   <CardForm />
                 </div>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>

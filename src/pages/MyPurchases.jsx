@@ -12,9 +12,6 @@ export default function MyPurchases() {
      
         <PerfilUsuario />
 
-        <TicketComponent />
-   
-
 
     </div>
   );
