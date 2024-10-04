@@ -1,394 +1,234 @@
 import React, { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { motion, AnimatePresence } from "framer-motion"
 import CasetaSelector from "../components/CasetaSelector"
-// import { format } from "date-fns"
-import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon, Tent, MapPin, User, CheckCircle, X } from "lucide-react"
+import { loadEvents } from "../redux/actions/eventsAction"
+import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon, Tent, MapPin, CreditCard, CheckCircle, X } from "lucide-react"
 
-const events = 
-  [
-    {
-        "id": 1,
-        "name": "The Creative Current",
-        "description": "Immerse yourself in a creative fair that celebrates local talent. Artists from various disciplines will display their works, from stunning sculptures to vibrant digital illustrations.",
-        "date": "2024-11-06",
-        "ticketPrice": 1000.0,
-        "place": {
-            "id": 1,
-            "name": "Wave Crest",
-            "ticketMaxCapacity": 30,
-            "standMaxCapacity": 30,
-            "description": "Welcome to Wave Crest, the ideal venue for conventions and gatherings. With versatile space and modern amenities, this salon is designed to accommodate a variety of events, from business meetings to expos, fostering collaboration and innovation."
-        },
-        "images": [
-            "./public/aCreative1.jpg",
-            "./public/aCreative2.jpg",
-            "./public/aCreative3.png",
-            "./public/aCreative4.png",
-            "./public/aCreative5.jpg"
-        ],
-        "stands": [
-            {
-                "id": 1,
-                "locations": [
-                    11,
-                    12,
-                    13,
-                    14,
-                    15,
-                    16,
-                    17,
-                    18,
-                    19,
-                    20
-                ],
-                "size": "small",
-                "price": 5000.0
-            },
-            {
-                "id": 2,
-                "locations": [
-                    1,
-                    2,
-                    3,
-                    4,
-                    5,
-                    6,
-                    7,
-                    8,
-                    9,
-                    10
-                ],
-                "size": "big",
-                "price": 10000.0
-            }
-        ],
-        "tickets": [
-            {
-                "id": 1,
-                "eventName": "Expo Art 2024 - The Creative Current",
-                "purchaseDate": "2024-11-06T15:00:00"
-            }
-        ],
-        "artists": [
-            "Sofía Martínez - Painter known for her vibrant abstract landscapes.",
-            "Diego Ruiz - Sculptor who works with recycled materials, creating unique and sustainable works.",
-            "Valeria Gómez - Digital illustrator who combines traditional and digital techniques to tell visual stories."
-        ],
-        "ticketsAvailable": 30
-    },
-    {
-        "id": 2,
-        "name": "Innovators' Haven",
-        "description": "Explore a unique technology exhibition that fuses art, science and technology. At Innovators' Haven, you'll discover interactive projects, from augmented reality installations to innovations in sustainable design. Visitors will be able to experience first-hand how these disciplines intertwine, stimulating creativity and reflection on the future.",
-        "date": "2024-11-07",
-        "ticketPrice": 1000.0,
-        "place": {
-            "id": 1,
-            "name": "Wave Crest",
-            "ticketMaxCapacity": 30,
-            "standMaxCapacity": 30,
-            "description": "Welcome to Wave Crest, the ideal venue for conventions and gatherings. With versatile space and modern amenities, this salon is designed to accommodate a variety of events, from business meetings to expos, fostering collaboration and innovation."
-        },
-        "images": [
-            "./public/aInnovation1.jpg",
-            "./public/aInnovation2.jpg",
-            "./public/aInnovation3.jpg",
-            "./public/aInnovation4.jpg",
-            "./public/aInnovation5.jpg"
-        ],
-        "stands": [
-            {
-                "id": 3,
-                "locations": [
-                    11,
-                    12,
-                    13,
-                    14,
-                    15,
-                    16,
-                    17,
-                    18,
-                    19,
-                    20
-                ],
-                "size": "small",
-                "price": 5000.0
-            },
-            {
-                "id": 4,
-                "locations": [
-                    1,
-                    2,
-                    3,
-                    4,
-                    5,
-                    6,
-                    7,
-                    8,
-                    9,
-                    10
-                ],
-                "size": "big",
-                "price": 10000.0
-            }
-        ],
-        "tickets": [
-            {
-                "id": 2,
-                "eventName": "Tech Expo 2024 - Innovators' Haven",
-                "purchaseDate": "2024-11-07T15:00:00"
-            }
-        ],
-        "artists": [
-            "LuzTech - Augmented reality installation that transforms urban spaces.",
-            "EcoArt Collective - Sustainable design projects using recycled materials.",
-            "Interactivity Lab - Interactive experiences that combine digital art and technology."
-        ],
-        "ticketsAvailable": 30
-    },
-    {
-        "id": 3,
-        "name": "Cultural Tides Market",
-        "description": "Immerse yourself in a vibrant cultural market that celebrates local creativity. At Cultural Tides Market, you'll find a variety of products, from crafts and independent fashion to eco-friendly products. Additionally, you'll enjoy interactive photography and street art exhibits, where the community comes together to share and appreciate local talent.",
-        "date": "2024-11-08",
-        "ticketPrice": 1000.0,
-        "place": {
-            "id": 1,
-            "name": "Wave Crest",
-            "ticketMaxCapacity": 30,
-            "standMaxCapacity": 30,
-            "description": "Welcome to Wave Crest, the ideal venue for conventions and gatherings. With versatile space and modern amenities, this salon is designed to accommodate a variety of events, from business meetings to expos, fostering collaboration and innovation."
-        },
-        "images": [
-            "./public/aTides1.jpg",
-            "./public/aTides2.jpg",
-            "./public/aTides3.jpg",
-            "./public/aTides4.jpeg",
-            "./public/aTides5.jpg"
-        ],
-        "stands": [
-            {
-                "id": 5,
-                "locations": [
-                    11,
-                    12,
-                    13,
-                    14,
-                    15,
-                    16,
-                    17,
-                    18,
-                    19,
-                    20
-                ],
-                "size": "small",
-                "price": 5000.0
-            },
-            {
-                "id": 6,
-                "locations": [
-                    1,
-                    2,
-                    3,
-                    4,
-                    5,
-                    6,
-                    7,
-                    8,
-                    9,
-                    10
-                ],
-                "size": "big",
-                "price": 10000.0
-            }
-        ],
-        "tickets": [
-            {
-                "id": 3,
-                "eventName": "Cultural Tides Market 2024",
-                "purchaseDate": "2024-11-08T15:00:00"
-            }
-        ],
-        "artists": [
-            "Ana Torres - Artisan specialized in decorative ceramics.",
-            "Urban Art Collective - Artists presenting live murals and street art.",
-            "EcoFashion Lab - Independent fashion designers using sustainable materials."
-        ],
-        "ticketsAvailable": 30
-    },
-    {
-        "id": 4,
-        "name": "Heroes' Summit",
-        "description": "An exciting Comic-Con style event where fans of comics, movies and series come together to enjoy panels with creators, cosplay contests and exclusive geek culture products. In addition, there will be areas dedicated to gaming and virtual reality zones, offering an immersive experience for all attendees.",
-        "date": "2024-11-09",
-        "ticketPrice": 1000.0,
-        "place": {
-            "id": 1,
-            "name": "Wave Crest",
-            "ticketMaxCapacity": 30,
-            "standMaxCapacity": 30,
-            "description": "Welcome to Wave Crest, the ideal venue for conventions and gatherings. With versatile space and modern amenities, this salon is designed to accommodate a variety of events, from business meetings to expos, fostering collaboration and innovation."
-        },
-        "images": [
-            "./public/aHeroes1.png",
-            "./public/aHeroes2.jpg",
-            "./public/aHeroes3.webp",
-            "./public/aHeroes4.jpg",
-            "./public/aHeroes5.jpg"
-        ],
-        "stands": [
-            {
-                "id": 7,
-                "locations": [
-                    11,
-                    12,
-                    13,
-                    14,
-                    15,
-                    16,
-                    17,
-                    18,
-                    19,
-                    20
-                ],
-                "size": "small",
-                "price": 5000.0
-            },
-            {
-                "id": 8,
-                "locations": [
-                    1,
-                    2,
-                    3,
-                    4,
-                    5,
-                    6,
-                    7,
-                    8,
-                    9,
-                    10
-                ],
-                "size": "big",
-                "price": 10000.0
-            }
-        ],
-        "tickets": [
-            {
-                "id": 4,
-                "eventName": "Comic Convention 2024 - Heroes' Summit",
-                "purchaseDate": "2024-11-09T15:00:00"
-            }
-        ],
-        "artists": [
-            "Javier Rodríguez - Comic book artist known for his work at Marvel.",
-            "Clara Ramos - Voice actress famous for her roles in animated series.",
-            "Team GamerPro - Content creators who will present their latest games and virtual reality technology."
-        ],
-        "ticketsAvailable": 30
-    },
-    {
-        "id": 5,
-        "name": "Coastal Culinary Fest",
-        "description": "A gastronomic tour that celebrates delicious regional and local food. With chef stands offering traditional dishes, fresh seafood and delicious fusion cuisine, this event is a feast for the senses. Attendees will be able to sample products from local farms and participate in cooking workshops to learn new techniques.",
-        "date": "2024-11-10",
-        "ticketPrice": 1000.0,
-        "place": {
-            "id": 1,
-            "name": "Wave Crest",
-            "ticketMaxCapacity": 30,
-            "standMaxCapacity": 30,
-            "description": "Welcome to Wave Crest, the ideal venue for conventions and gatherings. With versatile space and modern amenities, this salon is designed to accommodate a variety of events, from business meetings to expos, fostering collaboration and innovation."
-        },
-        "images": [
-            "./public/aComida1.jpg",
-            "./public/aComida2.jpg",
-            "./public/aComida3.jpg",
-            "./public/aComida4.jpg",
-            "./public/aComida5.jpg"
-        ],
-        "stands": [
-            {
-                "id": 9,
-                "locations": [
-                    11,
-                    12,
-                    13,
-                    14,
-                    15,
-                    16,
-                    17,
-                    18,
-                    19,
-                    20
-                ],
-                "size": "small",
-                "price": 5000.0
-            },
-            {
-                "id": 10,
-                "locations": [
-                    1,
-                    2,
-                    3,
-                    4,
-                    5,
-                    6,
-                    7,
-                    8,
-                    9,
-                    10
-                ],
-                "size": "big",
-                "price": 10000.0
-            }
-        ],
-        "tickets": [
-            {
-                "id": 5,
-                "eventName": "Culinary Convention 2024 - Coastal Culinary Fest",
-                "purchaseDate": "2024-11-10T15:00:00"
-            }
-        ],
-        "artists": [
-            "María López - Specialist in traditional coastal cuisine.",
-            "Carlos Méndez - Chef recognized for his innovative fusion cuisine.",
-            "Elena Torres - Expert in fresh and sustainable seafood."
-        ],
-        "ticketsAvailable": 30
-    },]
+const steps = [
+  { title: "Elige tu Feria", description: "Selecciona el evento al que quieres asistir", icon: Tent },
+  { title: "Reserva tu Caseta", description: "Elige la caseta perfecta para ti", icon: MapPin },
+  { title: "Realiza el Pago", description: "Ingresa los datos de tu tarjeta", icon: CreditCard },
+  { title: "Confirmación", description: "Revisa y confirma tu reserva", icon: CheckCircle },
+]
 
-// const CasetaSelector = ({ onSelect }) => {
-//   // ... (CasetaSelector component remains unchanged)
-// }
+  const events = useSelector((state) => state.events.events || []);
+  const dispatch = useDispatch();
+  console.log(events);
 
-const ReservaPage = () => {
+  useEffect(() => {
+    Aos.init({ duration: 500 });
+  }, []);
+
+  useEffect(() => {
+    if (!events.length || events[0].name === '') {
+      dispatch(loadEvents());
+    }
+  }, [dispatch, events]);
+
+
+const PaymentForm = ({ onPaymentComplete }) => {
+  const [cardData, setCardData] = useState({
+    cardHolder: '',
+    cvv: '',
+    number: '',
+    thruDate: '',
+    cardType: 'DEBIT',
+    paymentNetwork: 'VISA'
+  });
+  
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setCardData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSelectChange = (e) => {
+    const { name, value } = e.target;
+    setCardData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const validateCardData = (data) => {
+    const errors = [];
+    if (!data.cardHolder) errors.push("Por favor ingresa el nombre del titular.");
+    if (!/^\d{16}$/.test(data.number)) errors.push("Número de tarjeta inválido.");
+    if (!data.thruDate || new Date(data.thruDate) <= new Date()) errors.push("Fecha de vencimiento inválida.");
+    if (!/^\d{3}$/.test(data.cvv)) errors.push("CVV inválido.");
+    if (!data.cardType) errors.push("Selecciona el tipo de tarjeta.");
+    if (!data.paymentNetwork) errors.push("Selecciona la red de pago.");
+    return errors;
+};
+
+const handleSubmit = (e) => {
+    e.preventDefault();
+    const errors = validateCardData(cardData);
+    if (errors.length) {
+        alert(errors.join("\n"));
+        return;
+    }
+    onPaymentComplete(cardData);
+};
+  
+
+  const formatThruDate = (date) => {
+    if (!date) return 'MM/YY';
+    const [year, month] = date.split('-');
+    return `${month}/${year.slice(2)}`;
+  };
+
+  return (
+    <div className="flex flex-col md:flex-row justify-between p-4 gap-8">
+      <form onSubmit={handleSubmit} className="w-full md:w-1/2 space-y-4">
+        <div>
+          <label htmlFor="cardHolder" className="block text-sm font-medium text-gray-700">Nombre del titular</label>
+          <input
+            id="cardHolder"
+            name="cardHolder"
+            value={cardData.cardHolder}
+            onChange={handleInputChange}
+            required
+            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+        <div>
+          <label htmlFor="number" className="block text-sm font-medium text-gray-700">Número de tarjeta</label>
+          <input
+            id="number"
+            name="number"
+            value={cardData.number}
+            onChange={handleInputChange}
+            required
+            maxLength={16}
+            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+        <div className="flex gap-4">
+          <div className="w-1/2">
+            <label htmlFor="thruDate" className="block text-sm font-medium text-gray-700">Fecha de vencimiento</label>
+            <input
+              id="thruDate"
+              name="thruDate"
+              type="date"
+              value={cardData.thruDate}
+              onChange={handleInputChange}
+              required
+              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+          <div className="w-1/2">
+            <label htmlFor="cvv" className="block text-sm font-medium text-gray-700">CVV</label>
+            <input
+              id="cvv"
+              name="cvv"
+              value={cardData.cvv}
+              onChange={handleInputChange}
+              required
+              maxLength={3}
+              className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+        </div>
+        <div>
+          <label htmlFor="cardType" className="block text-sm font-medium text-gray-700">Tipo de tarjeta</label>
+          <select
+            id="cardType"
+            name="cardType"
+            value={cardData.cardType}
+            onChange={handleSelectChange}
+            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="DEBIT">Débito</option>
+            <option value="CREDIT">Crédito</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="paymentNetwork" className="block text-sm font-medium text-gray-700">Red de pago</label>
+          <select
+            id="paymentNetwork"
+            name="paymentNetwork"
+            value={cardData.paymentNetwork}
+            onChange={handleSelectChange}
+            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="VISA">Visa</option>
+            <option value="MASTERCARD">Mastercard</option>
+          </select>
+        </div>
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          Procesar pago
+        </button>
+      </form>
+
+      <div className="w-full md:w-1/2 mt-4">
+        <motion.div 
+          className="p-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg shadow-lg" 
+          initial={{ opacity: 0, scale: 0.9 }} 
+          animate={{ opacity: 1, scale: 1 }}
+        >
+          <h2 className="text-2xl mb-4">{cardData.paymentNetwork}</h2>
+          <p className="text-xl mb-2">{cardData.number || '**** **** **** ****'}</p>
+          <div className="flex justify-between">
+            <div>
+              <p className="text-sm">Titular de la tarjeta</p>
+              <p>{cardData.cardHolder || 'NOMBRE APELLIDO'}</p>
+            </div>
+            <div>
+              <p className="text-sm">Válida hasta</p>
+              <p>{formatThruDate(cardData.thruDate)}</p>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+};
+
+const   ReservaPage = () => {
   const [currentStep, setCurrentStep] = useState(0)
   const [selectedFeria, setSelectedFeria] = useState(null)
   const [selectedCasetas, setSelectedCasetas] = useState([])
+  const [selectedSeats, setSelectedSeats] = useState([])
+  const [selectedVenue, setSelectedVenue] = useState(null)
   const [date, setDate] = useState(null)
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-  })
+  const [paymentData, setPaymentData] = useState(null)
 
-  const handleFeriaSelection = (event) => {
-    const feriaId = parseInt(event.target.value)
-    setSelectedFeria(ferias.find(feria => feria.id === feriaId))
+  const handleFeriaSelection = (e) => {
+    const feriaId = parseInt(e.target.value)
+    setSelectedFeria(events.find(feria => feria.id === feriaId))
   }
 
   const handleCasetaSelection = (casetas) => {
     setSelectedCasetas(casetas)
   }
+  const handleSeatSelection = (selectedSeats) => {
+    setSelectedSeats(selectedSeats);  
+  }
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
+  const handleVenueSelection = (selectedVenue) => {
+    setSelectedFeria(selectedVenue);  
+  }
+
+  const handlePaymentComplete = (cardData) => {
+    setPaymentData(cardData)
+    nextStep()
   }
 
   const nextStep = () => {
+    if (currentStep === 0 && !selectedFeria) {
+      alert("Por favor selecciona una feria.");
+      return;
+    }
+  
+    if (currentStep === 2 && (!paymentData || !paymentData.cardHolder || !paymentData.number || !paymentData.thruDate || !paymentData.cvv || !paymentData.cardType || !paymentData.paymentNetwork)) {
+      alert("Por favor completa todos los campos de la tarjeta antes de continuar.");
+      return;
+    }
+  
     if (currentStep < steps.length - 1) {
-      setCurrentStep(currentStep + 1)
+      setCurrentStep(currentStep + 1);
     }
   }
 
@@ -444,23 +284,25 @@ const ReservaPage = () => {
           exit="exit"
           className="bg-white shadow-lg rounded-lg overflow-hidden"
         >
-          {currentStep === 0 && (
-            <div className="p-6">
-              <motion.div variants={itemVariants}>
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">{events[currentStep].name}</h2>
-                <p className="text-gray-600 mb-4">{events[currentStep].description}</p>
-              </motion.div>
+          <div className="p-6 border-b">
+            <motion.div variants={itemVariants}>
+              <h2 className="text-2xl font-bold text-gray-800">{steps[currentStep].title}</h2>
+              <p className="text-gray-600">{steps[currentStep].description}</p>
+            </motion.div>
+          </div>
+          <div className="p-6">
+            {currentStep === 0 && (
               <motion.div variants={itemVariants} className="space-y-4">
-                <label htmlFor="feria-select" className="block text-sm font-medium text-gray-700">Select An Event</label>
+                <label htmlFor="feria-select" className="block text-sm font-medium text-gray-700">Selecciona una Feria</label>
                 <select
                   id="feria-select"
                   onChange={handleFeriaSelection}
                   className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
                 >
-                  <option value="">Select An Event</option>
-                  {ferias.map((feria) => (
-                    <option key={feria.id} value={feria.id}>
-                      {feria.name}
+                  <option value="">Elige tu feria</option>
+                  {events.map((event) => (
+                    <option key={event.id} value={event.id}>
+                      {event.name}
                     </option>
                   ))}
                 </select>
@@ -475,80 +317,21 @@ const ReservaPage = () => {
                   </motion.div>
                 )}
               </motion.div>
-            </div>
-          )}
+            )}
+           {/* Aquí usamos el ternario para decidir qué componente renderizar */}
           {currentStep === 1 && (
-            <div className="p-6">
-              <motion.div variants={itemVariants}>
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">{steps[currentStep].title}</h2>
-                <p className="text-gray-600 mb-4">{steps[currentStep].description}</p>
-              </motion.div>
-              <motion.div variants={itemVariants}>
-                <CasetaSelector onSelect={handleCasetaSelection} />
-              </motion.div>
-            </div>
+            selectedFeria?.type === 'caseta' 
+              ? <CasetaSelector onCasetaSelect={handleCasetaSelection} />
+              : selectedFeria?.type === 'seat'
+              ? <SeatSelector onSeatSelect={handleSeatSelection} />
+              : <MusicVenue onVenueSelect={handleVenueSelection} />
           )}
-          {currentStep === 2 && (
-            <div className="p-6">
+            {currentStep === 2 && (
               <motion.div variants={itemVariants}>
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">{steps[currentStep].title}</h2>
-                <p className="text-gray-600 mb-4">{steps[currentStep].description}</p>
+                <PaymentForm onPaymentComplete={handlePaymentComplete} />
               </motion.div>
-              <motion.form className="space-y-4" variants={itemVariants}>
-                <motion.div className="space-y-2" variants={itemVariants}>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nombre</label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder="Tu nombre completo"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  />
-                </motion.div>
-                <motion.div className="space-y-2" variants={itemVariants}>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="tu@email.com"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  />
-                </motion.div>
-                <motion.div className="space-y-2" variants={itemVariants}>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Teléfono</label>
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    placeholder="123 456 789"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  />
-                </motion.div>
-                <motion.div className="space-y-2" variants={itemVariants}>
-                  <label className="block text-sm font-medium text-gray-700">Fecha de Llegada</label>
-                  <input
-                    type="date"
-                    value={date ? format(date, "yyyy-MM-dd") : ""}
-                    onChange={(e) => setDate(new Date(e.target.value))}
-                    className="mt-1 block w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  />
-                </motion.div>
-              </motion.form>
-            </div>
-          )}
-          {currentStep === 3 && (
-            <div className="p-6">
-              <motion.div variants={itemVariants}>
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">{steps[currentStep].title}</h2>
-                <p className="text-gray-600 mb-4">{steps[currentStep].description}</p>
-              </motion.div>
+            )}
+            {currentStep === 3 && (
               <motion.div className="space-y-4" variants={itemVariants}>
                 <motion.div className="bg-gray-100 p-4 rounded-lg" variants={itemVariants}>
                   <h3 className="font-bold text-xl text-gray-800">Detalles de la Feria</h3>
@@ -573,23 +356,24 @@ const ReservaPage = () => {
                   <p className="font-bold mt-2">Total: ${selectedCasetas.reduce((sum, caseta) => sum + (caseta <= 10 ? 200 : 100), 0)}</p>
                 </motion.div>
                 <motion.div className="bg-gray-100 p-4 rounded-lg" variants={itemVariants}>
-                  <h3 className="font-bold text-xl text-gray-800">Información Personal</h3>
-                  <p className="text-gray-700">Nombre: {formData.name}</p>
-                  <p className="text-gray-700">Email: {formData.email}</p>
-                  <p className="text-gray-700">Teléfono: {formData.phone}</p>
-                  <p className="text-gray-700">Fecha de Llegada: {date ? format(date, "PPP") : "No seleccionada"}</p>
+                  <h3 className="font-bold text-xl text-gray-800">Información de Pago</h3>
+                  <p className="text-gray-700">Titular: {paymentData?.cardHolder}</p>
+                  <p className="text-gray-700">Número de tarjeta: **** **** **** {paymentData?.number.slice(-4)}</p>
+                  <p className="text-gray-700">Tipo de tarjeta: {paymentData?.cardType}</p>
+                  <p className="text-gray-700">Red de pago: {paymentData?.paymentNetwork}</p>
                 </motion.div>
                 <motion.div variants={itemVariants}>
                   <button 
-                    className="w-full bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300 py-2 px-4 rounded-md"
+                    className="w-full bg-blue-600 text-white py-2 px-4 rounde
+d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                     onClick={() => alert("¡Tu reserva ha sido confirmada!")}
                   >
                     Confirmar Reserva
                   </button>
                 </motion.div>
               </motion.div>
-            </div>
-          )}
+            )}
+          </div>
         </motion.div>
       </AnimatePresence>
     )
@@ -641,14 +425,14 @@ const ReservaPage = () => {
           <button 
             onClick={prevStep} 
             disabled={currentStep === 0}
-            className={`bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors duration-300 py-2 px-4 rounded-md ${currentStep === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className="bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 disabled:opacity-50"
           >
             <ChevronLeftIcon className="inline-block mr-2 h-4 w-4" /> Anterior
           </button>
           <button 
             onClick={nextStep} 
             disabled={currentStep === steps.length - 1 || (currentStep === 0 && !selectedFeria) || (currentStep === 1 && selectedCasetas.length === 0)}
-            className={`bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300 py-2 px-4 rounded-md ${(currentStep === steps.length - 1 || (currentStep === 0 && !selectedFeria) || (currentStep === 1 && selectedCasetas.length === 0)) ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
           >
             {currentStep === steps.length - 1 ? "Finalizar" : "Siguiente"} <ChevronRightIcon className="inline-block ml-2 h-4 w-4" />
           </button>

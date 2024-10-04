@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { X } from 'lucide-react';
 
-const CasetaSelector = () => {
+
+const CasetaSelector = ({ onSelect }) => {
     const smallCasetaWidth = 30;
     const smallCasetaHeight = 30;
     const largeCasetaWidth = smallCasetaWidth * 2;
@@ -14,13 +15,16 @@ const CasetaSelector = () => {
 
     const handleCasetaClick = (casetaNumber) => {
         if (selectedCasetas.includes(casetaNumber)) {
-            setSelectedCasetas(selectedCasetas.filter(caseta => caseta !== casetaNumber));
+            const updatedCasetas = selectedCasetas.filter(caseta => caseta !== casetaNumber);
+            setSelectedCasetas(updatedCasetas);
+            onSelect(updatedCasetas); // Actualiza selección
         } else if (selectedCasetas.length < 3) {
-            setSelectedCasetas([...selectedCasetas, casetaNumber]);
+            const newSelection = [...selectedCasetas, casetaNumber];
+            setSelectedCasetas(newSelection);
             setShowModal(true);
-            onSelect(newSelection);
+            onSelect(newSelection); // Llama a onSelect con la nueva selección
         } else {
-            alert("Solo puedes seleccionar un máximo de 2 casetas.");
+            alert("Solo puedes seleccionar un máximo de 3 casetas.");
         }
     };
 

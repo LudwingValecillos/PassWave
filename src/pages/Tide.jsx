@@ -5,7 +5,11 @@ import Expositions from "../assets/2.png";
 
 
 
+
+
 function Tide() {
+  window.scrollTo(0, 0);
+
   return (
 
     <>
@@ -20,7 +24,7 @@ function Tide() {
           applyHover={true}
        />
       </div>
-    <PrintCardEvenes id={2}/>
+    <PrintCardEvenes id={1}/>
 
     </>
 

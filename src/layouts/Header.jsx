@@ -26,7 +26,9 @@ const Header = () => {
           {/* Logo section */}
           <div className="flex-1 md:flex md:items-center md:gap-12">
             <Link to="/home" className="flex justify-center items-center gap-5">
+
               <img src="/src/assets/logoOk.png" alt="Logo" className="h-28" />
+
               <div className="relative inline-block">
                 <img
                   src="/src/assets/WaveCen.gif"
