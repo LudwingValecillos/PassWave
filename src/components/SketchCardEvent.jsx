@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
-import { Calendar, Ticket, Star, DollarSign } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Calendar, Ticket, Star, DollarSign, Heart } from "lucide-react";
 import Aos from "aos";
+import { Link } from "react-router-dom";
 
-const SketchCardEvent = React.memo(({ title, img, date, quotas, artists, price }) => {
+const SketchCardEvent = React.memo(({ title, img, date, quotas, artists, price,id }) => {
+  const [isFavorite, setIsFavorite] = useState(false);
   useEffect(() => {
   }, []);
 
@@ -15,9 +17,9 @@ const SketchCardEvent = React.memo(({ title, img, date, quotas, artists, price }
           className="h-56 w-full object-cover rounded-md border-4 border-black"
         />
         <div
-          className="absolute top-2 right-2 bg-white text-black font-bold py-1 px-3 text-xs rounded-full transform rotate-12 border-2 border-black"
+          className="absolute -top-3 right-2 bg-white text-black font-bold py-1 px-3 text-xl rounded-full transform rotate-12 border-2 border-black "
         >
-          New!
+          <Heart className="h-6 w-6 text-red-500 " />
         </div>
       </div>
 
@@ -70,9 +72,9 @@ const SketchCardEvent = React.memo(({ title, img, date, quotas, artists, price }
       </div>
 
       <div className="my-4 flex justify-center">
-        <button className="w-full flex justify-center items-center bg-black text-white py-2 rounded-3xl duration-100 hover:bg-white hover:text-black hover:border-2 hover:border-black hover:shadow-2xl hover:font-bold">
+      <Link to={`/event/${id}`} className="w-full flex justify-center items-center bg-black text-white py-2 rounded-3xl duration-100 hover:bg-white hover:text-black hover:border-2 hover:border-black hover:shadow-2xl hover:font-bold">
           See more
-        </button>
+        </Link>
       </div>
     </article>
   );

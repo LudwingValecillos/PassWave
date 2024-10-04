@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Button2 from "./Button2";
 import Buttonw from "./Buttonw";
@@ -176,7 +176,10 @@ const EventDetails = () => {
               <>
                 {" "}
                 <Button2 title="Buy Ticket Now!" />{" "}
+                
+                <Link to={`/reserva/${event.id}`}>
                 <Buttonw title="Rent a Stand!" />{" "}
+                </Link>
               </>
             )}
           </div>
