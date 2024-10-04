@@ -84,21 +84,27 @@ const AdminEventForm = () => {
     }));
   };
 
-  const aler = (msg) => {
+  const alerError = (msg) => {
     Swal.fire({
-      title: 'Are you sure?',
+      title: "Oops! Something went wrong.",
       text: msg,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    })
-  }
+      icon: "error",
+    });
+  };
+
+  const alerSuccess = () => {
+    Swal.fire({
+      title: "Success!",
+      text: "Event created successfully",
+      icon: "success",
+    });
+  };
   const handleSubmit = (e) => {
-    console.log(event);
+if(event.name === '' || event.description === '' || event.artists.length === 0 || event.date === '' || event.ticketPrice === '' || event.images.length === 0){  
+  alerError('All fields are required');
+  return;
+}
     
-    console.log(localStorage.getItem('token'));
     
     e.preventDefault();
     axios.post('http://localhost:8080/api/event/create', event, {
@@ -106,10 +112,10 @@ const AdminEventForm = () => {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       },
     }).then((response) => {
-      console.log(response.data);
+      alerSuccess();
       dispatch(loadEvents());
     }).catch((error) => {
-      console.log(error);
+      alerError(error.response.data);
     });
   };
 

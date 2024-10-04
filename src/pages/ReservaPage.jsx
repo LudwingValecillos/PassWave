@@ -1,7 +1,12 @@
 import React, { useState } from "react"
+import Aos from 'aos';
 import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
+import { useParams } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import CasetaSelector from "../components/CasetaSelector"
+import MusicVenue from "../components/MusicVenue"
+import SeatSelector from "../components/SeatSelector"
 import { loadEvents } from "../redux/actions/eventsAction"
 import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon, Tent, MapPin, CreditCard, CheckCircle, X } from "lucide-react"
 
@@ -11,6 +16,7 @@ const steps = [
   { title: "Realiza el Pago", description: "Ingresa los datos de tu tarjeta", icon: CreditCard },
   { title: "Confirmación", description: "Revisa y confirma tu reserva", icon: CheckCircle },
 ]
+
 
   // const events = useSelector((state) => state.events.events || []);
   // const dispatch = useDispatch();
@@ -25,6 +31,7 @@ const steps = [
   //     dispatch(loadEvents());
   //   }
   // }, [dispatch, events]);
+
 
 
 const PaymentForm = ({ onPaymentComplete }) => {
@@ -195,6 +202,29 @@ const   ReservaPage = () => {
   const [date, setDate] = useState(null)
   const [paymentData, setPaymentData] = useState(null)
 
+  const events = useSelector((state) => state.events.events || []);
+  const dispatch = useDispatch();
+  console.log(events);
+
+  useEffect(() => {
+    Aos.init({ duration: 500 });
+  }, []);
+
+  useEffect(() => {
+    if (!events.length || events[0].name === '') {
+      dispatch(loadEvents());
+    }
+  }, [dispatch, events]);
+
+
+
+  const { id } = useParams();
+  const eventId = Number(id);
+  const event = useSelector((state) =>
+    state.events.events.find((event) => event.id === eventId)
+  );
+
+
   const handleFeriaSelection = (e) => {
     const feriaId = parseInt(e.target.value)
     setSelectedFeria(events.find(feria => feria.id === feriaId))
@@ -300,7 +330,10 @@ const   ReservaPage = () => {
                   className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
                 >
                   <option value="">Elige tu feria</option>
-                  {events.map((event) => (
+                  {event ? <option key={event.id} value={event.id}>
+                      {event.name}
+                    </option>
+                  :events.map((event) => (
                     <option key={event.id} value={event.id}>
                       {event.name}
                     </option>
@@ -323,7 +356,7 @@ const   ReservaPage = () => {
             selectedFeria?.type === 'caseta' 
               ? <CasetaSelector onCasetaSelect={handleCasetaSelection} />
               : selectedFeria?.type === 'seat'
-              ? <SeatSelector onSeatSelect={handleSeatSelection} />
+              ?<SeatSelector onSeatSelect={handleSeatSelection} />
               : <MusicVenue onVenueSelect={handleVenueSelection} />
           )}
             {currentStep === 2 && (

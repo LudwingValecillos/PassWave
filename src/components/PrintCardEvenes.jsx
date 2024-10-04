@@ -63,7 +63,6 @@ function PrintCardEvenes(props) {
             <div className="flex flex-wrap justify-center items-center gap-12 mt-5" data-aos="fade-up">
                 {filteredEvents.map((event) => (
                     <div key={event.id} data-aos="fade-up">
-                        <Link to={`/event/${event.id}`}>
                             <SketchCardEvent
                                 title={event.name}
                                 img={event.images[0]}
@@ -71,8 +70,9 @@ function PrintCardEvenes(props) {
                                 quotas={event.ticketsAvailable}
                                 artists={event.artists.length}
                                 price={event.ticketPrice}
+                                id={event.id}
                             />
-                        </Link>
+                       
                     </div>
                 ))}
             </div>
