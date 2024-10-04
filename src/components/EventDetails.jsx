@@ -182,6 +182,7 @@ const EventDetails = () => {
             )}
           </div>
 
+
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             {event.stands.length == 0 ? (
               <Button2 title="Buy Ticket Now!" />

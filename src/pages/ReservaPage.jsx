@@ -18,6 +18,22 @@ const steps = [
 ]
 
 
+  // const events = useSelector((state) => state.events.events || []);
+  // const dispatch = useDispatch();
+  // console.log(events);
+
+  // useEffect(() => {
+  //   Aos.init({ duration: 500 });
+  // }, []);
+
+  // useEffect(() => {
+  //   if (!events.length || events[0].name === '') {
+  //     dispatch(loadEvents());
+  //   }
+  // }, [dispatch, events]);
+
+
+
 const PaymentForm = ({ onPaymentComplete }) => {
   const [cardData, setCardData] = useState({
     cardHolder: '',

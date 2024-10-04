@@ -40,7 +40,7 @@ const PaymentGateway = ({ onPaymentComplete, ticketPrice }) => {
       <h2 className="text-4xl font-bold mb-8 text-center text-yellow-600">Payment Details</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="ticketQuantity" className="block text-lg font-medium text-gray-700">Cantidad de Entradas</label>
+          <label htmlFor="ticketQuantity" className="block text-lg font-medium text-gray-700">Total Tickets</label>
           <input
             type="number"
             id="ticketQuantity"
