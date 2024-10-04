@@ -182,7 +182,7 @@ const EventDetails = () => {
             )}
           </div>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-4"> 
           <Button2 title="Buy Ticket Now!" onClick={handleBuyTicketClick} />
   {event.stands.length > 0 && <Buttonw title="Rent a Stand!" />}
 </div>

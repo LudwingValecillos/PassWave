@@ -12,19 +12,19 @@ const steps = [
   { title: "Confirmación", description: "Revisa y confirma tu reserva", icon: CheckCircle },
 ]
 
-  const events = useSelector((state) => state.events.events || []);
-  const dispatch = useDispatch();
-  console.log(events);
+  // const events = useSelector((state) => state.events.events || []);
+  // const dispatch = useDispatch();
+  // console.log(events);
 
-  useEffect(() => {
-    Aos.init({ duration: 500 });
-  }, []);
+  // useEffect(() => {
+  //   Aos.init({ duration: 500 });
+  // }, []);
 
-  useEffect(() => {
-    if (!events.length || events[0].name === '') {
-      dispatch(loadEvents());
-    }
-  }, [dispatch, events]);
+  // useEffect(() => {
+  //   if (!events.length || events[0].name === '') {
+  //     dispatch(loadEvents());
+  //   }
+  // }, [dispatch, events]);
 
 
 const PaymentForm = ({ onPaymentComplete }) => {
