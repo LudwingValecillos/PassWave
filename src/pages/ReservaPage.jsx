@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import Aos from 'aos';
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
+import { useParams } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import CasetaSelector from "../components/CasetaSelector"
 import MusicVenue from "../components/MusicVenue"
@@ -200,6 +201,14 @@ const   ReservaPage = () => {
   }, [dispatch, events]);
 
 
+
+  const { id } = useParams();
+  const eventId = Number(id);
+  const event = useSelector((state) =>
+    state.events.events.find((event) => event.id === eventId)
+  );
+
+
   const handleFeriaSelection = (e) => {
     const feriaId = parseInt(e.target.value)
     setSelectedFeria(events.find(feria => feria.id === feriaId))
@@ -305,7 +314,10 @@ const   ReservaPage = () => {
                   className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
                 >
                   <option value="">Elige tu feria</option>
-                  {events.map((event) => (
+                  {event ? <option key={event.id} value={event.id}>
+                      {event.name}
+                    </option>
+                  :events.map((event) => (
                     <option key={event.id} value={event.id}>
                       {event.name}
                     </option>
@@ -328,7 +340,7 @@ const   ReservaPage = () => {
             selectedFeria?.type === 'caseta' 
               ? <CasetaSelector onCasetaSelect={handleCasetaSelection} />
               : selectedFeria?.type === 'seat'
-              ? <SeatSelector onSeatSelect={handleSeatSelection} />
+              ?<SeatSelector onSeatSelect={handleSeatSelection} />
               : <MusicVenue onVenueSelect={handleVenueSelection} />
           )}
             {currentStep === 2 && (

@@ -97,6 +97,9 @@ export default function SeatSelector({ onSelect }) {
           Escenario
         </text>
 
+
+{/* //array de numeros desde el back, verificar cual esta disponible en base a ese array*/}
+
         {/* Asientos */}
         {rows.map((row, rowIndex) => (
           <g key={`row-${rowIndex}`}>
