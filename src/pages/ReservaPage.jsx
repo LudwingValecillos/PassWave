@@ -339,7 +339,7 @@ const   ReservaPage = () => {
           {currentStep === 1 && (
             selectedFeria?.type === 'caseta' 
               ? <CasetaSelector onCasetaSelect={handleCasetaSelection} />
-              : selectedFeria?.type === 'seat'
+              : selectedFeria?.name === 'seat'
               ?<SeatSelector onSeatSelect={handleSeatSelection} />
               : <MusicVenue onVenueSelect={handleVenueSelection} />
           )}
