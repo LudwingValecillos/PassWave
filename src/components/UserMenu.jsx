@@ -25,14 +25,11 @@ console.log(client);
           <Link to="/my-purchases" className="block px-4 py-2 hover:bg-gray-100">
             My Purchases
           </Link>
-          {/* <ul className="pl-4">
-            <li><Link to="/tickets" className="block px-4 py-1 hover:bg-gray-100">Tickets</Link></li>
-            <li><Link to="/stand" className="block px-4 py-1 hover:bg-gray-100">Stand</Link></li>
-          </ul> */}
+          
         </li>
    
         <li onClick={() => localStorage.clear()}><Link to="/login" className="block px-4 py-2 hover:bg-gray-100">Logout</Link></li>
-        <li><Link to="/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</Link></li>
+        <li><Link to="/favorite" className="block px-4 py-2 hover:bg-gray-100">Favorites</Link></li>
         {client.email.includes("admin") ? <li><Link to="/createEvent" className="block px-4 py-2 hover:bg-gray-100">Create Event</Link></li> : null}
       </ul>
     </div>

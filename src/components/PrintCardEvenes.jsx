@@ -8,46 +8,43 @@ function PrintCardEvenes(props) {
     const [searchTerm, setSearchTerm] = useState('');
     const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
     const dispatch = useDispatch();
-    
-    const events = useSelector((state) => {
-        const filteredEvents = props.id !== 0
-            ? state.events.events.filter((event) => event.place.id === props.id)
-            : state.events.events;
 
-        return filteredEvents;
-    });
+    const events = useSelector((state) => state.events.events || []); // Obtener todos los eventos
 
     useEffect(() => {
         Aos.init({ duration: 500 });
     }, []);
 
     useEffect(() => {
-        if (events.length === 0) { // Verificar si no hay eventos
+        if (events.length === 0) {
             dispatch(loadEvents());
         }
-    }, [dispatch]); // Cambiar a events.length para evitar la recursividad
+    }, [dispatch, events.length]);
 
     // Debounce para evitar la búsqueda en cada pulsación de tecla
     useEffect(() => {
         const handler = setTimeout(() => {
             setDebouncedSearchTerm(searchTerm);
-        }, 300); // 300 ms de espera
+        }, 300);
 
         return () => {
             clearTimeout(handler);
         };
     }, [searchTerm]);
 
-    // Filtrar eventos según el término de búsqueda
+    // Filtrar eventos según el término de búsqueda y los favoritos
     const filteredEvents = useMemo(() => {
-        return events.length > 0 ? events.filter(event =>
+        const favoriteEvents = Array.isArray(props.favorites) ? props.favorites : []; // Verifica si favorites es un arreglo
+        const eventsToFilter = favoriteEvents.length > 0 ? favoriteEvents : events;
+
+        return eventsToFilter.filter(event =>
             event.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
-        ) : []; // Retorna un arreglo vacío si no hay eventos
-    }, [events, debouncedSearchTerm]);
+        );
+    }, [events, props.favorites, debouncedSearchTerm]);
 
     return (
         <div>
-            <div className="flex justify-center items-center h-">
+            <div className="flex justify-center items-center">
                 <img src="https://png.pngtree.com/png-vector/20230430/ourmid/pngtree-right-arrow-vector-png-image_6745379.png" alt="" className='w-[200px] rotate-90' />
                 <input
                     type="text"
@@ -58,7 +55,7 @@ function PrintCardEvenes(props) {
                 />
                 <img src="https://png.pngtree.com/png-vector/20230430/ourmid/pngtree-right-arrow-vector-png-image_6745379.png" alt="" className='w-[200px] rotate-90' />
             </div>
-            {filteredEvents.length === 0 ? ( // Mensaje cuando no hay eventos
+            {filteredEvents.length === 0 ? (
                 <p>No events found.</p>
             ) : (
                 <div className="flex flex-wrap justify-center items-center gap-12 mt-5" data-aos="fade-up">
