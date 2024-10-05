@@ -1,41 +1,10 @@
+// reducers/eventReducer.js
 import { createReducer } from "@reduxjs/toolkit";
-import { loadEvents } from "../actions/eventsAction";
+import { loadEvents, selectEvent } from "../actions/eventsAction";
 
 const initialState = {
-  events: [
-    {
-      id: 0,
-      name: "",
-      description: "",
-      date: "",
-      ticketPrice: 0,
-      place: {
-        id: 0,
-        name: "",
-        ticketMaxCapacity: 0,
-        standMaxCapacity: 0,
-        description: "",
-      },
-      images: [""],
-      stands: [
-        {
-          id: 0,
-          locations: [0],
-          size: "",
-          price: 0,
-        },
-      ],
-      tickets: [
-        {
-          id: 0,
-          eventName: "",
-          purchaseDate: "",
-        },
-      ],
-      artists: [""],
-      ticketsAvailable: 0,
-    },
-  ],
+  events: [], // Cambié a un array vacío para empezar
+  selectedEvent: null, // Estado para el evento seleccionado
   status: "idle",
   error: null,
 };
@@ -52,6 +21,9 @@ const eventReducer = createReducer(initialState, (builder) => {
     .addCase(loadEvents.rejected, (state, action) => {
       state.status = "failed";
       state.error = action.payload;
+    })
+    .addCase(selectEvent, (state, action) => {
+      state.selectedEvent = action.payload; // Almacena el evento seleccionado
     });
 });
 

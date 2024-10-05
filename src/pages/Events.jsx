@@ -5,6 +5,8 @@ import CardEvent from "../components/CardEvent";
 
 const Events = () => {
   useEffect(() => {
+  window.scrollTo(0, 0);
+
     AOS.init({ duration: 500 });
   }, []);
 
