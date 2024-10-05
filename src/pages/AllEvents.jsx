@@ -5,9 +5,12 @@ import { loadEvents } from '../redux/actions/eventsAction';
 import PrintCardEvenes from '../components/PrintCardEvenes';
 import VintageCard from '../components/VintageCard';
 import Shows from "../assets/4.png";
+import { loadClient } from '../redux/actions/clientActions';
 
 
 function AllEvents() {
+  const client = useSelector((state) => state.client);
+
   const events = useSelector((state) => state.events.events || []);
   const dispatch = useDispatch();
   console.log(events);
@@ -16,9 +19,16 @@ function AllEvents() {
 
   useEffect(() => {
   window.scrollTo(0, 0);
-
     Aos.init({ duration: 500 });
+
   }, []);
+  useEffect(() => {
+    if(client.firstName == ""){
+      dispatch(loadClient());
+    }
+  
+    }, [dispatch]);
+  
 
   useEffect(() => {
     if (!events.length || events[0].name === '') {
