@@ -20,6 +20,7 @@ const Login = () => {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerConfirmPassword, setRegisterConfirmPassword] = useState("");
+  const [msg, setMsg] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -98,8 +99,16 @@ const Login = () => {
       localStorage.setItem("token", res.data);
       console.log(res.data);
 
-      navigate("/home");
       dispatch(loadClient());
+
+      const redirectPath = localStorage.getItem('redirectAfterLogin');
+    
+    if (redirectPath) {
+      localStorage.removeItem('redirectAfterLogin'); 
+      navigate(redirectPath); 
+    } else {
+      navigate("/home");
+    }
     } catch (err) {
       alertError(err.response.data);
     }
@@ -153,13 +162,16 @@ const Login = () => {
     }
   };
 
+  if(registerConfirmPassword !== registerPassword){
+    
+  }
   return (
     <div
       className="flex justify-center items-center min-h-screen bg-[#F2F2F2] p-4"
       data-aos="flip-left"
     >
       <div
-        className="w-full z-10 max-w-3xl bg-white rounded-lg shadow-xl overflow-hidden border-black border-[1px]"
+        className="w-full z-10 max-w-3xl bg-white shadow-2xl rounded-lg shadow-xl overflow-hidden border-black border-[1px]"
         data-aos="flip-right"
       >
         <div className="relative flex flex-col md:flex-row h-[600px] md:h-[500px]">

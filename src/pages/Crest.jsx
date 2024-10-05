@@ -9,12 +9,12 @@ import { loadClient } from '../redux/actions/clientActions';
 
 
 function Crest() {
-  const client = useSelector((state) => state.client);
+  const client = useSelector((state) => state.client.client);
 
   const dispatch = useDispatch();
   window.scrollTo(0, 0);
   useEffect(() => {
-    if(client.firstName == ""){
+    if(client.firstName == "" && localStorage.getItem("token") !== null) {
       dispatch(loadClient());
     }
   

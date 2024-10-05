@@ -9,11 +9,10 @@ import { loadClient } from '../redux/actions/clientActions';
 
 
 function AllEvents() {
-  const client = useSelector((state) => state.client);
+  const client = useSelector((state) => state.client.client);
 
   const events = useSelector((state) => state.events.events || []);
   const dispatch = useDispatch();
-  console.log(events);
   
 
 
@@ -23,7 +22,7 @@ function AllEvents() {
 
   }, []);
   useEffect(() => {
-    if(client.firstName == ""){
+    if(client.firstName == "" && localStorage.getItem("token") !== null) {
       dispatch(loadClient());
     }
   

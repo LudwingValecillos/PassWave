@@ -7,12 +7,12 @@ import { loadClient } from '../redux/actions/clientActions';
 
 
 function Drift() {
-  const client = useSelector((state) => state.client);
+  const client = useSelector((state) => state.client.client);
 
   window.scrollTo(0, 0);
   const dispatch = useDispatch();
   useEffect(() => {
-    if(client.firstName == ""){
+    if(client.firstName == "" && localStorage.getItem("token") !== null) {
       dispatch(loadClient());
     }
   

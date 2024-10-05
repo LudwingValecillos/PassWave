@@ -11,17 +11,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadClient } from "../redux/actions/clientActions";
 
 const Home = () => {
-  const client = useSelector((state) => state.client);
+  
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
+  const client = useSelector((state) => state.client.client);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    if(client.firstName == ""){
+    if(client.firstName == "" && localStorage.getItem("token") !== null) {
       dispatch(loadClient());
     }
-  
     }, [dispatch]);
 
   const [scrollPosition, setScrollPosition] = useState(0);
