@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { X } from 'lucide-react'
 
-export default function MusicVenue({ onSelect }) {
+export default function MusicVenue({ onSelect, event}) {
   const [isSelected, setIsSelected] = useState(false)
   const [showModal, setShowModal] = useState(false)
 

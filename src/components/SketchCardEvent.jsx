@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 
 const SketchCardEvent = React.memo(({ title, img, date, quotas, artists, price,id }) => {
   const [isFavorite, setIsFavorite] = useState(false);
+  console.log(id);
+  
+  
   useEffect(() => {
   }, []);
 
@@ -18,6 +21,7 @@ const SketchCardEvent = React.memo(({ title, img, date, quotas, artists, price,i
         />
         <div
           className="absolute -top-3 right-2 bg-white text-black font-bold py-1 px-3 text-xl rounded-full transform rotate-12 border-2 border-black "
+          onClick={() => setIsFavorite(!isFavorite)}
         >
           <Heart className="h-6 w-6 text-red-500 " />
         </div>

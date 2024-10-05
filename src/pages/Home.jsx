@@ -88,7 +88,7 @@ const Home = () => {
       <div data-aos="fade-up" className="w-full">
 
         <VintageCard
-          title="CREAST"
+          title="CREST"
           imageUrl={Expositions}
           buttonText="+ Info"
 

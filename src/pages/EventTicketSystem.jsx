@@ -197,6 +197,7 @@ const EventTicketSystem = () => {
     setPaymentComplete(true);
     setTicketQuantity(quantity);
   };
+  window.scrollTo(0, 0);
 
   return (
     <div className="event-ticket-system p-8 bg-gray-100">

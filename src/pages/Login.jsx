@@ -30,6 +30,7 @@ const Login = () => {
   const handleMouseMove = (e) => {
     setMousePosition({ x: e.clientX, y: e.clientY });
   };
+  
   useEffect(() => {
     Aos.init({ duration: 1000 });
   }, []);
@@ -63,7 +64,7 @@ const Login = () => {
     { x: window.innerWidth * 0.8, y: window.innerHeight * 0.7 },
   ];
 
-  const alerError = (msg) => {
+  const alertError = (msg) => {
     Swal.fire({
       title: "Oops! Something went wrong.",
       text: msg,
@@ -71,71 +72,63 @@ const Login = () => {
     });
   };
 
-  const alerSuccess = (msg) => {
+  const alertSuccess = (msg) => {
     Swal.fire({
       title: "Success!",
       text: msg,
       icon: "success",
     });
   };
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
     // Validación de email
     if (!loginEmail || !/\S+@\S+\.\S+/.test(loginEmail)) {
-      alerError("Please enter a valid email address.");
+      alertError("Please enter a valid email address.");
       return;
     }
-
-    // Validación de contraseña (mínimo 8 caracteres)
-    // if (!loginPassword || loginPassword.length < 8) {
-    //     alerError("Password must be at least 8 characters long.");
-    //   return;
-    // }
 
     const user = { email: loginEmail, password: loginPassword };
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/auth/login",
-        user
+      const res = await axios.post(
+        "http://localhost:8080/api/auth/login", user
       );
-      alerSuccess(
-        "Login successful. Welcome back to WaveCompany. You can now access your account and enjoy our services."
-      );
-      navigate("/home");
-      console.log(response.data);
+      localStorage.setItem("token", res.data);
+      console.log(res.data);
 
-      localStorage.setItem("token", response.data);
+      navigate("/home");
       dispatch(loadClient());
-    } catch (error) {
-      alerError(error.response.data);
+    } catch (err) {
+      alertError(err.response.data);
     }
   };
+
   const handleRegister = async (e) => {
     e.preventDefault();
 
     // First Name validation
     if (!registerFirstName || registerFirstName.length < 2) {
-      alerError("First name must be at least 2 characters long.");
+      alertError("First name must be at least 2 characters long.");
       return;
     }
 
     // Last Name validation
     if (!registerLastName || registerLastName.length < 2) {
-      alerError("Last name must be at least 2 characters long.");
+      alertError("Last name must be at least 2 characters long.");
       return;
     }
 
     // Email validation
     if (!registerEmail || !/\S+@\S+\.\S+/.test(registerEmail)) {
-      alerError("Please enter a valid email address.");
+      alertError("Please enter a valid email address.");
       return;
     }
 
     // Password validation
     if (!registerPassword || registerPassword.length < 8) {
-      alerError(
+      alertError(
         "Password must be at least 8 characters long and include uppercase, lowercase, a number, and a special character."
       );
       return;
@@ -153,10 +146,10 @@ const Login = () => {
         "http://localhost:8080/api/auth/register",
         user
       );
-      alerSuccess("You have successfully registered. You may now log in.");
+      alertSuccess("You have successfully registered. You may now log in.");
       toggleForm();
     } catch (error) {
-      alerError(error.response.data);
+      alertError(error.response.data);
     }
   };
 

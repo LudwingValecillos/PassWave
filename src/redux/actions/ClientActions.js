@@ -14,6 +14,8 @@ const token = localStorage.getItem("token");
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+      console.log(response.data);
+      
       return response.data; // Devuelve los datos del cliente directamente
     } catch (error) {
       console.error("Error loading client:", error);
@@ -23,6 +25,7 @@ const token = localStorage.getItem("token");
     }
   }
 );
+
 
 // // Acción para agregar una tarjeta al cliente
 // export const addCardToClient = createAsyncThunk("addCardToClient", async(card, { rejectWithValue }) => {
