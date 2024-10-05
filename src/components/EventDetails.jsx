@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 
 import { loadEvents, selectEvent } from "../redux/actions/eventsAction";
+import { div } from "framer-motion/client";
 
 const EventDetails = () => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -27,8 +28,12 @@ const EventDetails = () => {
   const event = useSelector((state) =>
     state.events.events.find((event) => event.id === eventId)
   );
-  console.log(event);
+  const status = useSelector((state) => state.client.status);
 
+  console.log(status);
+  
+  console.log(event.id);
+  
   window.scrollTo(0, 0);
 
   useEffect(() => {
@@ -108,7 +113,9 @@ const EventDetails = () => {
             </div>
             <div className="flex items-center mb-2 lg:mb-0 transform hover:scale-105 transition-transform">
               <Ticket className="mr-2 text-green-600" />
-              <span className="text-lg font-bold">${event.ticketPrice.toLocaleString()}</span>
+              <span className="text-lg font-bold">
+                ${event.ticketPrice.toLocaleString()}
+              </span>
             </div>
             <div className="flex items-center transform hover:scale-105 transition-transform">
               <Users className="mr-2 text-purple-600" />
@@ -183,20 +190,38 @@ const EventDetails = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            {event.stands.length == 0 ? (
-              <Button2 title="Buy Ticket Now!" />
-            ) : (
+            {
+              status == "success" ?
+             event.place.id == 1 ? (
               <>
-                {" "}
-                <Button2 title="Buy Ticket Now!" />{" "}
-                
+                <Button2
+                  title="Buy Ticket Now!"
+                  onClick={handleBuyTicketClick}
+                />
+
                 <Link to={`/reserva/${event.id}`}>
-                <Buttonw title="Rent a Stand!" />{" "}
+                  <Buttonw title="Rent a Stand!" />{" "}
+                </Link>
+                </>
+            ) : event.place.id == 2 ? (
+              <>
+                <Link to={`/reserva/${event.id}`}>
+                  <Button2 title="Buy Ticket Now!" />
                 </Link>
               </>
-            )}
-          </div>
+            ) : (
+              <Link to={`/reserva/${event.id}`}>
+                <Button2 title="Buy Ticket Now!" />
+              </Link>
+            )
+          :
+          <Link to={`/login`}>
+          
+                <Button2 title="Login" />
+                </Link>
 
+          }
+          </div>
         </div>
       </div>
     </div>

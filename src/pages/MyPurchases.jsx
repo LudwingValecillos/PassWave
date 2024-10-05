@@ -1,7 +1,7 @@
 import React from 'react';
 import PerfilUsuario from '../components/UserPerfil'; // Ajusta la ruta si es necesario
 
-import TicketComponent from '../components/TicketComponent';
+import Chatbot from '../components/chatBot';
 
 
 
@@ -12,8 +12,7 @@ export default function MyPurchases() {
      
         <PerfilUsuario />
 
-        <TicketComponent />
-   
+        <Chatbot />
 
 
     </div>
