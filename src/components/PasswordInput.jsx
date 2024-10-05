@@ -40,7 +40,7 @@ const PasswordInput = ({ name, title, onChange }) => {
     <div>
       <label
         htmlFor={name}
-        className="relative block rounded-md border-2 p-1 border-gray-200 bg-white shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
+        className="relative block rounded-md border-2 p-1 border-gray-200 bg-white shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 "
       >
         <input
           type={showPassword ? "text" : "password"}

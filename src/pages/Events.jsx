@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadClient } from "../redux/actions/clientActions";
 
 const Events = () => {
-  const client = useSelector((state) => state.client);
+  const client = useSelector((state) => state.client.client);
 
   useEffect(() => {
   window.scrollTo(0, 0);
@@ -17,7 +17,7 @@ const Events = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    if(client.firstName == ""){
+    if(client.firstName == "" && localStorage.getItem("token") !== null) {
       dispatch(loadClient());
     }
   

@@ -19,6 +19,7 @@ import {
   X,
 } from "lucide-react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const steps = [
   {
@@ -58,6 +59,14 @@ const steps = [
 // }, [dispatch, events]);
 
 const PaymentForm = ({ onPaymentComplete }) => {
+  const client = useSelector((state) => state.client.client);
+const dispatch = useDispatch();
+  useEffect(() => {
+    if (client.firstName == "" && localStorage.getItem("token") !== null) {
+      dispatch(loadClient());
+    }
+  }, [dispatch]);
+
   const [cardData, setCardData] = useState({
     cardHolder: "",
     cvv: "",
@@ -93,7 +102,7 @@ const PaymentForm = ({ onPaymentComplete }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     const errors = validateCardData(cardData);
     if (errors.length) {
       alert(errors.join("\n"));
@@ -102,7 +111,6 @@ const PaymentForm = ({ onPaymentComplete }) => {
     onPaymentComplete(cardData);
   };
 
- 
   const formatThruDate = (date) => {
     if (!date) return "MM/YY";
     const [year, month] = date.split("-");
@@ -445,11 +453,20 @@ const ReservaPage = () => {
 
             {currentStep === 1 &&
               (event.place.id == 1 ? (
-                <CasetaSelector event={event} onCasetaSelect={handleCasetaSelection} />
+                <CasetaSelector
+                  event={event}
+                  onCasetaSelect={handleCasetaSelection}
+                />
               ) : event.place.id == 2 ? (
-                <MusicVenue event={event} onVenueSelect={handleVenueSelection} />
+                <MusicVenue
+                  event={event}
+                  onVenueSelect={handleVenueSelection}
+                />
               ) : (
-                <SeatSelector event={event} onSeatSelect={handleSeatSelection} />
+                <SeatSelector
+                  event={event}
+                  onSeatSelect={handleSeatSelection}
+                />
               ))}
 
             {currentStep === 2 && (
@@ -541,31 +558,47 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
   };
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    
+
     // Calcular la suma
-    const suma = selectedCasetas.reduce((sum, caseta) => sum + (caseta <= 10 ? 10000 : 5000), 0);
-  
+    const suma = selectedCasetas.reduce(
+      (sum, caseta) => sum + (caseta <= 10 ? 10000 : 5000),
+      0
+    );
+
     // Formatear el número de tarjeta
+    const alertSuscess = () => {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Payment Successful",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    };
     const card = {
-      number: paymentData.number.replace(/(\d{4})(?=\d)/g, '$1-'),
+      number: paymentData.number.replace(/(\d{4})(?=\d)/g, "$1-"),
       cvv: paymentData.cvv,
       thruDate: paymentData.thruDate,
       amount: suma,
     };
-  
+
     console.log(card);
     console.log(selectedCasetas);
-    
+
     // Realizar la solicitud POST
-    axios.post("https://homebankig.onrender.com/api/cards/clients/current/payment", card)
+    axios
+      .post(
+        "https://homebankig.onrender.com/api/cards/clients/current/payment",
+        card
+      )
       .then((response) => {
+        alertSuscess();
         console.log(response.data);
       })
       .catch((error) => {
         console.error("Error al realizar la solicitud:", error);
       });
   };
-  
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
