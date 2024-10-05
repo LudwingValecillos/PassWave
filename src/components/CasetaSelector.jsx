@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { X } from 'lucide-react';
 
-
-const CasetaSelector = ({ onSelect }) => {
+const CasetaSelector = ({ onSelect, event }) => {
     const smallCasetaWidth = 30;
     const smallCasetaHeight = 30;
     const largeCasetaWidth = smallCasetaWidth * 2;
@@ -13,7 +12,15 @@ const CasetaSelector = ({ onSelect }) => {
     const [selectedCasetas, setSelectedCasetas] = useState([]);
     const [showModal, setShowModal] = useState(false);
 
+    const stands = [...event.stands[0].locations, ...event.stands[1].locations];
+    console.log(stands);
+
+    // Función para verificar si una caseta es seleccionable
+    const isSelectable = (casetaNumber) => stands.includes(casetaNumber);
+
     const handleCasetaClick = (casetaNumber) => {
+        if (!isSelectable(casetaNumber)) return; // No hace nada si no es seleccionable
+
         if (selectedCasetas.includes(casetaNumber)) {
             const updatedCasetas = selectedCasetas.filter(caseta => caseta !== casetaNumber);
             setSelectedCasetas(updatedCasetas);
@@ -53,10 +60,10 @@ const CasetaSelector = ({ onSelect }) => {
                         <feDropShadow dx="2" dy="2" stdDeviation="3" floodColor="#ffffff" floodOpacity="1" />
                     </filter>
                     <filter id="selected-glow">
-                        <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+                        <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
                         <feMerge>
-                            <feMergeNode in="coloredBlur"/>
-                            <feMergeNode in="SourceGraphic"/>
+                            <feMergeNode in="coloredBlur" />
+                            <feMergeNode in="SourceGraphic" />
                         </feMerge>
                     </filter>
                 </defs>
@@ -75,9 +82,10 @@ const CasetaSelector = ({ onSelect }) => {
                             height={largeCasetaHeight}
                             rx="8"
                             ry="8"
-                            fill={isSelected(index + 1) ? "#4a90e2" : "#e0e0e0"}
+                            fill={isSelected(index + 1) ? "#4a90e2" : (isSelectable(index + 1) ? "#e0e0e0" : "orange")} // Naranja si no es seleccionable
                             filter={isSelected(index + 1) ? "url(#selected-glow)" : "url(#neumorphic-filter)"}
-                            whileHover={{ filter: "url(#neumorphic-inset)" }}
+                            whileHover={{ filter: isSelectable(index + 1) ? "url(#neumorphic-inset)" : undefined }}
+                            style={{ cursor: isSelectable(index + 1) ? 'pointer' : 'not-allowed' }} // Cursor basado en disponibilidad
                             onClick={() => handleCasetaClick(index + 1)}
                         />
                         <text
@@ -103,9 +111,10 @@ const CasetaSelector = ({ onSelect }) => {
                             height={largeCasetaHeight}
                             rx="8"
                             ry="8"
-                            fill={isSelected(index + 6) ? "#4a90e2" : "#e0e0e0"}
+                            fill={isSelected(index + 6) ? "#4a90e2" : (isSelectable(index + 6) ? "#e0e0e0" : "orange")} // Naranja si no es seleccionable
                             filter={isSelected(index + 6) ? "url(#selected-glow)" : "url(#neumorphic-filter)"}
-                            whileHover={{ filter: "url(#neumorphic-inset)" }}
+                            whileHover={{ filter: isSelectable(index + 6) ? "url(#neumorphic-inset)" : undefined }}
+                            style={{ cursor: isSelectable(index + 6) ? 'pointer' : 'not-allowed' }} // Cursor basado en disponibilidad
                             onClick={() => handleCasetaClick(index + 6)}
                         />
                         <text
@@ -132,9 +141,10 @@ const CasetaSelector = ({ onSelect }) => {
                                 height={smallCasetaHeight}
                                 rx="4"
                                 ry="4"
-                                fill={isSelected(10 + rowIndex * 5 + colIndex + 1) ? "#4a90e2" : "#e0e0e0"}
+                                fill={isSelected(10 + rowIndex * 5 + colIndex + 1) ? "#4a90e2" : (isSelectable(10 + rowIndex * 5 + colIndex + 1) ? "#e0e0e0" : "orange")} // Naranja si no es seleccionable
                                 filter={isSelected(10 + rowIndex * 5 + colIndex + 1) ? "url(#selected-glow)" : "url(#neumorphic-filter)"}
-                                whileHover={{ filter: "url(#neumorphic-inset)" }}
+                                whileHover={{ filter: isSelectable(10 + rowIndex * 5 + colIndex + 1) ? "url(#neumorphic-inset)" : undefined }}
+                                style={{ cursor: isSelectable(10 + rowIndex * 5 + colIndex + 1) ? 'pointer' : 'not-allowed' }} // Cursor basado en disponibilidad
                                 onClick={() => handleCasetaClick(10 + rowIndex * 5 + colIndex + 1)}
                             />
                             <text
@@ -150,34 +160,24 @@ const CasetaSelector = ({ onSelect }) => {
                         </g>
                     ))
                 ))}
-
-                {/* Entrada y Salida */}
-                <rect x="20" y="300" width="80" height="30" fill="#e0e0e0" filter="url(#neumorphic-filter)" rx="8" ry="8"></rect>
-                <text x="60" y="315" className="text-xs font-bold fill-gray-600" textAnchor="middle" dominantBaseline="middle">Enter</text>
-
-                <rect x="400" y="300" width="80" height="30" fill="#e0e0e0" filter="url(#neumorphic-filter)" rx="8" ry="8"></rect>
-                <text x="440" y="315" className="text-xs font-bold fill-gray-600" textAnchor="middle" dominantBaseline="middle">Exit</text>
             </svg>
 
-            {/* Modal con casetas seleccionadas */}
+            {/* Modal para selección */}
             {showModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                    <div className="bg-gray-100 p-6 rounded-lg shadow-xl max-w-md w-full" style={{
-                        boxShadow: '-2px -2px 8px rgba(255, 255, 255, 1), -2px -2px 12px rgba(255, 255, 255, 0.5), inset 2px 2px 4px rgba(255, 255, 255, 0.1), 2px 2px 8px rgba(0, 0, 0, 0.1), 4px 4px 4px rgba(0, 0, 0, 0.15), inset 6px 6px 8px rgba(0, 0, 0, 0.05)'
-                    }}>
-                        <div className="flex justify-between items-center mb-4">
-                            <h3 className="text-xl font-bold text-gray-800">Casetas Seleccionadas</h3>
-                            <button onClick={() => setShowModal(false)} className="text-gray-600 hover:text-gray-800">
-                                <X className="w-6 h-6" />
-                            </button>
-                        </div>
+                <div className="fixed inset-0 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg shadow-lg p-6">
+                        <h3 className="text-lg font-bold mb-4">Casetas seleccionadas:</h3>
                         <ul>
-                            {selectedCasetas.map(casetaNumber => (
-                                <li key={casetaNumber}>
-                                    Caseta {casetaNumber} - ${getCasetaPrice(casetaNumber)}
-                                </li>
+                            {selectedCasetas.map(caseta => (
+                                <li key={caseta} className="text-gray-700">{`Caseta ${caseta} - Precio: $${getCasetaPrice(caseta)}`}</li>
                             ))}
                         </ul>
+                        <button
+                            onClick={() => setShowModal(false)}
+                            className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                        >
+                            <X className="inline-block" /> Cerrar
+                        </button>
                     </div>
                 </div>
             )}

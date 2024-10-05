@@ -23,6 +23,8 @@ function Nav() {
   const status = useSelector((state) => state.client.status);
   const location = useLocation(); // Obtenemos la ruta actual
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  console.log(status);
+  
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
