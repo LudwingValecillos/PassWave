@@ -23,23 +23,23 @@ import Swal from "sweetalert2";
 
 const steps = [
   {
-    title: "Elige tu Feria",
-    description: "Selecciona el evento al que quieres asistir",
+    title: "Choose your Fair",
+    description: "Select the event you want to attend",
     icon: Tent,
   },
   {
-    title: "Reserva tu Caseta",
-    description: "Elige la caseta perfecta para ti",
+    title: "Reserve your Booth",
+    description: "Choose the perfect booth for you",
     icon: MapPin,
   },
   {
-    title: "Realiza el Pago",
-    description: "Ingresa los datos de tu tarjeta",
+    title: "Make Payment",
+    description: "Enter your card details",
     icon: CreditCard,
   },
   {
-    title: "Confirmación",
-    description: "Revisa y confirma tu reserva",
+    title: "Confirmation",
+    description: "Review and confirm your reservation",
     icon: CheckCircle,
   },
 ];
@@ -89,14 +89,14 @@ const dispatch = useDispatch();
   const validateCardData = (data) => {
     const errors = [];
     if (!data.cardHolder)
-      errors.push("Por favor ingresa el nombre del titular.");
+      errors.push("Please enter the name of the holder.");
     if (!/^\d{16}$/.test(data.number))
-      errors.push("Número de tarjeta inválido.");
+      errors.push("Invalid card number.");
     if (!data.thruDate || new Date(data.thruDate) <= new Date())
-      errors.push("Fecha de vencimiento inválida.");
-    if (!/^\d{3}$/.test(data.cvv)) errors.push("CVV inválido.");
-    if (!data.cardType) errors.push("Selecciona el tipo de tarjeta.");
-    if (!data.paymentNetwork) errors.push("Selecciona la red de pago.");
+      errors.push("Invalid expiration date.");
+    if (!/^\d{3}$/.test(data.cvv)) errors.push("Invalid CVV.");
+    if (!data.cardType) errors.push("Select the type of card.");
+    if (!data.paymentNetwork) errors.push("Select payment network.");
     return errors;
   };
 
@@ -125,7 +125,7 @@ const dispatch = useDispatch();
             htmlFor="cardHolder"
             className="block text-sm font-medium text-gray-700"
           >
-            Nombre del titular
+            Name of the holder
           </label>
           <input
             id="cardHolder"
@@ -141,7 +141,7 @@ const dispatch = useDispatch();
             htmlFor="number"
             className="block text-sm font-medium text-gray-700"
           >
-            Número de tarjeta
+            Card number
           </label>
           <input
             id="number"
@@ -159,7 +159,7 @@ const dispatch = useDispatch();
               htmlFor="thruDate"
               className="block text-sm font-medium text-gray-700"
             >
-              Fecha de vencimiento
+              Expiration date
             </label>
             <input
               id="thruDate"
@@ -194,7 +194,7 @@ const dispatch = useDispatch();
             htmlFor="cardType"
             className="block text-sm font-medium text-gray-700"
           >
-            Tipo de tarjeta
+            Card type
           </label>
           <select
             id="cardType"
@@ -203,8 +203,8 @@ const dispatch = useDispatch();
             onChange={handleSelectChange}
             className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           >
-            <option value="DEBIT">Débito</option>
-            <option value="CREDIT">Crédito</option>
+            <option value="DEBIT">Debit</option>
+            <option value="CREDIT">Credit</option>
           </select>
         </div>
         <div>
@@ -212,7 +212,7 @@ const dispatch = useDispatch();
             htmlFor="paymentNetwork"
             className="block text-sm font-medium text-gray-700"
           >
-            Red de pago
+           Payment network
           </label>
           <select
             id="paymentNetwork"
@@ -229,7 +229,7 @@ const dispatch = useDispatch();
           type="submit"
           className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         >
-          Procesar pago
+          Process payment
         </button>
       </form>
 
@@ -245,11 +245,11 @@ const dispatch = useDispatch();
           </p>
           <div className="flex justify-between">
             <div>
-              <p className="text-sm">Titular de la tarjeta</p>
+              <p className="text-sm">Cardholder</p>
               <p>{cardData.cardHolder || "NOMBRE APELLIDO"}</p>
             </div>
             <div>
-              <p className="text-sm">Válida hasta</p>
+              <p className="text-sm">Valid until</p>
               <p>{formatThruDate(cardData.thruDate)}</p>
             </div>
           </div>
@@ -311,7 +311,7 @@ const ReservaPage = () => {
 
   const nextStep = () => {
     if (currentStep === 0 && !selectedFeria) {
-      alert("Por favor selecciona una feria.");
+      alert("Please select a fair.");
       return;
     }
 
@@ -326,7 +326,7 @@ const ReservaPage = () => {
         !paymentData.paymentNetwork)
     ) {
       alert(
-        "Por favor completa todos los campos de la tarjeta antes de continuar."
+        "Please complete all fields on the card before continuing."
       );
       return;
     }
@@ -403,14 +403,14 @@ const ReservaPage = () => {
                   htmlFor="feria-select"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Selecciona una Feria
+                  Select a Fair
                 </label>
                 <select
                   id="feria-select"
                   onChange={handleFeriaSelection}
                   className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
                 >
-                  <option value="">Elige tu feria</option>
+                  <option value="">Choose your fair</option>
                   {event ? (
                     <option key={event.id} value={event.id}>
                       {event.name}
@@ -437,20 +437,7 @@ const ReservaPage = () => {
                 )}
               </motion.div>
             )}
-            {/* Aquí usamos el ternario para decidir qué componente renderizar */}
-            {/* {currentStep === 1 && (
-            selectedFeria?.type === 'caseta' 
-              ? <CasetaSelector onCasetaSelect={handleCasetaSelection} />
-              : selectedFeria?.type === 'seat'
-              ?<SeatSelector onSeatSelect={handleSeatSelection} />
-              : <MusicVenue onVenueSelect={handleVenueSelection} />
-          )}
-            {currentStep === 2 && (
-              <motion.div variants={itemVariants}>
-                <PaymentForm onPaymentComplete={handlePaymentComplete} />
-              </motion.div>
-            )} */}
-
+            {/* Here we use ternary to decide which component to render */}
             {currentStep === 1 &&
               (event.place.id == 1 ? (
                 <CasetaSelector
@@ -482,12 +469,12 @@ const ReservaPage = () => {
                   variants={itemVariants}
                 >
                   <h3 className="font-bold text-xl text-gray-800">
-                    Detalles de la Feria
+                    Fair Details
                   </h3>
-                  <p className="text-gray-700">Evento: {selectedFeria?.name}</p>
-                  <p className="text-gray-700">Fecha: {selectedFeria?.date}</p>
+                  <p className="text-gray-700">Event: {selectedFeria?.name}</p>
+                  <p className="text-gray-700">Date: {selectedFeria?.date}</p>
                   <p className="text-gray-700">
-                    Ubicación: {selectedFeria?.location}
+                    Location: {selectedFeria?.location}
                   </p>
                 </motion.div>
                 <motion.div
@@ -495,7 +482,7 @@ const ReservaPage = () => {
                   variants={itemVariants}
                 >
                   <h3 className="font-bold text-xl text-gray-800">
-                    Casetas Reservadas
+                    Reserved Booths
                   </h3>
                   <ul>
                     {selectedCasetas.map((caseta) => (
@@ -504,7 +491,7 @@ const ReservaPage = () => {
                         className="flex justify-between items-center text-gray-700"
                         variants={itemVariants}
                       >
-                        <span>Caseta {caseta}</span>
+                        <span>Booth {caseta}</span>
                         <span className="font-bold">
                           ${caseta <= 10 ? 200 : 100}
                         </span>
@@ -524,20 +511,20 @@ const ReservaPage = () => {
                   variants={itemVariants}
                 >
                   <h3 className="font-bold text-xl text-gray-800">
-                    Información de Pago
+                    Payment Information
                   </h3>
                   <p className="text-gray-700">
-                    Titular: {paymentData?.cardHolder}
+                    Cardholder: {paymentData?.cardHolder}
                   </p>
                   <p className="text-gray-700">
-                    Número de tarjeta: **** **** ****{" "}
+                    Card Number: **** **** ****{" "}
                     {paymentData?.number.slice(-4)}
                   </p>
                   <p className="text-gray-700">
-                    Tipo de tarjeta: {paymentData?.cardType}
+                    Card Type: {paymentData?.cardType}
                   </p>
                   <p className="text-gray-700">
-                    Red de pago: {paymentData?.paymentNetwork}
+                    Payment Network: {paymentData?.paymentNetwork}
                   </p>
                 </motion.div>
                 <motion.div variants={itemVariants}>
@@ -546,7 +533,7 @@ const ReservaPage = () => {
 d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                     onClick={(e) => formSubmitHandler(e)}
                   >
-                    Confirmar Reserva
+                    Confirm Reservation
                   </button>
                 </motion.div>
               </motion.div>
@@ -559,13 +546,13 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
   const formSubmitHandler = (e) => {
     e.preventDefault();
 
-    // Calcular la suma
+    // Calculate the sum
     const suma = selectedCasetas.reduce(
       (sum, caseta) => sum + (caseta <= 10 ? 10000 : 5000),
       0
     );
 
-    // Formatear el número de tarjeta
+    // Format the card number
     const alertSuscess = () => {
       Swal.fire({
         position: "top-end",
@@ -585,7 +572,7 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
     console.log(card);
     console.log(selectedCasetas);
 
-    // Realizar la solicitud POST
+    // Make the POST request
     axios
       .post(
         "https://homebankig.onrender.com/api/cards/clients/current/payment",
@@ -596,14 +583,14 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
         console.log(response.data);
       })
       .catch((error) => {
-        console.error("Error al realizar la solicitud:", error);
+        console.error("Error making the request:", error);
       });
   };
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <h1 className="text-5xl font-bold mb-8 text-center text-gray-800">
-        Reserva tu Caseta
+        Book Your Booth
       </h1>
       <div className="max-w-3xl mx-auto">
         <div className="mb-8">
@@ -656,26 +643,16 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
           <button
             onClick={prevStep}
             disabled={currentStep === 0}
-            className="bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 disabled:opacity-50"
+            className="bg-gray-200 text-gray-800 py-2 px-4 rounded-md"
           >
-            <ChevronLeftIcon className="inline-block mr-2 h-4 w-4" /> Anterior
+            Back
           </button>
           <button
             onClick={nextStep}
-            disabled={
-              currentStep === steps.length - 1 ||
-              (currentStep === 0 && !selectedFeria) ||
-              (currentStep === 1 &&
-                ((selectedFeria?.type === "caseta" &&
-                  selectedCasetas.length === 0) ||
-                  (selectedFeria?.type === "seat" &&
-                    selectedSeats.length === 0) ||
-                  (selectedFeria?.type === "venue" && !selectedVenue)))
-            }
-            className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+            disabled={currentStep === steps.length - 1}
+            className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700"
           >
-            {currentStep === steps.length - 1 ? "Finalizar" : "Siguiente"}
-            <ChevronRightIcon className="inline-block ml-2 h-4 w-4" />
+            Next
           </button>
         </div>
       </div>
