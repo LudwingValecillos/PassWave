@@ -22,6 +22,7 @@ const CasetaSelector = ({ onCasetaSelect = () => {}, event }) => { // Cambiado a
         if (selectedCasetas.includes(casetaNumber)) {
             const updatedCasetas = selectedCasetas.filter(caseta => caseta !== casetaNumber);
             setSelectedCasetas(updatedCasetas);
+
             onCasetaSelect(updatedCasetas); // Actualiza selección
             console.log(selectedCasetas);
 

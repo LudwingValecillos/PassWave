@@ -10,6 +10,7 @@ import Tide from './pages/Tide';
 import Crest from './pages/Crest';
 import Drift from './pages/Drift';
 import AllEvents from "./pages/AllEvents";
+import AboutView from "./pages/About";
 
 import EventDetails from "./components/EventDetails";
 import AdminEventForm from "./components/AdminEventForm";
@@ -48,9 +49,12 @@ function App() {
       <Route path="/createEvent" element={<AdminEventForm />} />
 
       <Route path="/event-ticket-system" element={<EventTicketSystem />} /> 
+
+      <Route path="/about" element={<AboutView />} /> 
+
+
       <Route path="/favorite" element={<FavoriteEvents />} /> 
 
-      
 
 
       </Route>
