@@ -61,11 +61,34 @@ function Nav() {
             />
           </Link>
         </li>
+            {/* Logo section */}
+            <div className="flex-1 md:flex md:items-center md:gap-12">
+            <Link to="/home" className="flex justify-center items-center gap-5">
+
+              <img src="/src/assets/logoOk.png" alt="Logo" className="h-28" />
+
+              {/* <div className="relative inline-block">
+                <img
+                  src="/src/assets/WaveCen.gif"
+                  alt="WaveCenter Logo"
+                  className="inline-block w-36 h-auto"
+                />
+              </div> */}
+            </Link>
+          </div>
         <li>
           <Link to="/allEvents">
             <Button2
               title="EVENTS"
               isActive={location.pathname.startsWith("/allEvents")}
+            />
+          </Link>
+        </li>
+        <li>
+          <Link to="/about">
+            <Button2
+              title="ABOUT"
+              isActive={location.pathname.startsWith("/about")}
             />
           </Link>
         </li>

@@ -25,6 +25,9 @@ const CasetaSelector = ({ onSelect, event }) => {
             const updatedCasetas = selectedCasetas.filter(caseta => caseta !== casetaNumber);
             setSelectedCasetas(updatedCasetas);
             onSelect(updatedCasetas); // Actualiza selección
+console.log(updatedCasetas);
+
+
         } else if (selectedCasetas.length < 3) {
             const newSelection = [...selectedCasetas, casetaNumber];
             setSelectedCasetas(newSelection);
