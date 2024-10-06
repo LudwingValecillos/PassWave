@@ -7,12 +7,22 @@ import ConcertsImage from "../assets/1.png";
 import Expositions from "../assets/2.png";
 import Oratory from "../assets/3.png";
 import Shows from "../assets/4.png";
-import ImageComponent from '../components/ImageComponent';
+import { useDispatch, useSelector } from "react-redux";
+import { loadClient } from "../redux/actions/clientActions";
 
 const Home = () => {
+  
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
+  const client = useSelector((state) => state.client.client);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if(client.firstName == "" && localStorage.getItem("token") !== null) {
+      dispatch(loadClient());
+    }
+    }, [dispatch]);
 
   const [scrollPosition, setScrollPosition] = useState(0);
 

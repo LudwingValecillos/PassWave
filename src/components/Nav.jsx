@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import UserMenu from "./UserMenu"; // Importamos el menú de usuario
@@ -22,23 +22,38 @@ function Nav() {
   const [showUserMenu, setShowUserMenu] = useState(false); // Estado para mostrar menú
   const status = useSelector((state) => state.client.status);
   const location = useLocation(); // Obtenemos la ruta actual
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  console.log(status);
-  
+  const userMenuRef = useRef(null); // Ref para el menú de usuario
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setShowUserMenu((prev) => !prev);
   };
 
   const handleUserIconClick = () => {
-    setShowUserMenu(!showUserMenu); // Alternar menú de usuario
+    toggleMenu(); // Alternar menú de usuario
   };
+
+  const handleClickOutside = (event) => {
+    // Si se hace clic fuera del menú de usuario
+    if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+      setShowUserMenu(false);
+    }
+  };
+
+  useEffect(() => {
+    // Añadir el event listener al hacer click
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      // Limpiar el event listener al desmontar el componente
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <nav aria-label="Global" className="hidden md:block nav-container relative">
       <ul className="flex flex-wrap justify-center items-center font-bold gap-6 md:gap-8 lg:gap-12">
         <li>
-          <Link to="/crest" onClick={() => setIsMenuOpen(false)}>
+          <Link to="/crest" onClick={() => setShowUserMenu(false)}>
             <Button2
               title="CREST"
               isActive={location.pathname.startsWith("/crest")}
@@ -94,7 +109,7 @@ function Nav() {
         </li>
         <li>
           {status === "success" ? (
-            <div className="relative">
+            <div className="relative" ref={userMenuRef}>
               <motion.div
                 variants={buttonVariants}
                 initial="rest"
@@ -109,9 +124,9 @@ function Nav() {
                     className="size-12 text-black"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
-                      clip-rule="evenodd"
+                      clipRule="evenodd"
                     />
                   </svg>
                 </button>

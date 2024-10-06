@@ -1,13 +1,26 @@
-import React, { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
-import Aos from "aos"
-import { motion, AnimatePresence } from "framer-motion"
-import CasetaSelector from "../components/CasetaSelector"
-import MusicVenue from "../components/MusicVenue"
-import SeatSelector from "../components/SeatSelector"
-import { loadEvents } from "../redux/actions/eventsAction"
-import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon, Tent, MapPin, CreditCard, CheckCircle, X } from "lucide-react"
+
+import React, { useState } from "react";
+import Aos from "aos";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import CasetaSelector from "../components/CasetaSelector";
+import MusicVenue from "../components/MusicVenue";
+import SeatSelector from "../components/SeatSelector";
+import { loadEvents } from "../redux/actions/eventsAction";
+import {
+  CalendarIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  Tent,
+  MapPin,
+  CreditCard,
+  CheckCircle,
+  X,
+} from "lucide-react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const steps = [
   { title: "Elige tu Feria", description: "Selecciona el evento al que quieres asistir", icon: Tent },
@@ -20,6 +33,14 @@ const steps = [
 
 
 const PaymentForm = ({ onPaymentComplete }) => {
+  const client = useSelector((state) => state.client.client);
+const dispatch = useDispatch();
+  useEffect(() => {
+    if (client.firstName == "" && localStorage.getItem("token") !== null) {
+      dispatch(loadClient());
+    }
+  }, [dispatch]);
+
   const [cardData, setCardData] = useState({
     cardHolder: '',
     cvv: '',
@@ -53,6 +74,7 @@ const PaymentForm = ({ onPaymentComplete }) => {
 
 const handleSubmit = (e) => {
     e.preventDefault();
+
     const errors = validateCardData(cardData);
     if (errors.length) {
         alert(errors.join("\n"));
@@ -210,7 +232,6 @@ const   ReservaPage = () => {
 
   const events = useSelector((state) => state.events.events || []);
   const dispatch = useDispatch();
-  console.log(events);
 
   useEffect(() => {
     Aos.init({ duration: 500 });
@@ -336,6 +357,32 @@ const   ReservaPage = () => {
               <motion.div variants={itemVariants}>
                 <PaymentForm onPaymentComplete={handlePaymentComplete} />
               </motion.div>
+
+            )} */}
+
+            {currentStep === 1 &&
+              (event.place.id == 1 ? (
+                <CasetaSelector
+                  event={event}
+                  onCasetaSelect={handleCasetaSelection}
+                />
+              ) : event.place.id == 2 ? (
+                <MusicVenue
+                  event={event}
+                  onVenueSelect={handleVenueSelection}
+                />
+              ) : (
+                <SeatSelector
+                  event={event}
+                  onSeatSelect={handleSeatSelection}
+                />
+              ))}
+
+            {currentStep === 2 && (
+              <motion.div variants={itemVariants}>
+                <PaymentForm onPaymentComplete={handlePaymentComplete} />
+              </motion.div>
+
             )}
             {currentStep === 3 && (
               <motion.div className="space-y-4" variants={itemVariants}>
@@ -372,7 +419,7 @@ const   ReservaPage = () => {
                   <button 
                     className="w-full bg-blue-600 text-white py-2 px-4 rounde
 d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    onClick={() => alert("¡Tu reserva ha sido confirmada!")}
+                    onClick={(e) => formSubmitHandler(e)}
                   >
                     Confirmar Reserva
                   </button>
@@ -382,8 +429,52 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
           </div>
         </motion.div>
       </AnimatePresence>
-    )
-  }
+
+    );
+  };
+  const formSubmitHandler = (e) => {
+    e.preventDefault();
+
+    // Calcular la suma
+    const suma = selectedCasetas.reduce(
+      (sum, caseta) => sum + (caseta <= 10 ? 10000 : 5000),
+      0
+    );
+
+    // Formatear el número de tarjeta
+    const alertSuscess = () => {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Payment Successful",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    };
+    const card = {
+      number: paymentData.number.replace(/(\d{4})(?=\d)/g, "$1-"),
+      cvv: paymentData.cvv,
+      thruDate: paymentData.thruDate,
+      amount: suma,
+    };
+
+    console.log(card);
+    console.log(selectedCasetas);
+
+    // Realizar la solicitud POST
+    axios
+      .post(
+        "https://homebankig.onrender.com/api/cards/clients/current/payment",
+        card
+      )
+      .then((response) => {
+        alertSuscess();
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error al realizar la solicitud:", error);
+      });
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">

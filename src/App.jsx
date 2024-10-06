@@ -18,6 +18,7 @@ import AdminEventForm from "./components/AdminEventForm";
 import MyPurchases from './pages/MyPurchases';  
 
 import EventTicketSystem from "./pages/EventTicketSystem";
+import FavoriteEvents from "./components/FavoriteEvents";
 
 
 
@@ -48,7 +49,11 @@ function App() {
       <Route path="/createEvent" element={<AdminEventForm />} />
 
       <Route path="/event-ticket-system" element={<EventTicketSystem />} /> 
+
       <Route path="/about" element={<AboutView />} /> 
+
+
+      <Route path="/favorite" element={<FavoriteEvents />} /> 
 
 
 
