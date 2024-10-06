@@ -19,6 +19,7 @@ import MyPurchases from './pages/MyPurchases';
 
 import EventTicketSystem from "./pages/EventTicketSystem";
 import FavoriteEvents from "./components/FavoriteEvents";
+import PaymentPdf from "./components/PaymentPdf";
 
 
 
@@ -54,6 +55,7 @@ function App() {
 
 
       <Route path="/favorite" element={<FavoriteEvents />} /> 
+      <Route path="/paymentPdf" element={<PaymentPdf />} /> 
 
 
 
