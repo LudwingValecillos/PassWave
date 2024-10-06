@@ -9,7 +9,12 @@ function PrintCardEvenes(props) {
     const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
     const dispatch = useDispatch();
 
-    const events = useSelector((state) => state.events.events || []); // Obtener todos los eventos
+    const events = useSelector((state) => {
+        const filteredEvents = props.id !== 0
+            ? state.events.events.filter((event) => event.place.id == props.id)
+            : state.events.events;
+        return filteredEvents;
+    });
 
     useEffect(() => {
         Aos.init({ duration: 500 });
