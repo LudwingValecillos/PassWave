@@ -16,32 +16,15 @@ const buttonVariants = {
 };
 
 const Header = () => {
-  console.log(status);
   
 
   return (
-    <header className=" w-full h-40 z-50 sticky top-0 "  >
+    <header className=" w-full flex h-40 z-50 sticky top-0 "  >
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 h-full p-10 ">
-        <div className="flex h-full items-center justify-between p-8 border-black border-4 rounded-3xl bg-[#f5f5f5e5] ">
-          {/* Logo section
-          <div className="flex-1 md:flex md:items-center md:gap-12">
-            <Link to="/home" className="flex justify-center items-center gap-5">
-
-              <img src="/src/assets/logoOk.png" alt="Logo" className="h-28" />
-
-              {/* <div className="relative inline-block">
-                <img
-                  src="/src/assets/WaveCen.gif"
-                  alt="WaveCenter Logo"
-                  className="inline-block w-36 h-auto"
-                />
-              </div> 
-            </Link>
-          </div> */}
-
-          {/* Navigation and User Icon */}
+        <div className="flex h-full items-center justify-between p-8 border-black border-4 rounded-3xl bg-[#f5f5f5e5] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+         
           <div >
-            <Nav /> {/* Asumiendo que el componente Nav está definido */}
+            <Nav /> 
             <div className="flex items-center gap-4">
               <motion.a
                 variants={buttonVariants}

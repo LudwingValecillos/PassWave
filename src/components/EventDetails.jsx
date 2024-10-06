@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 import { loadEvents, selectEvent } from "../redux/actions/eventsAction";
-import { div } from "framer-motion/client";
+import { loadClient } from "../redux/actions/clientActions";
 
 const EventDetails = () => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -29,15 +29,19 @@ const EventDetails = () => {
     state.events.events.find((event) => event.id === eventId)
   );
   const status = useSelector((state) => state.client.status);
-
-  console.log(status);
-
-  console.log(event.id);
+  const client = useSelector((state) => state.client.client);
 
   window.scrollTo(0, 0);
+  
+  
 
   useEffect(() => {
-    dispatch(loadEvents());
+    if(client.firstName == "" && localStorage.getItem("token") !== null) {
+      dispatch(loadClient());
+    }
+    if(event.name == "") {
+      dispatch(loadEvents());
+    }
     setIsVisible(true);
   }, [dispatch]);
 

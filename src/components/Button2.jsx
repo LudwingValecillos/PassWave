@@ -3,7 +3,7 @@ import React from "react";
 function Button2({ title, isActive, onClick }) {
   return (
     <a
-      className="group relative inline-block focus:outline-none focus:ring"
+      className="group relative inline-block focus:outline-none focus:ring "
       onClick={onClick} // Asigna la función onClick aquí
     >
       <span
