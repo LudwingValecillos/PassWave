@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PrintCardEvenes from '../components/PrintCardEvenes'
 import VintageCard from '../components/VintageCard'
 import Expositions from "../assets/2.png";
+import { useDispatch, useSelector } from 'react-redux';
+import { loadClient } from '../redux/actions/clientActions';
+
 
 
 
@@ -9,7 +12,15 @@ import Expositions from "../assets/2.png";
 
 function Tide() {
   window.scrollTo(0, 0);
+  const client = useSelector((state) => state.client.client);
 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if(client.firstName == "" && localStorage.getItem("token") !== null) {
+      dispatch(loadClient());
+    }
+  
+    }, [dispatch]);
   return (
 
     <>

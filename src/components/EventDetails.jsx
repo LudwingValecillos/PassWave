@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 import { loadEvents, selectEvent } from "../redux/actions/eventsAction";
-import { div } from "framer-motion/client";
+import { loadClient } from "../redux/actions/clientActions";
 
 const EventDetails = () => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -29,15 +29,19 @@ const EventDetails = () => {
     state.events.events.find((event) => event.id === eventId)
   );
   const status = useSelector((state) => state.client.status);
+  const client = useSelector((state) => state.client.client);
 
-  console.log(status);
-  
-  console.log(event.id);
-  
   window.scrollTo(0, 0);
+  
+  
 
   useEffect(() => {
-    dispatch(loadEvents());
+    if(client.firstName == "" && localStorage.getItem("token") !== null) {
+      dispatch(loadClient());
+    }
+    if(event.name == "") {
+      dispatch(loadEvents());
+    }
     setIsVisible(true);
   }, [dispatch]);
 
@@ -49,6 +53,11 @@ const EventDetails = () => {
     setCurrentImage(
       (prev) => (prev - 1 + event.images.length) % event.images.length
     );
+  };
+  const handleLoginClick = () => {
+    // Guarda la ruta actual en el localStorage
+    localStorage.setItem("redirectAfterLogin", window.location.pathname);
+    navigate("/login"); // Redirige a la página de login
   };
 
   if (!event) {
@@ -190,37 +199,34 @@ const EventDetails = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            {
-              status == "success" ?
-             event.place.id == 1 ? (
-              <>
-                <Button2
-                  title="Buy Ticket Now!"
-                  onClick={handleBuyTicketClick}
-                />
+            {status == "success" ? (
+              event.place.id == 1 ? (
+                <>
+                  <Button2
+                    title="Buy Ticket Now!"
+                    onClick={handleBuyTicketClick}
+                  />
 
-                <Link to={`/reserva/${event.id}`}>
-                  <Buttonw title="Rent a Stand!" />{" "}
-                </Link>
+                  <Link to={`/reserva/${event.id}`}>
+                    <Buttonw title="Rent a Stand!" />{" "}
+                  </Link>
                 </>
-            ) : event.place.id == 2 ? (
-              <>
+              ) : event.place.id == 2 ? (
+                <>
+                  <Link to={`/reserva/${event.id}`}>
+                    <Button2 title="Buy Ticket Now!" />
+                  </Link>
+                </>
+              ) : (
                 <Link to={`/reserva/${event.id}`}>
                   <Button2 title="Buy Ticket Now!" />
                 </Link>
-              </>
+              )
             ) : (
-              <Link to={`/reserva/${event.id}`}>
-                <Button2 title="Buy Ticket Now!" />
-              </Link>
-            )
-          :
-          <Link to={`/login`}>
-          
+              <Link to="/login" onClick={handleLoginClick}>
                 <Button2 title="Login" />
-                </Link>
-
-          }
+              </Link>
+            )}
           </div>
         </div>
       </div>

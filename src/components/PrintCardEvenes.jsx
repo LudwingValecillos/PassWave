@@ -56,7 +56,7 @@ function PrintCardEvenes(props) {
                 <img src="https://png.pngtree.com/png-vector/20230430/ourmid/pngtree-right-arrow-vector-png-image_6745379.png" alt="" className='w-[200px] rotate-90' />
             </div>
             {filteredEvents.length === 0 ? (
-                <p>No events found.</p>
+                <p className="text-center mt-5 py-4 m-20 mx-96 rounded-3xl text-3xl  border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] duration-200 hover:bg-black hover:text-white hover:font-bold">No events found.</p>
             ) : (
                 <div className="flex flex-wrap justify-center items-center gap-12 mt-5" data-aos="fade-up">
                     {filteredEvents.map((event) => (

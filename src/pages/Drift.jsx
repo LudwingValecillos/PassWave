@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PrintCardEvenes from '../components/PrintCardEvenes'
 import VintageCard from '../components/VintageCard'
 import Oratory from "../assets/3.png";
+import { useDispatch, useSelector } from 'react-redux';
+import { loadClient } from '../redux/actions/clientActions';
 
 
 function Drift() {
-  window.scrollTo(0, 0);
+  const client = useSelector((state) => state.client.client);
 
+  window.scrollTo(0, 0);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if(client.firstName == "" && localStorage.getItem("token") !== null) {
+      dispatch(loadClient());
+    }
+  
+    }, [dispatch]);
   return (
     <>
     <div data-aos="fade-up" className="w-full">
