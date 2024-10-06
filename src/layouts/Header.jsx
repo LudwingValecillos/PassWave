@@ -23,24 +23,24 @@ const Header = () => {
     <header className=" w-full h-40 z-50 sticky top-0 "  >
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 h-full p-10 ">
         <div className="flex h-full items-center justify-between p-8 border-black border-4 rounded-3xl bg-[#f5f5f5e5] ">
-          {/* Logo section */}
+          {/* Logo section
           <div className="flex-1 md:flex md:items-center md:gap-12">
             <Link to="/home" className="flex justify-center items-center gap-5">
 
               <img src="/src/assets/logoOk.png" alt="Logo" className="h-28" />
 
-              <div className="relative inline-block">
+              {/* <div className="relative inline-block">
                 <img
                   src="/src/assets/WaveCen.gif"
                   alt="WaveCenter Logo"
                   className="inline-block w-36 h-auto"
                 />
-              </div>
+              </div> 
             </Link>
-          </div>
+          </div> */}
 
           {/* Navigation and User Icon */}
-          <div className="md:flex md:items-center md:gap-12">
+          <div >
             <Nav /> {/* Asumiendo que el componente Nav está definido */}
             <div className="flex items-center gap-4">
               <motion.a
