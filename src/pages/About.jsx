@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Users, Music, Calendar, MapPin, Mail, Github, Linkedin, Star, Zap, Coffee, Code, Puzzle, Play, Send } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { useDispatch, useSelector } from 'react-redux'
+import { loadClient } from '../redux/actions/clientActions'
 
 export default function AboutView() {
   const [activeSection, setActiveSection] = useState('squad')
@@ -10,6 +12,16 @@ export default function AboutView() {
   const [showEmailForm, setShowEmailForm] = useState(false)
   const [emailSubmitted, setEmailSubmitted] = useState(false)
 
+  window.scrollTo(0, 0);
+  const client = useSelector((state) => state.client.client);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if(client.firstName == "" && localStorage.getItem("token") !== null) {
+      dispatch(loadClient());
+    }
+  
+    }, [dispatch]);
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveSection((current) => {
