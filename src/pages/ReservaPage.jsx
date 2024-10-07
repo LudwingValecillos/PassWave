@@ -23,9 +23,7 @@ import {
 import axios from "axios";
 import Swal from "sweetalert2";
 
-import { loadClient } from "../redux/actions/clientActions";
 import { div } from "framer-motion/client";
-import LabelInput from "../components/LabelInput";
 
 const steps = [
   {
