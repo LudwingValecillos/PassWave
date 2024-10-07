@@ -10,8 +10,26 @@ import Shows from "../assets/4.png";
 import { useDispatch, useSelector } from "react-redux";
 import { loadClient } from "../redux/actions/clientActions";
 import Darkened from "../components/Darkened";
+import { Link } from "react-router-dom";
+import SketchCardEvent from "../components/SketchCardEvent";
+import { loadEvents } from "../redux/actions/eventsAction";
 
 const Home = () => {
+  const events = useSelector((state) => state.events.events);
+  const eventCrest = events.find((event) => event.place.name === "Crest");
+  const eventDrift = events.find((event) => event.place.name === "Drift");
+
+  const eventTide = events.find((event) => event.place.name === "Tide");
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+  };
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
@@ -22,6 +40,7 @@ const Home = () => {
     if (client.firstName == "" && localStorage.getItem("token") !== null) {
       dispatch(loadClient());
     }
+    dispatch(loadEvents());
   }, [dispatch]);
 
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -39,7 +58,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="  w-full bg-[#F2D22E]">
+    <div className="  w-full bg-[#F2D22E] ">
       <div className="flex flex-col items-center relative">
         {/* WELCOME text */}
 
@@ -123,13 +142,36 @@ const Home = () => {
       {/* Spacer to separate welcome section from cards */}
       {/* <div style={{ height: "100vh" }} />  Height can be adjusted as needed */}
       {/* Card 1: Color de fondo #04bf9d */}
-      <div className="flex  items-center justify-center gap-4 p-4">
-     
-     <Darkened src={ConcertsImage} text="The Show is on!" title="The Show is on!" ></Darkened>
-     <Darkened src={ConcertsImage} text="The Show is on!" title="The Show is on!" ></Darkened>
+      <div
+        className=" hidden md:block md:flex items-center justify-center gap-4 p-4"
+        data-aos="fade-up"
+      >
+        <Darkened
+          link="/crest"
+          src={ConcertsImage}
+          text="Experience music at its finest with vibrant concerts and impeccable acoustics."
+          text2="In this space, the audience stands and immerses themselves in vibrant live performances with impeccable acoustics."
+          title="Crest"
+          type="Recitals"
+        ></Darkened>
 
-     <Darkened src={ConcertsImage} text="The Show is on!"  title="The Show is on!"></Darkened>
+        <Darkened
+          link="/tide"
+          src={Expositions}
+          text="The perfect space for events and exhibitions that connect ideas and businesses."
+          text2="Customers can purchase tickets and even participate with their own businesses in exhibitions and networking events."
+          title="Tide"
+          type="Expositions"
+        ></Darkened>
 
+        <Darkened
+          link="/drift"
+          src={Oratory}
+          text="Discover inspiring talks and speeches that leave a lasting impact."
+          text2="With comfortable seating, the audience enjoys captivating talks and performances in a more intimate setting."
+          title="Drift"
+          type="Performances"
+        ></Darkened>
       </div>
       <div className="block md:hidden">
         <div data-aos="fade-up" className="w-full">
@@ -248,6 +290,47 @@ const Home = () => {
           />
         </div>
       </div>
+      <div className="flex justify-evenly py-10 flex-wrap gap-8 bg-[#F2F2F2]">
+        <h3 className="text-5xl font-bold text-gray-800 text-center w-full">
+          Featured Events
+        </h3>
+
+
+        <div>
+          <SketchCardEvent
+            title={eventCrest?.name || "Crest"}
+            img={eventCrest?.images[0] || ""}
+            date={eventCrest?.date || ""}
+            quotas={eventCrest?.ticketsAvailable || 0}
+            artists={eventCrest?.artists.length || 0}
+            price={eventCrest?.ticketPrice || 0}
+            id={eventCrest?.id || 0}
+          />
+        </div>
+        <div>
+          <SketchCardEvent
+            title={eventTide?.name || "Tide"}
+            img={eventTide?.images[0] || ""}
+            date={eventTide?.date || ""}
+            quotas={eventTide?.ticketsAvailable || 0}
+            artists={eventTide?.artists.length || 0}
+            price={eventTide?.ticketPrice || 0}
+            id={eventTide?.id || 0}
+          />
+        </div>
+        <div>
+          <SketchCardEvent
+            title={eventDrift?.name || "Drift"}
+            img={eventDrift?.images[0] || "Drift"}
+            date={eventDrift?.date || "Drift"}
+            quotas={eventDrift?.ticketsAvailable || "Drift"}
+            artists={eventDrift?.artists.length || "Drift"}
+            price={eventDrift?.ticketPrice || "Drift"}
+            id={eventDrift?.id || "Drift"}
+          />
+        </div>
+      </div>
+      
     </div>
   );
 };
