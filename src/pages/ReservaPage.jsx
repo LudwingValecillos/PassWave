@@ -582,6 +582,7 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
       .then((response) => {
         alertSuscess();
 
+
         if (event.place.id == 1) {
           const data = {
             enventId: event.id,
@@ -652,6 +653,7 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
               console.error("Error making the request:", error);
             });
         }
+
       })
       .catch((error) => {
         console.error("Error making the request:", error);
