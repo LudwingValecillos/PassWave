@@ -21,6 +21,8 @@ import {
 import axios from "axios";
 import Swal from "sweetalert2";
 import { loadClient } from "../redux/actions/clientActions";
+import { div } from "framer-motion/client";
+import LabelInput from "../components/LabelInput";
 
 const steps = [
   {
@@ -61,7 +63,7 @@ const steps = [
 
 const PaymentForm = ({ onPaymentComplete }) => {
   const client = useSelector((state) => state.client.client);
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
   useEffect(() => {
     if (client.firstName == "" && localStorage.getItem("token") !== null) {
       dispatch(loadClient());
@@ -89,10 +91,8 @@ const dispatch = useDispatch();
 
   const validateCardData = (data) => {
     const errors = [];
-    if (!data.cardHolder)
-      errors.push("Please enter the name of the holder.");
-    if (!/^\d{16}$/.test(data.number))
-      errors.push("Invalid card number.");
+    if (!data.cardHolder) errors.push("Please enter the name of the holder.");
+    if (!/^\d{16}$/.test(data.number)) errors.push("Invalid card number.");
     if (!data.thruDate || new Date(data.thruDate) <= new Date())
       errors.push("Invalid expiration date.");
     if (!/^\d{3}$/.test(data.cvv)) errors.push("Invalid CVV.");
@@ -213,7 +213,7 @@ const dispatch = useDispatch();
             htmlFor="paymentNetwork"
             className="block text-sm font-medium text-gray-700"
           >
-           Payment network
+            Payment network
           </label>
           <select
             id="paymentNetwork"
@@ -281,7 +281,6 @@ const ReservaPage = () => {
       dispatch(loadEvents());
     }
   }, [dispatch, events]);
- 
 
   const { id } = useParams();
   const eventId = Number(id);
@@ -302,6 +301,8 @@ const ReservaPage = () => {
   };
 
   const handleVenueSelection = (selectedVenue) => {
+    console.log(selectedVenue);
+
     setSelectedFeria(selectedVenue);
   };
 
@@ -312,11 +313,10 @@ const ReservaPage = () => {
 
   const navigate = useNavigate();
   const nextStep = () => {
-   
-    if(currentStep === 3) {
-      navigate("")
+    if (currentStep === 3) {
+      navigate("");
     }
-    
+
     if (currentStep === 0 && !selectedFeria) {
       alert("Please select a fair.");
       return;
@@ -332,13 +332,10 @@ const ReservaPage = () => {
         !paymentData.cardType ||
         !paymentData.paymentNetwork)
     ) {
-      alert(
-        "Please complete all fields on the card before continuing."
-      );
+      alert("Please complete all fields on the card before continuing.");
       return;
     }
 
-    
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     }
@@ -384,6 +381,10 @@ const ReservaPage = () => {
       },
     },
   };
+  const [nameStand, setName] = useState("");
+  const [descriptionStand, setDescriptionStand] = useState("");
+  const [quantityTicket, setQuantityTicket] = useState("");
+console.log(quantityTicket);
 
   const renderStep = () => {
     return (
@@ -448,15 +449,41 @@ const ReservaPage = () => {
             {/* Here we use ternary to decide which component to render */}
             {currentStep === 1 &&
               (event.place.id == 1 ? (
-                <CasetaSelector
-                  event={event}
-                  onCasetaSelect={handleCasetaSelection}
-                />
+                <div className="flex flex-col space-y-4">
+                  <CasetaSelector
+                    event={event}
+                    onCasetaSelect={handleCasetaSelection}
+                  />
+                  <div className="bg-gray-100 p-4 rounded-lg flex flex-col shadow-xl gap-2">
+                    <p className="text-center text-2xl font-bold pb-2 ">
+                      Stand details
+                    </p>
+                    <LabelInput
+                      title={"Name del evento"}
+                      onChange={(e) => setName(e.target.value)}
+                    ></LabelInput>
+                    <LabelInput
+                      title={"Description"}
+                      onChange={(e) => setDescriptionStand(e.target.value)}
+                    ></LabelInput>
+                  </div>
+                </div>
               ) : event.place.id == 2 ? (
-                <MusicVenue
-                  event={event}
-                  onVenueSelect={handleVenueSelection}
-                />
+                <div className="flex flex-col justify-center items-center space-y-4">
+                  <MusicVenue event={event} onSelect={handleVenueSelection} quantityNumber={quantityTicket}/>
+
+                  <div className="bg-gray-100 p-4 rounded-lg flex flex-col shadow-xl gap-2 mt-2 w-96 justify-center">
+                    <p className="text-center text-2xl font-bold pb-2">
+                      {" "}
+                      Please indicate the number of tickets to purchase
+                    </p>
+                    <LabelInput
+                      title={"Quantity"}
+                      onChange={(e) => setQuantityTicket(e.target.value)}
+                      type="Number"
+                    ></LabelInput>
+                  </div>
+                </div>
               ) : (
                 <SeatSelector
                   event={event}
@@ -508,10 +535,11 @@ const ReservaPage = () => {
                   </ul>
                   <p className="font-bold mt-2">
                     Total: $
-                    {selectedCasetas.reduce(
-                      (sum, caseta) => sum + (caseta <= 10 ? 10000  : 5000),
+                    {event.place.id == 1 ? selectedCasetas.reduce(
+                      (sum, caseta) => sum + (caseta <= 10 ? 10000 : 5000),
                       0
-                    )}
+                    ) :
+                    selectedFeria}
                   </p>
                 </motion.div>
                 <motion.div
@@ -525,8 +553,7 @@ const ReservaPage = () => {
                     Cardholder: {paymentData?.cardHolder}
                   </p>
                   <p className="text-gray-700">
-                    Card Number: **** **** ****{" "}
-                    {paymentData?.number.slice(-4)}
+                    Card Number: **** **** **** {paymentData?.number.slice(-4)}
                   </p>
                   <p className="text-gray-700">
                     Card Type: {paymentData?.cardType}
@@ -577,7 +604,9 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
 
     console.log(card);
     console.log(selectedCasetas);
+    console.log(quantityTicket);
 
+    const token = localStorage.getItem("token");
     // Make the POST request
     axios
       .post(
@@ -586,7 +615,65 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
       )
       .then((response) => {
         alertSuscess();
-        navigate("/paymentPdf");
+
+        if (event.place.id == 1) {
+          const data = {
+            enventId: event.id,
+            positions: selectedCasetas,
+            name: nameStand,
+            description: descriptionStand,
+          };
+          axios
+            .post("http://localhost:8080/api/stand/apply", data, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((response) => {
+              console.log(response.data);
+            })
+            .catch((error) => {
+              console.error("Error making the request:", error);
+            });
+        } else if (event.place.id == 2) {
+          const data = {
+            eventId: event.id,
+            quantity: quantityTicket,
+          };
+          axios
+            .post("http://localhost:8080/api/ticket/apply", data, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((response) => {
+              console.log(response.data);
+            })
+            .catch((error) => {
+              console.error("Error making the request:", error);
+            });
+        } else if (event.place.id == 3) {
+          const data = {
+            enventId: event.id,
+            positions: selectedCasetas,
+            name: "",
+            description: "",
+          };
+          axios
+            .post("http://localhost:8080/api/stand/apply", data, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((response) => {
+              console.log(response.data);
+            })
+            .catch((error) => {
+              console.error("Error making the request:", error);
+            });
+        }
+
+        // navigate("/paymentPdf");
       })
       .catch((error) => {
         console.error("Error making the request:", error);
@@ -653,12 +740,13 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
           >
             Back
           </button>
-         
+
           <button
             onClick={nextStep}
             // disabled={currentStep === steps.length - 1}
-            className= {`bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 ${currentStep == 3 ? "hidden" : ""}`}
-              
+            className={`bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 ${
+              currentStep == 3 ? "hidden" : ""
+            }`}
           >
             Next
           </button>

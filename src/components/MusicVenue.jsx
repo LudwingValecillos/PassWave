@@ -1,38 +1,66 @@
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
-import { X } from 'lucide-react'
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { X } from "lucide-react";
+import LabelInput from "./LabelInput";
 
-export default function MusicVenue({ onSelect, event}) {
-  const [isSelected, setIsSelected] = useState(false)
-  const [showModal, setShowModal] = useState(false)
+export default function MusicVenue({ onSelect, event, quantityNumber }) {
+  const [isSelected, setIsSelected] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  const stageWidth = 400
-  const stageHeight = 100
-  const generalAdmissionWidth = 500
-  const generalAdmissionHeight = 350
+  const stageWidth = 400;
+  const stageHeight = 100;
+  const generalAdmissionWidth = 500;
+  const generalAdmissionHeight = 350;
 
   const handleAreaClick = () => {
-    setIsSelected(!isSelected)
-    setShowModal(true)
-    onSelect('General Admission')
-  }
+    setIsSelected(!isSelected);
+    setShowModal(true);
+    const price = quantityNumber * getAreaPrice();
+    onSelect(price);
+  };
 
   const getAreaPrice = () => {
-    return 50 // Precio fijo para la entrada general
-  }
+    return event.ticketPrice; // Precio fijo para la entrada general
+  };
 
   return (
     <div className="relative w-full max-w-4xl mx-auto p-4 bg-gray-100 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold mb-4 text-center text-gray-800">Sala de Conciertos</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center text-gray-800">
+        Sala de Conciertos
+      </h2>
       <svg viewBox="0 0 600 600" className="w-full h-auto">
         <defs>
           <filter id="neumorphic-filter">
-            <feDropShadow dx="-2" dy="-2" stdDeviation="3" floodColor="#ffffff" floodOpacity="1" />
-            <feDropShadow dx="2" dy="2" stdDeviation="3" floodColor="#a0a0a0" floodOpacity="0.3" />
+            <feDropShadow
+              dx="-2"
+              dy="-2"
+              stdDeviation="3"
+              floodColor="#ffffff"
+              floodOpacity="1"
+            />
+            <feDropShadow
+              dx="2"
+              dy="2"
+              stdDeviation="3"
+              floodColor="#a0a0a0"
+              floodOpacity="0.3"
+            />
           </filter>
           <filter id="neumorphic-inset">
-            <feDropShadow dx="-2" dy="-2" stdDeviation="3" floodColor="#a0a0a0" floodOpacity="0.3" />
-            <feDropShadow dx="2" dy="2" stdDeviation="3" floodColor="#ffffff" floodOpacity="1" />
+            <feDropShadow
+              dx="-2"
+              dy="-2"
+              stdDeviation="3"
+              floodColor="#a0a0a0"
+              floodOpacity="0.3"
+            />
+            <feDropShadow
+              dx="2"
+              dy="2"
+              stdDeviation="3"
+              floodColor="#ffffff"
+              floodOpacity="1"
+            />
           </filter>
           <filter id="selected-glow">
             <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
@@ -71,7 +99,9 @@ export default function MusicVenue({ onSelect, event}) {
           width={generalAdmissionWidth}
           height={generalAdmissionHeight}
           fill={isSelected ? "#4a90e2" : "#e0e0e0"}
-          filter={isSelected ? "url(#selected-glow)" : "url(#neumorphic-filter)"}
+          filter={
+            isSelected ? "url(#selected-glow)" : "url(#neumorphic-filter)"
+          }
           rx="8"
           ry="8"
           whileHover={{ filter: "url(#neumorphic-inset)" }}
@@ -80,7 +110,9 @@ export default function MusicVenue({ onSelect, event}) {
         <text
           x="300"
           y="355"
-          className={`text-2xl font-bold ${isSelected ? "fill-white" : "fill-gray-600"}`}
+          className={`text-2xl font-bold ${
+            isSelected ? "fill-white" : "fill-gray-600"
+          }`}
           textAnchor="middle"
           dominantBaseline="middle"
           pointerEvents="none"
@@ -89,7 +121,16 @@ export default function MusicVenue({ onSelect, event}) {
         </text>
 
         {/* Entrada y Salida */}
-        <rect x="20" y="550" width="80" height="30" fill="#e0e0e0" filter="url(#neumorphic-filter)" rx="8" ry="8" />
+        <rect
+          x="20"
+          y="550"
+          width="80"
+          height="30"
+          fill="#e0e0e0"
+          filter="url(#neumorphic-filter)"
+          rx="8"
+          ry="8"
+        />
         <text
           x="60"
           y="565"
@@ -100,7 +141,16 @@ export default function MusicVenue({ onSelect, event}) {
           Entrada
         </text>
 
-        <rect x="500" y="550" width="80" height="30" fill="#e0e0e0" filter="url(#neumorphic-filter)" rx="8" ry="8" />
+        <rect
+          x="500"
+          y="550"
+          width="80"
+          height="30"
+          fill="#e0e0e0"
+          filter="url(#neumorphic-filter)"
+          rx="8"
+          ry="8"
+        />
         <text
           x="540"
           y="565"
@@ -123,8 +173,13 @@ export default function MusicVenue({ onSelect, event}) {
             }}
           >
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-gray-800">Entrada General</h3>
-              <button onClick={() => setShowModal(false)} className="text-gray-600 hover:text-gray-800">
+              <h3 className="text-xl font-bold text-gray-800">
+                Entrada General
+              </h3>
+              <button
+                onClick={() => setShowModal(false)}
+                className="text-gray-600 hover:text-gray-800"
+              >
                 <X className="w-6 h-6" />
               </button>
             </div>
@@ -135,11 +190,13 @@ export default function MusicVenue({ onSelect, event}) {
               Precio: <strong>${getAreaPrice()}</strong>
             </p>
             <p className="mt-2">
-              La entrada general te da acceso a toda el área de conciertos. Disfruta del espectáculo desde cualquier lugar de la sala.
+              La entrada general te da acceso a toda el área de conciertos.
+              Disfruta del espectáculo desde cualquier lugar de la sala.
             </p>
           </div>
         </div>
       )}
+      
     </div>
-  )
+  );
 }
