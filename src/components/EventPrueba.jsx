@@ -72,7 +72,7 @@ const EventPrueba = (props) => {
               {event?.name || "Event name not available"}
             </h1>
             <p className="text-2xl text-yellow-300">
-              {event.place == 1 ? "Crest" : event.place == 2 ? "Tide" : "Drift"}
+              {event.placeId == 1 ? "Crest" : event.place == 2 ? "Tide" : "Drift"}
             </p>
           </div>
         </div>
@@ -97,7 +97,7 @@ const EventPrueba = (props) => {
               <Ticket className="mr-2 text-green-600" />
               <span className="text-sm font-bold">
                 {event?.ticketPrice
-                  ? `$${event.ticketPrice.toLocaleString()}`
+                  ? `$${ Number(event.ticketPrice).toLocaleString()}`
                   : "0.00"}
               </span>
             </div>

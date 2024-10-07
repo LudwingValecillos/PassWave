@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Calendar, Ticket, Star, DollarSign, Heart } from "lucide-react";
+import { Calendar, Ticket, Star, DollarSign, Heart, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const SketchCardEvent = React.memo(({ title, img, date, quotas, artists, price, id }) => {
@@ -32,7 +32,7 @@ const SketchCardEvent = React.memo(({ title, img, date, quotas, artists, price, 
   }, [id]);
 
   return (
-    <article className="w-[400px] h-[550px] flex flex-col justify-between p-6 bg-[#F2BB13] hover:bg-[#f2ba13a6] border-4 duration-300 hover:scale-105 border-black rounded-lg shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+    <article className="w-[400px] h-[570px] flex flex-col justify-between p-6 bg-[#F2BB13] hover:bg-[#f2ba13a6] border-4 duration-300 hover:scale-105 border-black rounded-lg shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
       <div className="relative">
         <img
           alt={title}
@@ -65,17 +65,17 @@ const SketchCardEvent = React.memo(({ title, img, date, quotas, artists, price, 
       <div className="grid grid-cols-3 gap-3 mt-4">
         <div className="bg-white rounded-md p-3 border-2 border-black">
           <Ticket className="h-6 w-6 text-black mx-auto stroke-[2]" />
-          <p className="text-center text-black text-xs mt-1 font-bold">Tickets</p>
+          <p className="text-center text-black text-xs mt-1 font-bold">Available Tickets</p>
           <p className="text-center text-black font-bold">{quotas}</p>
         </div>
 
-        <div className="bg-white rounded-md p-3 border-2 border-black">
-          <Star className="h-6 w-6 text-black mx-auto stroke-[2]" />
-          <p className="text-center text-black text-xs mt-1 font-bold">Guests</p>
+        <div className="bg-white flex flex-col justify-evenly rounded-md p-3 border-2 border-black">
+        <Users className="h-6 w-6 text-black mx-auto stroke-[2]"/>
+          <p className="text-center text-black text-xs mt-1 font-bold">Participants</p>
           <p className="text-center text-black font-bold">{artists}</p>
         </div>
 
-        <div className="bg-white rounded-md p-3 border-2 border-black">
+        <div className="bg-white flex flex-col justify-evenly rounded-md p-3 border-2 border-black">
           <DollarSign className="h-6 w-6 text-black mx-auto stroke-[2]" />
           <p className="text-center text-black text-xs mt-1 font-bold">Price</p>
           <p className="text-center text-black font-bold">${price.toLocaleString()}</p>

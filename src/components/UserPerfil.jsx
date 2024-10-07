@@ -32,11 +32,13 @@ export default function PerfilUsuario() {
 
   useEffect(() => {
     Aos.init({ duration: 1000 });
+  }, []);
+
+  useEffect(() => {
     if (client.firstName === "" && localStorage.getItem("token") !== null) {
       dispatch(loadClient());
     }
   }, [dispatch]);
-
   const handleDownloadPDF = async (ref) => {
     const element = ref.current;
     const canvas = await html2canvas(element);
@@ -67,10 +69,10 @@ export default function PerfilUsuario() {
       onMouseMove={handleMouseMove}
     >
       <div
-        className="w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden border-gray-200 border-2 transition-all duration-300 hover:shadow-3xl"
+        className="w-full max-w-4xl shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] bg-white rounded-2xl  overflow-hidden border-gray-400 border-2 transition-all duration-300 hover:shadow-3xl"
         data-aos="fade-up"
       >
-        <div className="relative pb-20 bg-gradient-to-r from-[#f2bb13] to-[#f28d35] text-white">
+        <div className="relative pb-20 bg-gradient-to-r from-[#caaf5e] to-[#f28d35] text-white">
           <div className="absolute -bottom-20 left-1/2 transform -translate-x-1/2">
             <img
               src="https://d3n32ilufxuvd1.cloudfront.net/635fde9e3d2caa0029c91035/4190189/Image-0157de3b-2ef9-45c1-ba67-9bad1e1925fb.gif"
@@ -88,7 +90,7 @@ export default function PerfilUsuario() {
             <h3 className="text-3xl font-semibold mb-4 text-yellow-300">
               So Glad You're Here! 🌟
             </h3>
-            <p className="text-lg text-gray-100 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-gray-100 max-w-2xl mx-auto leading-relaxed font-bold">
               Discover a place where culture, creativity, and community come
               together. At Wave Center, we invite you to enjoy music 🎵, art 🎨,
               captivating exhibitions, and unique events. Join our vibrant
@@ -170,9 +172,11 @@ export default function PerfilUsuario() {
                             Quantity: {ticket.quantity}
                           </p>
                           <p className="text-gray-600">
-                            Positions: {ticket.positions.join(", ")}
+                            Positions: {ticket?.positions?.join(", ")}
                           </p>
+                          
                         </div>
+                        
                         <div>
                           <p className="text-gray-600">
                             Event Date:{" "}
@@ -222,14 +226,23 @@ export default function PerfilUsuario() {
                   client.rents.map((rent) => (
                     <div
                       key={rent.id}
-                      className="bg-gray-50 border-2 border-black p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
+                      className="bg-gray-50 border-2 border-black p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
                       ref={standRef}
                     >
+                      <div className="flex items-center justify-between">
+                      <div >
                       <h4 className="text-xl font-semibold text-green-600 mb-2">
                         {rent.name}
                       </h4>
+                      <p>{rent.description}</p>
+                      </div>
+                      <div>
+                        <img src="/logoOk.png" alt="" className="w-24"/>
+                      </div>
+                      </div>
                       <div className="flex items-center justify-between py-2">
-                        <div>
+                        <div className="flex justify-between items-center w-full">
+                          <div className="">
                           <p className="text-gray-600">
                             Rent Date:{" "}
                             {new Date(rent.renDate).toLocaleDateString()}
@@ -239,8 +252,20 @@ export default function PerfilUsuario() {
                             {new Date(rent.renDate).toLocaleTimeString()}
                           </p>
                           <p className="text-gray-600">
-                            Positions: {rent.rentedPositions.join(", ") }
+                            Positions: {rent?.rentedPositions?.join(", ") }
                           </p>
+                          </div>
+                          <div>
+                          <p className="text-gray-600 font-bold border-b-2 border-green-400">
+                             {rent.eventName}
+                          </p>
+                          <p className="text-gray-600">
+                            Date: {new Date(rent.date).toDateString() }
+                          </p>
+                          <p className="text-gray-600">
+                          Start time: {new Date(rent.date).toLocaleTimeString() }
+                          </p>
+                          </div>
                         </div>
                       </div>
                       <div className="flex items-center justify-between">

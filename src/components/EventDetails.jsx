@@ -171,7 +171,7 @@ const EventDetails = () => {
             ) : (
               <div className="p-8 flex bg-[#F2BB13] flex-wrap text-center justify-evenly rounded-lg border-2 border-black duration-400 transform hover:-rotate-[0.5deg] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:border-4 transition-transform">
                 <h2 className="font-bold w-full text-3xl mb-4 bg-black text-white p-2 rounded-3xl border-b-4 border-[#BFBFBF]">
-                  Stand Information
+                 {event.place.id == 3 ? "Detail of seats" : "Stand Information"} 
                 </h2>
                 {event.stands.map((stand, index) => (
                   <div
@@ -180,8 +180,9 @@ const EventDetails = () => {
                     style={{ animationDelay: `${index * 150}ms` }}
                   >
                     <h3 className="font-semibold text-xl">
-                      {stand.size.charAt(0).toUpperCase() + stand.size.slice(1)}{" "}
-                      Stand
+                     
+                    {event.place.id == 3? "Price": stand.size.charAt(0).toUpperCase() + stand.size.slice(1)  }{}
+                    
                     </h3>
                     <div className="flex items-center mt-1 justify-center">
                       <DollarSign className="mr-1 text-green-600" size={18} />
@@ -190,7 +191,9 @@ const EventDetails = () => {
                       </span>
                     </div>
                     <p className="text-md text-gray-600 mt-1 font-bold">
-                      {stand.locations.length} available locations
+
+                      {stand.locations.length} Available locations 
+
                     </p>
                   </div>
                 ))}

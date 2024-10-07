@@ -56,7 +56,7 @@ const AdminEventForm = () => {
     setEvent((prev) => ({
       ...prev,
       artists: newArtists,
-    }));
+    })); 
   };
 
   const addArtist = () => {
@@ -115,8 +115,14 @@ const AdminEventForm = () => {
       alerError('All fields are required');
       return;
     }
+
+    // Formatear el precio del ticket antes de enviar (con separador de miles)
+    const formattedEvent = {
+      ...event,
+      ticketPrice: Number(event.ticketPrice).toLocaleString('en-US'),
+    };
     
-    axios.post('http://localhost:8080/api/event/create', event, {
+    axios.post('http://localhost:8080/api/event/create', formattedEvent, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       },
@@ -232,9 +238,10 @@ const AdminEventForm = () => {
             <div className="flex items-center space-x-2">
               <DollarSign className="text-[#0D0D0D]" />
               <input
-                type="number"
+                type="text"
                 name="ticketPrice"
                 value={event.ticketPrice}
+                min={1}
                 onChange={handleChange}
                 placeholder="Ticket Price"
                 className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#0D0D0D] border-2 border-black"
