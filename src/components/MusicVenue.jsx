@@ -20,13 +20,13 @@ export default function MusicVenue({ onSelect, event, quantityNumber }) {
   };
 
   const getAreaPrice = () => {
-    return event.ticketPrice; // Precio fijo para la entrada general
+    return event.ticketPrice; // Fixed price for general admission
   };
 
   return (
     <div className="relative w-full max-w-4xl mx-auto p-4 bg-gray-100 rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-4 text-center text-gray-800">
-        Sala de Conciertos
+        Concert Hall
       </h2>
       <svg viewBox="0 0 600 600" className="w-full h-auto">
         <defs>
@@ -71,7 +71,7 @@ export default function MusicVenue({ onSelect, event, quantityNumber }) {
           </filter>
         </defs>
 
-        {/* Escenario */}
+        {/* Stage */}
         <rect
           x={(600 - stageWidth) / 2}
           y={50}
@@ -89,10 +89,10 @@ export default function MusicVenue({ onSelect, event, quantityNumber }) {
           textAnchor="middle"
           dominantBaseline="middle"
         >
-          Escenario
+          Stage
         </text>
 
-        {/* Entrada General */}
+        {/* General Admission */}
         <motion.rect
           x={(600 - generalAdmissionWidth) / 2}
           y={180}
@@ -117,10 +117,10 @@ export default function MusicVenue({ onSelect, event, quantityNumber }) {
           dominantBaseline="middle"
           pointerEvents="none"
         >
-          Entrada General
+          General Admission
         </text>
 
-        {/* Entrada y Salida */}
+        {/* Entrance and Exit */}
         <rect
           x="20"
           y="550"
@@ -134,11 +134,11 @@ export default function MusicVenue({ onSelect, event, quantityNumber }) {
         <text
           x="60"
           y="565"
-          className="text-xs font-bold fill-gray-600"
+          className="md:text-xs font-bold fill-gray-600"
           textAnchor="middle"
           dominantBaseline="middle"
         >
-          Entrada
+          Entrance
         </text>
 
         <rect
@@ -154,15 +154,15 @@ export default function MusicVenue({ onSelect, event, quantityNumber }) {
         <text
           x="540"
           y="565"
-          className="text-xs font-bold fill-gray-600"
+          className="md:text-xs font-bold fill-gray-600"
           textAnchor="middle"
           dominantBaseline="middle"
         >
-          Salida
+          Exit
         </text>
       </svg>
 
-      {/* Modal con información de la entrada general */}
+      {/* Modal with general admission info */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div
@@ -174,7 +174,7 @@ export default function MusicVenue({ onSelect, event, quantityNumber }) {
           >
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-bold text-gray-800">
-                Entrada General
+                General Admission
               </h3>
               <button
                 onClick={() => setShowModal(false)}
@@ -184,14 +184,14 @@ export default function MusicVenue({ onSelect, event, quantityNumber }) {
               </button>
             </div>
             <p>
-              Has seleccionado: <strong>Entrada General</strong>
+              You have selected: <strong>General Admission</strong>
             </p>
             <p>
-              Precio: <strong>${getAreaPrice()}</strong>
+              Price: <strong>${getAreaPrice()}</strong>
             </p>
             <p className="mt-2">
-              La entrada general te da acceso a toda el área de conciertos.
-              Disfruta del espectáculo desde cualquier lugar de la sala.
+              General admission gives you access to the entire concert area.
+              Enjoy the show from anywhere in the venue.
             </p>
           </div>
         </div>

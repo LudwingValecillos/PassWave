@@ -167,11 +167,11 @@ const Login = () => {
   }
   return (
     <div
-      className="flex justify-center items-center min-h-screen bg-[#F2F2F2] p-4"
+      className="flex justify-center items-center min-h-screen bg-[#F2F2F2] p-4 "
       data-aos="flip-left"
     >
       <div
-        className="w-full z-10 max-w-3xl bg-white shadow-2xl rounded-lg shadow-xl overflow-hidden border-black border-[1px]"
+        className="w-full z-10 max-w-3xl bg-white shadow-2xl rounded-lg overflow-hidden border-black border-[1px]"
         data-aos="flip-right"
       >
         <div className="relative flex flex-col md:flex-row h-[600px] md:h-[500px]">
@@ -264,7 +264,7 @@ const Login = () => {
 
           {/* Image Section */}
           <div
-            className={`absolute inset-y-0 w-full md:w-1/2 transition-transform duration-500 ease-in-out  ${
+            className={`absolute inset-y-0 w-full invisible	 md:visible	  md:w-1/2 transition-transform duration-500 ease-in-out  ${
               isLoginActive ? "translate-x-full" : "translate-x-0"
             }`}
           >
@@ -317,7 +317,7 @@ const Login = () => {
         return (
           <div
             key={index}
-            className="absolute z-0"
+            className="absolute z-0 hidden md:block "
             style={{
               left: position.x,
               top: position.y,
