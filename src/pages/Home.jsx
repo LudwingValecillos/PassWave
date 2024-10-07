@@ -42,56 +42,93 @@ const Home = () => {
     <div className="w-full bg-[#F2D22E]">
       <div className="flex flex-col items-center relative">
         {/* WELCOME text */}
+       
         <h2
-          className="font-extrabold text-center mt-8 relative z-10"
-          style={{
-            fontFamily: "'Rubik Bubbles', cursive",
-            fontSize: "200px",
-            padding: "20px",
-          }}
-        >
-          WELCOME
-        </h2>
-        <img
-          src="/src/assets/slogan2.gif"
-          alt="Slogan"
-          className="w-80 h-auto mt-0"
-        />
+  className="font-extrabold text-center mt-8 relative z-10 text-4xl      
+    sm:text-6xl   
+    md:text-8xl   
+    lg:text-9xl 
+    xl:text-[200px] 
+    p-4 sm:p-6 md:p-8 lg:p-10 "
+  style={{ fontFamily: "'Rubik Bubbles', cursive" }}
+>
+  WELCOME
+</h2>
+
+
+<img
+  src="/src/assets/slogan2.gif"
+  alt="Slogan"
+  className="
+    w-40       
+    sm:w-60     
+    md:w-80     
+    lg:w-96     
+    xl:w-[400px] 
+    h-auto      
+    mt-0        
+  "
+/>
+
 
         {/* Image with adjusted styles and scroll-based movement */}
         <img
-          src="https://d3n32ilufxuvd1.cloudfront.net/635fde9e3d2caa0029c91035/4190189/Image-0157de3b-2ef9-45c1-ba67-9bad1e1925fb.gif"
-          alt="Overlay Image"
-          className="absolute"
-          style={{
-            top: "150px", // Adjusted top position
-            right: "20px", // Right alignment
-            width: "450px", // Increased width
-            height: "auto", // Maintain aspect ratio
-            zIndex: "5", // Stacking order
-            opacity: "0.85", // Adjusted opacity
-            transform: `translateX(-${scrollPosition * 0.5}px)`, // Scroll movement
-          }}
-        />
+  src="https://d3n32ilufxuvd1.cloudfront.net/635fde9e3d2caa0029c91035/4190189/Image-0157de3b-2ef9-45c1-ba67-9bad1e1925fb.gif"
+  alt="Overlay Image"
+  className="
+    absolute
+    right-4     // Ajusta la posición a la derecha en pantallas pequeñas
+    sm:right-6  // Posición ajustada a la derecha para pantallas medianas
+    md:right-10 // Mayor separación a la derecha para pantallas medianas y grandes
+    top-[100px] // Ajuste superior para pantallas pequeñas
+    sm:top-[120px] 
+    md:top-[150px]
+    w-[200px]   // Ancho para pantallas pequeñas
+    sm:w-[300px] // Ancho para pantallas medianas
+    md:w-[400px] // Ancho para pantallas grandes
+    lg:w-[450px] // Ancho máximo para pantallas muy grandes
+    opacity-85  // Mantiene la opacidad
+    z-5         // Z-index para mantener la jerarquía
+  "
+  style={{
+    transform: `translateX(-${scrollPosition * 0.5}px)`, // Movimiento en base al scroll
+  }}
+/>
+
+
+
+
       </div>
       {/* Espacio para separar la imagen y el slide */}
       <div style={{ height: "150px" }} />{" "}
       {/* Aumentar esta altura para mover el slide más abajo */}
       {/* Slide Promocional */}
-      <div className="relative w-full h-[100px] bg-black overflow-hidden flex items-center justify-center">
-        {" "}
-        {/* Añadir flex para centrar */}
-        <motion.div
-          className="white text-3xl text-center text-white z-10"
-          initial={{ x: "100%" }}
-          animate={{ x: ["100%", "-100%"] }}
-          transition={{ duration: 10, ease: "linear", repeat: Infinity }}
-          style={{ fontFamily: "'Rubik Bubbles', cursive" }}
-        >
-          Catch the Wave of Creativity and Connection—Experience a Fusion of Art
-          and Community That Inspires and Transforms.
-        </motion.div>
-      </div>
+      
+      <div className="relative w-full h-[80px] sm:h-[100px] bg-black overflow-hidden flex items-center justify-center">
+  {/* Añadir flex para centrar */}
+  <motion.div
+    className="
+      white 
+      text-xl       // Tamaño de texto para pantallas pequeñas
+      sm:text-2xl   // Tamaño de texto para pantallas medianas
+      md:text-3xl   // Tamaño de texto para pantallas grandes
+      lg:text-4xl   // Tamaño de texto para pantallas muy grandes
+      whitespace-nowrap // Evita saltos de línea
+      text-center 
+      text-white 
+      z-10
+    "
+    initial={{ x: "100%" }}
+    animate={{ x: ["100%", "-100%"] }}
+    transition={{ duration: 10, ease: "linear", repeat: Infinity }}
+    style={{ fontFamily: "'Rubik Bubbles', cursive" }}
+  >
+    Catch the Wave of Creativity and Connection—Experience a Fusion of Art and Community That Inspires and Transforms.
+  </motion.div>
+</div>
+
+
+
       {/* Spacer to separate welcome section from cards */}
       {/* <div style={{ height: "100vh" }} />  Height can be adjusted as needed */}
       {/* Card 1: Color de fondo #04bf9d */}
@@ -108,20 +145,29 @@ const Home = () => {
         />
       </div>
       {/* Slide Promocional */}
-      <div className="relative w-full h-[100px] bg-black overflow-hidden flex items-center justify-center">
-        {" "}
-        {/* Añadir flex para centrar */}
-        <motion.div
-          className="white text-3xl text-center text-white z-10"
-          initial={{ x: "100%" }}
-          animate={{ x: ["100%", "-100%"] }}
-          transition={{ duration: 10, ease: "linear", repeat: Infinity }}
-          style={{ fontFamily: "'Rubik Bubbles', cursive" }}
-        >
-          Catch the Wave of Creativity and Connection—Experience a Fusion of Art
-          and Community That Inspires and Transforms.
-        </motion.div>
-      </div>
+      <div className="relative w-full h-[80px] sm:h-[100px] bg-black overflow-hidden flex items-center justify-center">
+  {/* Añadir flex para centrar */}
+  <motion.div
+    className="
+      white 
+      text-xl       // Tamaño de texto para pantallas pequeñas
+      sm:text-2xl   // Tamaño de texto para pantallas medianas
+      md:text-3xl   // Tamaño de texto para pantallas grandes
+      lg:text-4xl   // Tamaño de texto para pantallas muy grandes
+      whitespace-nowrap // Evita saltos de línea
+      text-center 
+      text-white 
+      z-10
+    "
+    initial={{ x: "100%" }}
+    animate={{ x: ["100%", "-100%"] }}
+    transition={{ duration: 10, ease: "linear", repeat: Infinity }}
+    style={{ fontFamily: "'Rubik Bubbles', cursive" }}
+  >
+    Catch the Wave of Creativity and Connection—Experience a Fusion of Art and Community That Inspires and Transforms.
+  </motion.div>
+</div>
+
       {/* Card 2 */}
       <div data-aos="fade-up" className="w-full">
 
@@ -137,20 +183,29 @@ const Home = () => {
         />
       </div>
       {/* Slide Promocional */}
-      <div className="relative w-full h-[100px] bg-black overflow-hidden flex items-center justify-center">
-        {" "}
-        {/* Añadir flex para centrar */}
-        <motion.div
-          className="white text-3xl text-center text-white z-10"
-          initial={{ x: "100%" }}
-          animate={{ x: ["100%", "-100%"] }}
-          transition={{ duration: 10, ease: "linear", repeat: Infinity }}
-          style={{ fontFamily: "'Rubik Bubbles', cursive" }}
-        >
-          Catch the Wave of Creativity and Connection—Experience a Fusion of Art
-          and Community That Inspires and Transforms.
-        </motion.div>
-      </div>
+      <div className="relative w-full h-[80px] sm:h-[100px] bg-black overflow-hidden flex items-center justify-center">
+  {/* Añadir flex para centrar */}
+  <motion.div
+    className="
+      white 
+      text-xl       // Tamaño de texto para pantallas pequeñas
+      sm:text-2xl   // Tamaño de texto para pantallas medianas
+      md:text-3xl   // Tamaño de texto para pantallas grandes
+      lg:text-4xl   // Tamaño de texto para pantallas muy grandes
+      whitespace-nowrap // Evita saltos de línea
+      text-center 
+      text-white 
+      z-10
+    "
+    initial={{ x: "100%" }}
+    animate={{ x: ["100%", "-100%"] }}
+    transition={{ duration: 10, ease: "linear", repeat: Infinity }}
+    style={{ fontFamily: "'Rubik Bubbles', cursive" }}
+  >
+    Catch the Wave of Creativity and Connection—Experience a Fusion of Art and Community That Inspires and Transforms.
+  </motion.div>
+</div>
+
       {/* Card 3 */}
       <div data-aos="fade-up" className="w-full">
         <VintageCard
@@ -163,20 +218,29 @@ const Home = () => {
         />
       </div>
       {/* Slide Promocional */}
-      <div className="relative w-full h-[100px] bg-yellow-500 overflow-hidden flex items-center justify-center">
-        {" "}
-        {/* Añadir flex para centrar */}
-        <motion.div
-          className="white text-3xl text-center text-black z-10"
-          initial={{ x: "100%" }}
-          animate={{ x: ["100%", "-100%"] }}
-          transition={{ duration: 10, ease: "linear", repeat: Infinity }}
-          style={{ fontFamily: "'Rubik Bubbles', cursive" }}
-        >
-          Catch the Wave of Creativity and Connection—Experience a Fusion of Art
-          and Community That Inspires and Transforms.
-        </motion.div>
-      </div>
+      <div className="relative w-full h-[80px] sm:h-[100px] bg-yellow-500 overflow-hidden flex items-center justify-center">
+  {/* Añadir flex para centrar */}
+  <motion.div
+    className="
+      white 
+      text-xl       // Tamaño de texto para pantallas pequeñas
+      sm:text-2xl   // Tamaño de texto para pantallas medianas
+      md:text-3xl   // Tamaño de texto para pantallas grandes
+      lg:text-4xl   // Tamaño de texto para pantallas muy grandes
+      whitespace-nowrap // Evita saltos de línea
+      text-center 
+      text-white 
+      z-10
+    "
+    initial={{ x: "100%" }}
+    animate={{ x: ["100%", "-100%"] }}
+    transition={{ duration: 10, ease: "linear", repeat: Infinity }}
+    style={{ fontFamily: "'Rubik Bubbles', cursive" }}
+  >
+    Catch the Wave of Creativity and Connection—Experience a Fusion of Art and Community That Inspires and Transforms.
+  </motion.div>
+</div>
+
       {/* Card 4 */}
       <div data-aos="fade-up" className="w-full">
 
