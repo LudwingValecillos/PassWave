@@ -63,7 +63,7 @@ function PrintCardEvenes(props) {
           placeholder="Search events"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)} // Actualiza el término de búsqueda
-          className="md:p-4 w-1/3 h-20 border-2 text-center border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rounded-3xl font-bold"
+          className="md:p-4 w-1/3 h-20 border-2 text-center text-2xl border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rounded-3xl font-bold"
         />
         <img
           src="https://png.pngtree.com/png-vector/20230430/ourmid/pngtree-right-arrow-vector-png-image_6745379.png"
