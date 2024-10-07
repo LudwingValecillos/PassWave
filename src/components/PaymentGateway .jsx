@@ -56,19 +56,35 @@ const PaymentGateway = ({ onPaymentComplete, ticketPrice, event }) => {
       )
       .then((response) => {
         console.log(response.data);
-        axios
-          .post("http://localhost:8080/api/ticket/apply", dataTickets, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then((response) => {
-            console.log(response.data);
-            dispatch(loadEvents());
-          })
-          .catch((error) => {
-            console.error("Error making the request:", error);
-          });
+        if (event.placeId == 1) {
+          axios
+            .post("http://localhost:8080/api/ticket/apply", dataTickets, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((response) => {
+              console.log(response.data);
+              dispatch(loadEvents());
+            })
+            .catch((error) => {
+              console.error("Error making the request:", error);
+            });
+        } else if (event.place.id == 2) {
+          axios
+            .post("http://localhost:8080/api/ticket/apply", dataTickets, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((response) => {
+              console.log(response.data);
+              dispatch(loadEvents());
+            })
+            .catch((error) => {
+              console.error("Error making the request:", error);
+            });
+        }
       })
       .catch((error) => {
         console.error("Error making the request:", error);
@@ -109,7 +125,7 @@ const PaymentGateway = ({ onPaymentComplete, ticketPrice, event }) => {
         </div>
         <div className="mt-4">
           <p className="text-lg font-medium text-gray-700">
-            Total a Pagar: ${totalPrice.toFixed(2)}
+          Total to Pay: ${totalPrice.toFixed(2)}
           </p>
         </div>
         <div>

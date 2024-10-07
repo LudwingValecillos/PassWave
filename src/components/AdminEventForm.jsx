@@ -1,23 +1,29 @@
-import React, { useState } from 'react';
-import { Calendar, MapPin, DollarSign, Users, FileText, Images } from 'lucide-react';
-import EventPrueba from './EventPrueba';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { loadEvents } from '../redux/actions/eventsAction';
-import Swal from 'sweetalert2';
+import React, { useState } from "react";
+import {
+  Calendar,
+  MapPin,
+  DollarSign,
+  Users,
+  FileText,
+  Images,
+} from "lucide-react";
+import EventPrueba from "./EventPrueba";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { loadEvents } from "../redux/actions/eventsAction";
+import Swal from "sweetalert2";
 
 const AdminEventForm = () => {
-
   const dispatch = useDispatch();
   const [event, setEvent] = useState({
-    name: '',
-    description: '',
-    artists: [''],
-    date: '',
-    ticketPrice: '',
+    name: "",
+    description: "",
+    artists: [""],
+    date: "",
+    ticketPrice: "",
     hasStand: true,
-    images: [''],
-    placeId: 1, // Default to a valid place ID
+    images: [""],
+    placeId: null, // Default to a valid place ID
   });
 
   const handleChange = (e) => {
@@ -56,14 +62,14 @@ const AdminEventForm = () => {
   const addArtist = () => {
     setEvent((prev) => ({
       ...prev,
-      artists: [...prev.artists, ''],
+      artists: [...prev.artists, ""],
     }));
   };
 
   const addUrlImage = () => {
     setEvent((prev) => ({
       ...prev,
-      images: [...prev.images, ''],
+      images: [...prev.images, ""],
     }));
   };
 
@@ -101,6 +107,7 @@ const AdminEventForm = () => {
   };
 
   const handleSubmit = (e) => {
+
     e.preventDefault();
     
     // Verificación de campos obligatorios
@@ -125,14 +132,17 @@ const AdminEventForm = () => {
     }).catch((error) => {
       alerError(error.response.data);
     });
+
   };
 
   return (
     <div className="text-black flex px-12">
       <div className="w-1/2 bg-[#dfdfdf] rounded-lg overflow-hidden border-2 border-[#0D0D0D] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
         <form onSubmit={handleSubmit} className="space-y-6 p-8">
-          <h2 className="text-3xl font-bold text-center mb-8 border-b-2 border-[#0D0D0D] pb-4">Create New Event</h2>
-          
+          <h2 className="text-3xl font-bold text-center mb-8 border-b-2 border-[#0D0D0D] pb-4">
+            Create New Event
+          </h2>
+
           <div className="space-y-2">
             <label className="block font-medium">Images</label>
             {event.images.map((image, index) => (
@@ -163,7 +173,7 @@ const AdminEventForm = () => {
               Add Image
             </button>
           </div>
-          
+
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <FileText className="text-[#0D0D0D]" />

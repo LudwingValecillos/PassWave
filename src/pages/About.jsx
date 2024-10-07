@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Users, Music, Calendar, MapPin, Mail, Github, Linkedin, Star, Zap, Coffee, Code, Puzzle, Play, Send } from 'lucide-react'
+import { Users, Music, Calendar, MapPin, Mail, Github, Linkedin, Star, Zap, Coffee, Code, Puzzle, Play, Send, Share2 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadClient } from '../redux/actions/clientActions'
@@ -12,7 +12,7 @@ export default function AboutView() {
   const [showEmailForm, setShowEmailForm] = useState(false)
   const [emailSubmitted, setEmailSubmitted] = useState(false)
 
-  window.scrollTo(0, 0);
+  // window.scrollTo(0, 0);
   const client = useSelector((state) => state.client.client);
 
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ export default function AboutView() {
         const currentIndex = sections.indexOf(current)
         return sections[(currentIndex + 1) % sections.length]
       })
-    }, 5000)
+    }, 100000)
 
     return () => clearInterval(interval)
   }, [])
@@ -73,12 +73,33 @@ export default function AboutView() {
     { name: 'Amparo Perez', role: 'Full Stack Developer', bio: 'CSS wizard. Making the web beautiful, one div at a time.' },
     { name: 'Ludwing Valecillos', role: 'Full Stack Developer', bio: 'Algorithm whisperer. Speaks fluent JavaScript.' },
   ]
-
+  const teamMembers = [
+    { 
+      name: 'Carolina Pineiro', 
+      github: 'https://github.com/carolinabpineiro', 
+      linkedin: 'https://www.linkedin.com/in/carolina-pineiro/' 
+    },
+    { 
+      name: 'William Ocanto', 
+      github: 'https://github.com/WilliamJOcanto', 
+      linkedin: 'https://www.linkedin.com/in/william-ocanto-462b122aa' 
+    },
+    { 
+      name: 'Amparo Perez', 
+      github: 'https://github.com/psilocyamp', 
+      linkedin: 'https://www.linkedin.com/in/amparo-p%C3%A9rez/' 
+    },
+    { 
+      name: 'Ludwing Valecillos', 
+      github: 'https://github.com/LudwingValecillos', 
+      linkedin: 'https://www.linkedin.com/in/ludwingvalecillos/' 
+    }
+  ]
   const coolProjects = [
-    { name: 'Carolina\'s HomeBank', date: '2023-05-15', tech: 'React, Node.js' },
-    { name: 'William\'s CryptoTracker', date: '2023-06-22', tech: 'Vue.js, Express' },
-    { name: 'Amparo\'s ArtGallery', date: '2023-07-10', tech: 'Angular, MongoDB' },
-    { name: 'Ludwing\'s FitnessPal', date: '2023-08-05', tech: 'React Native, Firebase' },
+    { name: 'Carolina\'s HomeBank',  text: 'See the proyect here!',url: 'https://frontend-homebanking-pineiro.onrender.com/' },
+    { name: 'William\'s HomeBank',   text: 'See the proyect here!',url: 'https://frontend-react-homebanking.onrender.com/' },
+    { name: 'Amparo\'s HomeBank',  text: 'See the proyect here!',url: 'https://homebankingfront-6n5u.onrender.com/' },
+    { name: 'Ludwing\'s HomeBank',  text: 'See the proyect here!', url: 'https://homebankig-frontend.onrender.com/' },
   ]
 
   const squadSkills = [
@@ -165,7 +186,9 @@ export default function AboutView() {
                     </div>
                     <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
                       <span className="text-[#0D0D0D] text-sm">{project.date}</span>
-                      <span className="font-bold text-[#0D0D0D] text-sm">{project.tech}</span>
+                      <a target='_blank' href={project.url}>
+                      <span className="font-bold text-[#0D0D0D] text-sm">{project.text}</span>
+                      </a>
                     </div>
                   </div>
                 ))}
@@ -173,38 +196,41 @@ export default function AboutView() {
             )}
 
             {activeSection === 'contact' && (
-              <div className="bg-[#F2BB13] p-4 sm:p-6 rounded-lg border-2 border-[#0D0D0D] shadow-[4px_4px_0px_0px_rgba(13,13,13,1)] space-y-4">
-                <div className="flex items-center justify-center">
-                  <MapPin className="w-6 h-6 mr-2 text-[#0D0D0D]" />
-                  <span className="text-[#0D0D0D] text-sm sm:text-base">123 Digital Avenue, Webville, Internet</span>
-                </div>
-                <div className="flex items-center justify-center">
-                  <Mail className="w-6 h-6 mr-2 text-[#0D0D0D]" />
-                  <span className="text-[#0D0D0D] text-sm sm:text-base">hello@waveculturalcenter.dev</span>
-                </div>
-                <div className="flex justify-center space-x-4 mt-4">
-                  <motion.a
-                    href="https://github.com/waveculturalcenter"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <Github className="w-8 h-8 text-[#0D0D0D]" />
-                  </motion.a>
-                  <motion.a
-                    href="https://linkedin.com/company/waveculturalcenter"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <Linkedin className="w-8 h-8 text-[#0D0D0D]" />
-                  </motion.a>
-                </div>
-              </div>
+             <div className="bg-[#F2BB13] p-4 sm:p-6 rounded-lg border-2 border-[#0D0D0D] shadow-[4px_4px_0px_0px_rgba(13,13,13,1)] space-y-6">
+            <div className="flex items-center justify-center">
+        <Share2 className="w-6 h-6 mr-2 text-[#0D0D0D]" />
+        <span className="text-[#0D0D0D] text-sm sm:text-base">Follow our journey on GitHub and LinkedIn!</span>
+      </div>
+             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+               {teamMembers.map((member, index) => (
+                 <div key={index} className="bg-white p-4 rounded-lg border-2 border-[#0D0D0D] shadow-[2px_2px_0px_0px_rgba(13,13,13,1)]">
+                   <h3 className="font-bold text-[#0D0D0D] mb-2">{member.name}</h3>
+                   <div className="flex justify-start space-x-4">
+                     <motion.a
+                       href={member.github}
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       whileHover={{ scale: 1.1 }}
+                       whileTap={{ scale: 0.9 }}
+                     >
+                       <Github className="w-6 h-6 text-[#0D0D0D]" />
+                     </motion.a>
+                     <motion.a
+                       href={member.linkedin}
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       whileHover={{ scale: 1.1 }}
+                       whileTap={{ scale: 0.9 }}
+                     >
+                       <Linkedin className="w-6 h-6 text-[#0D0D0D]" />
+                     </motion.a>
+                   </div>
+                 </div>
+               ))}
+             </div>
+           </div>
             )}
-          </motion.div>
+         </motion.div>
         </section>
 
         <section className="bg-[#BFBFBF] border-4 border-[#0D0D0D] rounded-lg shadow-[8px_8px_0px_0px_rgba(13,13,13,1)] p-4 sm:p-6">
