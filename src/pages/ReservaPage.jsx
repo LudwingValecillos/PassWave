@@ -8,8 +8,6 @@ import CasetaSelector from "../components/CasetaSelector";
 import MusicVenue from "../components/MusicVenue";
 import SeatSelector from "../components/SeatSelector";
 import { loadEvents } from "../redux/actions/eventsAction";
-import LabelInput from "../components/LabelInput";
-import { loadClient } from "../redux/actions/clientActions";
 import {
   CalendarIcon,
   ChevronLeftIcon,
@@ -23,13 +21,10 @@ import {
 import axios from "axios";
 import Swal from "sweetalert2";
 
-import { div } from "framer-motion/client";
-
 const steps = [
   {
-    title: "Event Selected",
-    description:
-      "Choose your perfect event experience: depending on your choice, you can purchase general tickets, reserved seats or rent a stand. Get ready to enjoy unforgettable moments!",
+    title: "Choose your Fair",
+    description: "Select the event you want to attend",
     icon: Tent,
   },
   {
@@ -49,12 +44,25 @@ const steps = [
   },
 ];
 
+// const events = useSelector((state) => state.events.events || []);
+// const dispatch = useDispatch();
+// console.log(events);
+
+// useEffect(() => {
+//   Aos.init({ duration: 500 });
+// }, []);
+
+// useEffect(() => {
+//   if (!events.length || events[0].name === '') {
+//     dispatch(loadEvents());
+//   }
+// }, [dispatch, events]);
+
 const PaymentForm = ({ onPaymentComplete }) => {
   const client = useSelector((state) => state.client.client);
-  const dispatch = useDispatch();
-
+const dispatch = useDispatch();
   useEffect(() => {
-    if (client.firstName === "" && localStorage.getItem("token") !== null) {
+    if (client.firstName == "" && localStorage.getItem("token") !== null) {
       dispatch(loadClient());
     }
   }, [dispatch]);
@@ -68,13 +76,6 @@ const PaymentForm = ({ onPaymentComplete }) => {
     paymentNetwork: "VISA",
   });
 
-  useEffect(() => {
-    const errors = validateCardData(cardData);
-    if (errors.length === 0) {
-      onPaymentComplete(cardData); // Envía los datos solo si son válidos
-    }
-  }, [cardData, onPaymentComplete]); // Escucha cambios en cardData
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCardData((prev) => ({ ...prev, [name]: value }));
@@ -87,14 +88,27 @@ const PaymentForm = ({ onPaymentComplete }) => {
 
   const validateCardData = (data) => {
     const errors = [];
-    if (!data.cardHolder) errors.push("Please enter the name of the holder.");
-    if (!/^\d{16}$/.test(data.number)) errors.push("Invalid card number.");
+    if (!data.cardHolder)
+      errors.push("Please enter the name of the holder.");
+    if (!/^\d{16}$/.test(data.number))
+      errors.push("Invalid card number.");
     if (!data.thruDate || new Date(data.thruDate) <= new Date())
       errors.push("Invalid expiration date.");
     if (!/^\d{3}$/.test(data.cvv)) errors.push("Invalid CVV.");
     if (!data.cardType) errors.push("Select the type of card.");
     if (!data.paymentNetwork) errors.push("Select payment network.");
     return errors;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const errors = validateCardData(cardData);
+    if (errors.length) {
+      alert(errors.join("\n"));
+      return;
+    }
+    onPaymentComplete(cardData);
   };
 
   const formatThruDate = (date) => {
@@ -105,7 +119,7 @@ const PaymentForm = ({ onPaymentComplete }) => {
 
   return (
     <div className="flex flex-col md:flex-row justify-between p-4 gap-8">
-      <form className="w-full md:w-1/2 space-y-4">
+      <form onSubmit={handleSubmit} className="w-full md:w-1/2 space-y-4">
         <div>
           <label
             htmlFor="cardHolder"
@@ -198,7 +212,7 @@ const PaymentForm = ({ onPaymentComplete }) => {
             htmlFor="paymentNetwork"
             className="block text-sm font-medium text-gray-700"
           >
-            Payment network
+           Payment network
           </label>
           <select
             id="paymentNetwork"
@@ -211,6 +225,12 @@ const PaymentForm = ({ onPaymentComplete }) => {
             <option value="MASTERCARD">Mastercard</option>
           </select>
         </div>
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          Process payment
+        </button>
       </form>
 
       <div className="w-full md:w-1/2 mt-4">
@@ -262,6 +282,7 @@ const ReservaPage = () => {
       dispatch(loadEvents());
     }
   }, [dispatch, events]);
+  window.scrollTo(0, 0);
 
   const { id } = useParams();
   const eventId = Number(id);
@@ -287,27 +308,14 @@ const ReservaPage = () => {
 
   const handlePaymentComplete = (cardData) => {
     setPaymentData(cardData);
-    // nextStep();
+    nextStep();
   };
 
-  const alerError = (msg) => {
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: msg,
-    });
-  };
   const nextStep = () => {
-    if (currentStep === 3) {
-      navigate("");
+    if (currentStep === 0 && !selectedFeria) {
+      alert("Please select a fair.");
+      return;
     }
-
-    setCurrentStep(currentStep + 1);
-
-    // if (currentStep === 0 && !selectedFeria) {
-    //   alerError("Please select a fair.");
-    //   return;
-    // }
 
     if (
       currentStep === 2 &&
@@ -319,7 +327,9 @@ const ReservaPage = () => {
         !paymentData.cardType ||
         !paymentData.paymentNetwork)
     ) {
-      alerError("Please complete all fields on the card before continuing.");
+      alert(
+        "Please complete all fields on the card before continuing."
+      );
       return;
     }
 
@@ -368,9 +378,7 @@ const ReservaPage = () => {
       },
     },
   };
-  const [nameStand, setName] = useState("");
-  const [descriptionStand, setDescriptionStand] = useState("");
-  const [quantityTicket, setQuantityTicket] = useState("");
+
   const renderStep = () => {
     return (
       <AnimatePresence mode="wait">
@@ -392,63 +400,62 @@ const ReservaPage = () => {
           </div>
           <div className="p-6">
             {currentStep === 0 && (
-              <>
-                <motion.div
-                  variants={itemVariants}
-                  className="bg-gray-100 p-4 text-ce rounded-lg mt-4"
+              <motion.div variants={itemVariants} className="space-y-4">
+                <label
+                  htmlFor="feria-select"
+                  className="block text-sm font-medium text-gray-700"
                 >
-                  <h3 className="font-bold text-xl text-c text-gray-800">
-                    {event.name}
-                  </h3>
-                  <p className="text-gray-600">{event.date}</p>
-                  <p className="text-gray-600">{event.place.name}</p>
-                </motion.div>
-              </>
+                  Select a Fair
+                </label>
+                <select
+                  id="feria-select"
+                  onChange={handleFeriaSelection}
+                  className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
+                >
+                  <option value="">Choose your fair</option>
+                  {event ? (
+                    <option key={event.id} value={event.id}>
+                      {event.name}
+                    </option>
+                  ) : (
+                    events.map((event) => (
+                      <option key={event.id} value={event.id}>
+                        {event.name}
+                      </option>
+                    ))
+                  )}
+                </select>
+                {selectedFeria && (
+                  <motion.div
+                    variants={itemVariants}
+                    className="bg-gray-100 p-4 rounded-lg mt-4"
+                  >
+                    <h3 className="font-bold text-xl text-gray-800">
+                      {selectedFeria.name}
+                    </h3>
+                    <p className="text-gray-600">{selectedFeria.date}</p>
+                    <p className="text-gray-600">{selectedFeria.location}</p>
+                  </motion.div>
+                )}
+              </motion.div>
             )}
             {/* Here we use ternary to decide which component to render */}
             {currentStep === 1 &&
               (event.place.id == 1 ? (
-                <div className="flex flex-col space-y-4">
-                  <CasetaSelector
-                    event={event}
-                    onCasetaSelect={handleCasetaSelection}
-                  />
-                  <div className="bg-gray-100 p-4 rounded-lg flex flex-col shadow-xl gap-2">
-                    <p className="text-center text-2xl font-bold pb-2 ">
-                      Stand details
-                    </p>
-                    <LabelInput
-                      title={"Name del evento"}
-                      onChange={(e) => setName(e.target.value)}
-                    ></LabelInput>
-                    <LabelInput
-                      title={"Description"}
-                      onChange={(e) => setDescriptionStand(e.target.value)}
-                    ></LabelInput>
-                  </div>
-                </div>
+                <CasetaSelector
+                  event={event}
+                  onCasetaSelect={handleCasetaSelection}
+                />
               ) : event.place.id == 2 ? (
-                <div className="flex flex-col justify-center items-center space-y-4">
-                  <MusicVenue
-                    event={event}
-                    onSelect={handleVenueSelection}
-                    quantityNumber={quantityTicket}
-                  />
-
-                  <div className="bg-gray-100 p-4 rounded-lg flex flex-col shadow-xl gap-2 mt-2 w-96 justify-center">
-                    <p className="text-center text-2xl font-bold pb-2">
-                      {" "}
-                      Please indicate the number of tickets to purchase
-                    </p>
-                    <LabelInput
-                      title={"Quantity"}
-                      onChange={(e) => setQuantityTicket(e.target.value)}
-                      type="Number"
-                    ></LabelInput>
-                  </div>
-                </div>
+                <MusicVenue
+                  event={event}
+                  onVenueSelect={handleVenueSelection}
+                />
               ) : (
-                <SeatSelector event={event} onSelect={handleSeatSelection} />
+                <SeatSelector
+                  event={event}
+                  onSeatSelect={handleSeatSelection}
+                />
               ))}
 
             {currentStep === 2 && (
@@ -466,9 +473,11 @@ const ReservaPage = () => {
                   <h3 className="font-bold text-xl text-gray-800">
                     Fair Details
                   </h3>
-                  <p className="text-gray-700">Event: {event?.name}</p>
-                  <p className="text-gray-700">Date: {event?.date}</p>
-                  <p className="text-gray-700">Location: {event.place.name}</p>
+                  <p className="text-gray-700">Event: {selectedFeria?.name}</p>
+                  <p className="text-gray-700">Date: {selectedFeria?.date}</p>
+                  <p className="text-gray-700">
+                    Location: {selectedFeria?.location}
+                  </p>
                 </motion.div>
                 <motion.div
                   className="bg-gray-100 p-4 rounded-lg"
@@ -486,20 +495,17 @@ const ReservaPage = () => {
                       >
                         <span>Booth {caseta}</span>
                         <span className="font-bold">
-                          ${caseta <= 10 ? 10000 : 5000}
+                          ${caseta <= 10 ? 200 : 100}
                         </span>
                       </motion.li>
                     ))}
                   </ul>
                   <p className="font-bold mt-2">
                     Total: $
-                    {event.place.id === 1
-                      ? selectedCasetas.reduce((sum, caseta) => {
-                          return sum + (caseta <= 10 ? 10000 : 5000);
-                        }, 0)
-                      : event.place.id === 2
-                      ? quantityTicket * event.ticketPrice // Lógica para otro lugar
-                      : selectedSeats.length * event.ticketPrice}
+                    {selectedCasetas.reduce(
+                      (sum, caseta) => sum + (caseta <= 10 ? 200 : 100),
+                      0
+                    )}
                   </p>
                 </motion.div>
                 <motion.div
@@ -513,7 +519,8 @@ const ReservaPage = () => {
                     Cardholder: {paymentData?.cardHolder}
                   </p>
                   <p className="text-gray-700">
-                    Card Number: **** **** **** {paymentData?.number.slice(-4)}
+                    Card Number: **** **** ****{" "}
+                    {paymentData?.number.slice(-4)}
                   </p>
                   <p className="text-gray-700">
                     Card Type: {paymentData?.cardType}
@@ -530,7 +537,6 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
                   >
                     Confirm Reservation
                   </button>
-                  
                 </motion.div>
               </motion.div>
             )}
@@ -567,7 +573,6 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
 
 
 
-    const token = localStorage.getItem("token");
     // Make the POST request
     axios
       .post(
@@ -576,6 +581,7 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
       )
       .then((response) => {
         alertSuscess();
+
 
         if (event.place.id == 1) {
           const data = {
@@ -647,6 +653,7 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
               console.error("Error making the request:", error);
             });
         }
+
       })
       .catch((error) => {
         console.error("Error making the request:", error);
@@ -713,13 +720,10 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
           >
             Back
           </button>
-
           <button
             onClick={nextStep}
-            // disabled={currentStep === steps.length - 1}
-            className={`bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 ${
-              currentStep == 3 ? "hidden" : ""
-            }`}
+            disabled={currentStep === steps.length - 1}
+            className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700"
           >
             Next
           </button>
