@@ -528,6 +528,7 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
                   >
                     Confirm Reservation
                   </button>
+                  
                 </motion.div>
               </motion.div>
             )}
@@ -593,6 +594,7 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
             .then((response) => {
               console.log(response.data);
               dispatch(loadEvents());
+              navigate("/my-purchases");
 
             })
             .catch((error) => {
@@ -611,6 +613,8 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
             })
             .then((response) => {
               console.log(response.data);
+              navigate("/my-purchases");
+
               dispatch(loadEvents());
             })
             .catch((error) => {
@@ -635,7 +639,7 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
             .then((response) => {
               console.log(response.data);
               dispatch(loadEvents());
-
+              navigate("/my-purchases");
             })
             .catch((error) => {
               console.error("Error making the request:", error);

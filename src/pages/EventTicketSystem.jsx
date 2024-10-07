@@ -19,6 +19,8 @@ const EventTicketSystem = () => {
 
   window.scrollTo(0, 0);
 
+  console.log(ticketRef);
+  
   return (
     <div className="event-ticket-system p-8 bg-gray-100">
       <h1 className="text-6xl text-center text-yellow-600 font-extrabold mb-10">
