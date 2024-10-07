@@ -192,7 +192,7 @@ const EventDetails = () => {
                       </span>
                     </div>
                     <p className="text-md text-gray-600 mt-1 font-bold">
-                      {stand.locations.length} locations available
+                      {stand.locations.length} available locations
                     </p>
                   </div>
                 ))}

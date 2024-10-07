@@ -25,24 +25,25 @@ const TicketPage = () => {
       <div
         ref={ticketRef}
         className="bg-white border border-gray-300 rounded-lg p-6 shadow-lg text-center"
-        style={{ width: '400px' }} // Estilo para el ticket
+        style={{ width: '400px' }} // Style for the ticket
       >
-        <h1 className="text-xl font-bold">Ticket de Evento</h1>
-        <p><strong>Nombre del Evento:</strong> Concierto de Música</p>
-        <p><strong>Fecha:</strong> 25 de diciembre de 2024</p>
-        <p><strong>Hora:</strong> 18:00</p>
-        <p><strong>Lugar:</strong> Auditorio Nacional</p>
-        <p><strong>Precio:</strong> $50.00</p>
-        <p>¡Gracias por tu compra!</p>
+        <h1 className="text-xl font-bold">Event Ticket</h1>
+        <p><strong>Event Name:</strong> Music Concert</p>
+        <p><strong>Date:</strong> December 25, 2024</p>
+        <p><strong>Time:</strong> 18:00</p>
+        <p><strong>Location:</strong> National Auditorium</p>
+        <p><strong>Price:</strong> $50.00</p>
+        <p>Thank you for your purchase!</p>
       </div>
       <button 
         onClick={handleDownloadPDF} 
         className="mt-6 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
       >
-        Descargar Ticket
+        Download Ticket
       </button>
     </div>
   );
-};
+};  
+    
 
 export default TicketPage;

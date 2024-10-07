@@ -32,7 +32,7 @@ const CasetaSelector = ({ onCasetaSelect = () => {}, event }) => { // Cambiado a
             setShowModal(true);
             onCasetaSelect(newSelection); // Llama a onCasetaSelect con la nueva selección
         } else {
-            alert("Solo puedes seleccionar un máximo de 3 casetas.");
+            alert("You can only select a maximum of 3 booths.");
         }
     };
 

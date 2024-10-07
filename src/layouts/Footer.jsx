@@ -22,7 +22,7 @@ function Footer() {
             </a>
           </div>
 
-          <p className="mx-auto mt-6 max-w-3xl text-center text-l leading-relaxed">
+          <p className="mx-auto mt-6 max-w-6xl text-center text-l leading-relaxed">
             Your portal to unforgettable events! Buy your tickets, secure the best seats, and immerse yourself in the world of the most exciting shows. Be part of the action and feel the energy of every event with WaveCenter. Get ready for experiences you'll remember forever! 🌊
           </p>
 

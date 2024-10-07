@@ -61,7 +61,7 @@ export default function SeatSelector({ onSelect, event }) {
 
   return (
     <div className="relative w-full max-w-4xl mx-auto p-4 bg-gray-100 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold mb-4 text-center text-gray-800">Selecciona tus Asientos</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center text-gray-800">Select your Seats</h2>
       <svg viewBox="0 0 500 500" className="w-full h-auto">
         <defs>
           <filter id="neumorphic-filter">
@@ -98,7 +98,7 @@ export default function SeatSelector({ onSelect, event }) {
           textAnchor="middle"
           dominantBaseline="middle"
         >
-          Escenario
+          Scenery
         </text>
 
         {/* Asientos */}
@@ -153,7 +153,7 @@ export default function SeatSelector({ onSelect, event }) {
           textAnchor="middle"
           dominantBaseline="middle"
         >
-          Entrada
+          Entrance
         </text>
 
         <rect x="400" y="450" width="80" height="30" fill="#e0e0e0" filter="url(#neumorphic-filter)" rx="8" ry="8" />
@@ -164,14 +164,14 @@ export default function SeatSelector({ onSelect, event }) {
           textAnchor="middle"
           dominantBaseline="middle"
         >
-          Salida
+          Exit
         </text>
       </svg>
 
       {/* Mensaje de advertencia */}
       {hoveredSeat !== null && !availableSeatIds.includes(hoveredSeat) && (
         <div className="absolute bg-red-600 text-white p-2 rounded">
-          Este asiento no se puede seleccionar.
+         This seat cannot be selected.
         </div>
       )}
 
@@ -185,17 +185,17 @@ export default function SeatSelector({ onSelect, event }) {
                 "-2px -2px 8px rgba(255, 255, 255, 1), -2px -2px 12px rgba(255, 255, 255, 0.5), inset 2px 2px 4px rgba(255, 255, 255, 0.1), 2px 2px 8px rgba(0, 0, 0, 0.1), 4px 4px 4px rgba(0, 0, 0, 0.15), inset 6px 6px 8px rgba(0, 0, 0, 0.05)",
             }}
           >
-            <h3 className="text-lg font-bold mb-4">Asientos Seleccionados</h3>
+            <h3 className="text-lg font-bold mb-4">Selected Seats</h3>
             <ul>
               {selectedSeats.map((seat) => (
-                <li key={seat}>Asiento {seat}</li>
+                <li key={seat}>Seat {seat}</li>
               ))}
             </ul>
             <button
               className="mt-4 bg-blue-600 text-white py-2 px-4 rounded"
               onClick={() => setShowModal(false)}
             >
-              Cerrar
+              Close
             </button>
           </div>
         </div>

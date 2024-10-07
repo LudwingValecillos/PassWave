@@ -45,7 +45,7 @@ const PaymentForm = ({ onPaymentComplete }) => {
       <div className="flex flex-col md:flex-row justify-between p-4 gap-8">
         <form onSubmit={handleSubmit} className="w-full md:w-1/2 space-y-4">
           <div>
-            <label htmlFor="cardHolder" className="block text-sm font-medium text-gray-700">Nombre del titular</label>
+            <label htmlFor="cardHolder" className="block text-sm font-medium text-gray-700">Owner's name</label>
             <input
               id="cardHolder"
               name="cardHolder"
@@ -56,7 +56,7 @@ const PaymentForm = ({ onPaymentComplete }) => {
             />
           </div>
           <div>
-            <label htmlFor="number" className="block text-sm font-medium text-gray-700">Número de tarjeta</label>
+            <label htmlFor="number" className="block text-sm font-medium text-gray-700">Card number</label>
             <input
               id="number"
               name="number"
@@ -69,7 +69,7 @@ const PaymentForm = ({ onPaymentComplete }) => {
           </div>
           <div className="flex gap-4">
             <div className="w-1/2">
-              <label htmlFor="thruDate" className="block text-sm font-medium text-gray-700">Fecha de vencimiento</label>
+              <label htmlFor="thruDate" className="block text-sm font-medium text-gray-700">Expiration date</label>
               <input
                 id="thruDate"
                 name="thruDate"
@@ -94,7 +94,7 @@ const PaymentForm = ({ onPaymentComplete }) => {
             </div>
           </div>
           <div>
-            <label htmlFor="cardType" className="block text-sm font-medium text-gray-700">Tipo de tarjeta</label>
+            <label htmlFor="cardType" className="block text-sm font-medium text-gray-700">Type Card</label>
             <select
               id="cardType"
               name="cardType"
@@ -102,12 +102,12 @@ const PaymentForm = ({ onPaymentComplete }) => {
               onChange={handleSelectChange}
               className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             >
-              <option value="DEBIT">Débito</option>
-              <option value="CREDIT">Crédito</option>
+              <option value="DEBIT">Debit</option>
+              <option value="CREDIT">Crédit</option>
             </select>
           </div>
           <div>
-            <label htmlFor="paymentNetwork" className="block text-sm font-medium text-gray-700">Red de pago</label>
+            <label htmlFor="paymentNetwork" className="block text-sm font-medium text-gray-700">Payment network</label>
             <select
               id="paymentNetwork"
               name="paymentNetwork"
@@ -123,7 +123,7 @@ const PaymentForm = ({ onPaymentComplete }) => {
             type="submit"
             className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
-            Procesar pago
+            Process payment
           </button>
         </form>
   
@@ -137,11 +137,11 @@ const PaymentForm = ({ onPaymentComplete }) => {
             <p className="text-xl mb-2">{cardData.number || '**** **** **** ****'}</p>
             <div className="flex justify-between">
               <div>
-                <p className="text-sm">Titular de la tarjeta</p>
+                <p className="text-sm">Cardholder</p>
                 <p>{cardData.cardHolder || 'NOMBRE APELLIDO'}</p>
               </div>
               <div>
-                <p className="text-sm">Válida hasta</p>
+                <p className="text-sm">Valid until</p>
                 <p>{formatThruDate(cardData.thruDate)}</p>
               </div>
             </div>

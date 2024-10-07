@@ -109,7 +109,7 @@ const PaymentGateway = ({ onPaymentComplete, ticketPrice, event }) => {
         </div>
         <div className="mt-4">
           <p className="text-lg font-medium text-gray-700">
-            Total a Pagar: ${totalPrice.toFixed(2)}
+          Total to Pay: ${totalPrice.toFixed(2)}
           </p>
         </div>
         <div>
