@@ -8,6 +8,8 @@ import CasetaSelector from "../components/CasetaSelector";
 import MusicVenue from "../components/MusicVenue";
 import SeatSelector from "../components/SeatSelector";
 import { loadEvents } from "../redux/actions/eventsAction";
+import LabelInput from "../components/LabelInput";
+import { loadClient } from "../redux/actions/clientActions";
 import {
   CalendarIcon,
   ChevronLeftIcon,
@@ -21,9 +23,7 @@ import {
 import axios from "axios";
 import Swal from "sweetalert2";
 
-import { loadClient } from "../redux/actions/clientActions";
 import { div } from "framer-motion/client";
-import LabelInput from "../components/LabelInput";
 
 const steps = [
   {
@@ -390,18 +390,18 @@ const ReservaPage = () => {
           </div>
           <div className="p-6">
             {currentStep === 0 && (
-                <>
-                  <motion.div
-                    variants={itemVariants}
-                    className="bg-gray-100 p-4 text-ce rounded-lg mt-4"
-                  >
-                    <h3 className="font-bold text-xl text-c text-gray-800">
-                      {event.name}
-                    </h3>
-                    <p className="text-gray-600">{event.date}</p>
-                    <p className="text-gray-600">{event.place.name}</p>
-                  </motion.div>
-                </>
+              <>
+                <motion.div
+                  variants={itemVariants}
+                  className="bg-gray-100 p-4 text-ce rounded-lg mt-4"
+                >
+                  <h3 className="font-bold text-xl text-c text-gray-800">
+                    {event.name}
+                  </h3>
+                  <p className="text-gray-600">{event.date}</p>
+                  <p className="text-gray-600">{event.place.name}</p>
+                </motion.div>
+              </>
             )}
             {/* Here we use ternary to decide which component to render */}
             {currentStep === 1 &&
@@ -593,7 +593,6 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
             .then((response) => {
               console.log(response.data);
               dispatch(loadEvents());
-
             })
             .catch((error) => {
               console.error("Error making the request:", error);
@@ -617,7 +616,6 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
               console.error("Error making the request:", error);
             });
         } else if (event.place.id == 3) {
-          
           const data1 = {
             enventId: event.id,
             positions: selectedSeats,
@@ -625,7 +623,7 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
             description: "",
           };
           console.log(data1);
-          
+
           axios
             .post("http://localhost:8080/api/stand/apply", data1, {
               headers: {
@@ -635,7 +633,6 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
             .then((response) => {
               console.log(response.data);
               dispatch(loadEvents());
-
             })
             .catch((error) => {
               console.error("Error making the request:", error);
