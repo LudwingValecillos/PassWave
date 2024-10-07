@@ -15,7 +15,7 @@ function PrintCardEvenes(props) {
         ? state.events.events.filter((event) => event.place.id == props.id)
         : state.events.events;
     return filteredEvents;
-  }); // Obtener todos los eventos
+  });
 
   useEffect(() => {
     Aos.init({ duration: 500 });

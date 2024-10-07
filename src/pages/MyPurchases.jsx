@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import PerfilUsuario from "../components/UserPerfil"; // Ajusta la ruta si es necesario
-
+import { useSelector } from "react-redux";
 import Chatbot from "../components/chatBot";
 import { use } from "framer-motion/client";
 import { useDispatch } from "react-redux";
 import { loadClient } from "../redux/actions/clientActions";
-import { useSelector } from "react-redux";
 
 export default function MyPurchases() {
   const client = useSelector((state) => state.client.client);
