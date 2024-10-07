@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const LabelInput = ({ name, title, onChange }) => {
+const LabelInput = ({ name, title, onChange, type }) => {
   const [inputValue, setInputValue] = useState('');
 
   const handleChange = (e) => {
@@ -16,7 +16,8 @@ const LabelInput = ({ name, title, onChange }) => {
       className="relative block rounded-md border-2 p-1 border-gray-200 bg-white shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600"
     >
       <input
-        type="text"
+        type= {type ? type : "text"}
+        min = "1"
         id={name}
         name={name}
         value={inputValue}

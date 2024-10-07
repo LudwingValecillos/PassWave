@@ -10,7 +10,17 @@ import Tide from './pages/Tide';
 import Crest from './pages/Crest';
 import Drift from './pages/Drift';
 import AllEvents from "./pages/AllEvents";
+import AboutView from "./pages/About";
+
+import EventDetails from "./components/EventDetails";
+import AdminEventForm from "./components/AdminEventForm";
+
 import MyPurchases from './pages/MyPurchases';  
+
+import EventTicketSystem from "./pages/EventTicketSystem";
+import FavoriteEvents from "./components/FavoriteEvents";
+import PaymentPdf from "./components/PaymentPdf";
+
 
 
 
@@ -19,7 +29,7 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter ClassName="App">
 
     <Routes>
       <Route path="/" element={<MainLayout />}>
@@ -29,8 +39,25 @@ function App() {
       <Route path="tide" element={<Tide />} />
       <Route path="drift" element={<Drift/>} />
       <Route path="allevents" element={<AllEvents />} />
-      <Route path="/reserva" element={<ReservaPage />} />
+
+      {/* <Route path="event/:id" element={<EventDetails />} />
+       */}
+      <Route path="event/:id" element={<EventDetails />} />
+
+      <Route path="/reserva/:id" element={<ReservaPage />} />
       <Route path="/my-purchases" element={<MyPurchases />} />
+
+      <Route path="/createEvent" element={<AdminEventForm />} />
+
+      <Route path="/event-ticket-system" element={<EventTicketSystem />} /> 
+
+      <Route path="/about" element={<AboutView />} /> 
+
+
+      <Route path="/favorite" element={<FavoriteEvents />} /> 
+      <Route path="/paymentPdf" element={<PaymentPdf />} /> 
+
+
 
       </Route>
       <Route path="login" element={<Login />} />

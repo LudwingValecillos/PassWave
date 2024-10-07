@@ -8,8 +8,10 @@ module.exports = {
         fontFamily: {
           lobster: ['Lobster', 'cursive'], // Agregamos 'Lobster'
         },
+        screens: {
+          'xs': '450px',
       },
     },
     plugins: [],
   }
-  
+}

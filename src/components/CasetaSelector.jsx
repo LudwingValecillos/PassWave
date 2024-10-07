@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { X } from 'lucide-react';
 
-const CasetaSelector = () => {
+const CasetaSelector = ({ onCasetaSelect = () => {}, event }) => { // Cambiado a onCasetaSelect
     const smallCasetaWidth = 30;
     const smallCasetaHeight = 30;
     const largeCasetaWidth = smallCasetaWidth * 2;
@@ -12,22 +12,35 @@ const CasetaSelector = () => {
     const [selectedCasetas, setSelectedCasetas] = useState([]);
     const [showModal, setShowModal] = useState(false);
 
+    const stands = [...event.stands[0].locations, ...event.stands[1].locations];
+
+    const isSelectable = (casetaNumber) => stands.includes(casetaNumber);
+
     const handleCasetaClick = (casetaNumber) => {
+        if (!isSelectable(casetaNumber)) return;
+
         if (selectedCasetas.includes(casetaNumber)) {
-            setSelectedCasetas(selectedCasetas.filter(caseta => caseta !== casetaNumber));
-        } else if (selectedCasetas.length < 2) {
-            setSelectedCasetas([...selectedCasetas, casetaNumber]);
+            const updatedCasetas = selectedCasetas.filter(caseta => caseta !== casetaNumber);
+            setSelectedCasetas(updatedCasetas);
+
+            onCasetaSelect(updatedCasetas); // Actualiza selección
+            console.log(selectedCasetas);
+
+        } else if (selectedCasetas.length < 3) {
+            const newSelection = [...selectedCasetas, casetaNumber];
+            setSelectedCasetas(newSelection);
             setShowModal(true);
+            onCasetaSelect(newSelection); // Llama a onCasetaSelect con la nueva selección
         } else {
-            alert("Solo puedes seleccionar un máximo de 2 casetas.");
+            alert("Solo puedes seleccionar un máximo de 3 casetas.");
         }
     };
 
     const isSelected = (casetaNumber) => selectedCasetas.includes(casetaNumber);
 
     const casetaPrices = {
-        small: 100,
-        large: 200,
+        small: 5000,
+        large: 10000,
     };
 
     const getCasetaPrice = (casetaNumber) => {
@@ -48,10 +61,10 @@ const CasetaSelector = () => {
                         <feDropShadow dx="2" dy="2" stdDeviation="3" floodColor="#ffffff" floodOpacity="1" />
                     </filter>
                     <filter id="selected-glow">
-                        <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+                        <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
                         <feMerge>
-                            <feMergeNode in="coloredBlur"/>
-                            <feMergeNode in="SourceGraphic"/>
+                            <feMergeNode in="coloredBlur" />
+                            <feMergeNode in="SourceGraphic" />
                         </feMerge>
                     </filter>
                 </defs>
@@ -70,9 +83,10 @@ const CasetaSelector = () => {
                             height={largeCasetaHeight}
                             rx="8"
                             ry="8"
-                            fill={isSelected(index + 1) ? "#4a90e2" : "#e0e0e0"}
+                            fill={isSelected(index + 1) ? "#4a90e2" : (isSelectable(index + 1) ? "#e0e0e0" : "orange")}
                             filter={isSelected(index + 1) ? "url(#selected-glow)" : "url(#neumorphic-filter)"}
-                            whileHover={{ filter: "url(#neumorphic-inset)" }}
+                            whileHover={{ filter: isSelectable(index + 1) ? "url(#neumorphic-inset)" : undefined }}
+                            style={{ cursor: isSelectable(index + 1) ? 'pointer' : 'not-allowed' }}
                             onClick={() => handleCasetaClick(index + 1)}
                         />
                         <text
@@ -98,9 +112,10 @@ const CasetaSelector = () => {
                             height={largeCasetaHeight}
                             rx="8"
                             ry="8"
-                            fill={isSelected(index + 6) ? "#4a90e2" : "#e0e0e0"}
+                            fill={isSelected(index + 6) ? "#4a90e2" : (isSelectable(index + 6) ? "#e0e0e0" : "orange")}
                             filter={isSelected(index + 6) ? "url(#selected-glow)" : "url(#neumorphic-filter)"}
-                            whileHover={{ filter: "url(#neumorphic-inset)" }}
+                            whileHover={{ filter: isSelectable(index + 6) ? "url(#neumorphic-inset)" : undefined }}
+                            style={{ cursor: isSelectable(index + 6) ? 'pointer' : 'not-allowed' }}
                             onClick={() => handleCasetaClick(index + 6)}
                         />
                         <text
@@ -127,15 +142,16 @@ const CasetaSelector = () => {
                                 height={smallCasetaHeight}
                                 rx="4"
                                 ry="4"
-                                fill={isSelected(10 + rowIndex * 5 + colIndex + 1) ? "#4a90e2" : "#e0e0e0"}
+                                fill={isSelected(10 + rowIndex * 5 + colIndex + 1) ? "#4a90e2" : (isSelectable(10 + rowIndex * 5 + colIndex + 1) ? "#e0e0e0" : "orange")}
                                 filter={isSelected(10 + rowIndex * 5 + colIndex + 1) ? "url(#selected-glow)" : "url(#neumorphic-filter)"}
-                                whileHover={{ filter: "url(#neumorphic-inset)" }}
+                                whileHover={{ filter: isSelectable(10 + rowIndex * 5 + colIndex + 1) ? "url(#neumorphic-inset)" : undefined }}
+                                style={{ cursor: isSelectable(10 + rowIndex * 5 + colIndex + 1) ? 'pointer' : 'not-allowed' }}
                                 onClick={() => handleCasetaClick(10 + rowIndex * 5 + colIndex + 1)}
                             />
                             <text
                                 x={150 + colIndex * (smallCasetaWidth + pasilloWidth) + smallCasetaWidth / 2}
                                 y={80 + rowIndex * (smallCasetaHeight + pasilloWidth) + smallCasetaHeight / 2}
-                                className={`text-xs font-semibold ${isSelected(10 + rowIndex * 5 + colIndex + 1) ? "fill-white" : "fill-gray-600"}`}
+                                className={`text-md font-semibold ${isSelected(10 + rowIndex * 5 + colIndex + 1) ? "fill-white" : "fill-gray-600"}`}
                                 textAnchor="middle"
                                 dominantBaseline="central"
                                 pointerEvents="none"
@@ -145,34 +161,40 @@ const CasetaSelector = () => {
                         </g>
                     ))
                 ))}
-
-                {/* Entrada y Salida */}
-                <rect x="20" y="300" width="80" height="30" fill="#e0e0e0" filter="url(#neumorphic-filter)" rx="8" ry="8"></rect>
-                <text x="60" y="315" className="text-xs font-bold fill-gray-600" textAnchor="middle" dominantBaseline="middle">Enter</text>
-
-                <rect x="400" y="300" width="80" height="30" fill="#e0e0e0" filter="url(#neumorphic-filter)" rx="8" ry="8"></rect>
-                <text x="440" y="315" className="text-xs font-bold fill-gray-600" textAnchor="middle" dominantBaseline="middle">Exit</text>
             </svg>
 
-            {/* Modal con casetas seleccionadas */}
+            {/* Modal para Confirmación */}
             {showModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                    <div className="bg-gray-100 p-6 rounded-lg shadow-xl max-w-md w-full" style={{
-                        boxShadow: '-2px -2px 8px rgba(255, 255, 255, 1), -2px -2px 12px rgba(255, 255, 255, 0.5), inset 2px 2px 4px rgba(255, 255, 255, 0.1), 2px 2px 8px rgba(0, 0, 0, 0.1), 4px 4px 4px rgba(0, 0, 0, 0.15), inset 6px 6px 8px rgba(0, 0, 0, 0.05)'
-                    }}>
-                        <div className="flex justify-between items-center mb-4">
-                            <h3 className="text-xl font-bold text-gray-800">Casetas Seleccionadas</h3>
-                            <button onClick={() => setShowModal(false)} className="text-gray-600 hover:text-gray-800">
-                                <X className="w-6 h-6" />
-                            </button>
-                        </div>
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                    <div className="bg-white rounded-lg p-6 shadow-lg">
+                        <h3 className="text-lg font-bold mb-4">Confirmation</h3>
+                        <p>Are you sure you want to select the following casetas?</p>
                         <ul>
-                            {selectedCasetas.map(casetaNumber => (
-                                <li key={casetaNumber}>
-                                    Caseta {casetaNumber} - ${getCasetaPrice(casetaNumber)}
-                                </li>
+                            {selectedCasetas.map(caseta => (
+                                <li key={caseta}>Caseta {caseta} - ${getCasetaPrice(caseta)}</li>
                             ))}
                         </ul>
+                        <div className="flex justify-end mt-4">
+                            <button
+                                onClick={() => {
+                                    setShowModal(false);
+                                    // Aquí puedes agregar lógica para confirmar la selección
+                                }}
+                                className="bg-blue-500 text-white rounded-md px-4 py-2 mr-2"
+                            >
+                                Confirm
+                            </button>
+                            <button
+                                onClick={() => {
+                                    setShowModal(false);
+                                    setSelectedCasetas([]);
+                                    onCasetaSelect([]); // Limpia la selección
+                                }}
+                                className="bg-gray-300 text-gray-800 rounded-md px-4 py-2"
+                            >
+                                Cancel
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
