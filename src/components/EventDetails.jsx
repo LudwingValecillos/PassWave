@@ -32,14 +32,12 @@ const EventDetails = () => {
   const client = useSelector((state) => state.client.client);
 
   window.scrollTo(0, 0);
-  
-  
 
   useEffect(() => {
-    if(client.firstName == "" && localStorage.getItem("token") !== null) {
+    if (client.firstName == "" && localStorage.getItem("token") !== null) {
       dispatch(loadClient());
     }
-    if(event.name == "") {
+    if (event.name == "") {
       dispatch(loadEvents());
     }
     setIsVisible(true);
@@ -213,9 +211,10 @@ const EventDetails = () => {
                 </>
               ) : event.place.id == 2 ? (
                 <>
-                  <Link to={`/reserva/${event.id}`}>
-                    <Button2 title="Buy Ticket Now!" />
-                  </Link>
+                  <Button2
+                    title="Buy Ticket Now!"
+                    onClick={handleBuyTicketClick}
+                  />
                 </>
               ) : (
                 <Link to={`/reserva/${event.id}`}>
