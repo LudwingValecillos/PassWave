@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Aos from "aos";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import CasetaSelector from "../components/CasetaSelector";
 import MusicVenue from "../components/MusicVenue";
@@ -20,7 +20,6 @@ import {
 } from "lucide-react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { loadClient } from "../redux/actions/clientActions";
 
 const steps = [
   {
@@ -281,7 +280,7 @@ const ReservaPage = () => {
       dispatch(loadEvents());
     }
   }, [dispatch, events]);
- 
+  window.scrollTo(0, 0);
 
   const { id } = useParams();
   const eventId = Number(id);
@@ -310,13 +309,7 @@ const ReservaPage = () => {
     nextStep();
   };
 
-  const navigate = useNavigate();
   const nextStep = () => {
-   
-    if(currentStep === 3) {
-      navigate("")
-    }
-    
     if (currentStep === 0 && !selectedFeria) {
       alert("Please select a fair.");
       return;
@@ -338,7 +331,6 @@ const ReservaPage = () => {
       return;
     }
 
-    
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     }
@@ -501,7 +493,7 @@ const ReservaPage = () => {
                       >
                         <span>Booth {caseta}</span>
                         <span className="font-bold">
-                          ${caseta <= 10 ? 10000 : 5000}
+                          ${caseta <= 10 ? 200 : 100}
                         </span>
                       </motion.li>
                     ))}
@@ -509,7 +501,7 @@ const ReservaPage = () => {
                   <p className="font-bold mt-2">
                     Total: $
                     {selectedCasetas.reduce(
-                      (sum, caseta) => sum + (caseta <= 10 ? 10000  : 5000),
+                      (sum, caseta) => sum + (caseta <= 10 ? 200 : 100),
                       0
                     )}
                   </p>
@@ -553,6 +545,8 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
   };
   const formSubmitHandler = (e) => {
     e.preventDefault();
+
+    // Calculate the sum
     const suma = selectedCasetas.reduce(
       (sum, caseta) => sum + (caseta <= 10 ? 10000 : 5000),
       0
@@ -586,7 +580,7 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
       )
       .then((response) => {
         alertSuscess();
-        navigate("/paymentPdf");
+        console.log(response.data);
       })
       .catch((error) => {
         console.error("Error making the request:", error);
@@ -653,12 +647,10 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
           >
             Back
           </button>
-         
           <button
             onClick={nextStep}
-            // disabled={currentStep === steps.length - 1}
-            className= {`bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 ${currentStep == 3 ? "hidden" : ""}`}
-              
+            disabled={currentStep === steps.length - 1}
+            className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700"
           >
             Next
           </button>
