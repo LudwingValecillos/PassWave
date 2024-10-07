@@ -8,6 +8,8 @@ import CasetaSelector from "../components/CasetaSelector";
 import MusicVenue from "../components/MusicVenue";
 import SeatSelector from "../components/SeatSelector";
 import { loadEvents } from "../redux/actions/eventsAction";
+import LabelInput from "../components/LabelInput";
+import { loadClient } from "../redux/actions/clientActions";
 import {
   CalendarIcon,
   ChevronLeftIcon,
@@ -60,7 +62,7 @@ const steps = [
 
 const PaymentForm = ({ onPaymentComplete }) => {
   const client = useSelector((state) => state.client.client);
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
   useEffect(() => {
     if (client.firstName == "" && localStorage.getItem("token") !== null) {
       dispatch(loadClient());
@@ -88,10 +90,8 @@ const dispatch = useDispatch();
 
   const validateCardData = (data) => {
     const errors = [];
-    if (!data.cardHolder)
-      errors.push("Please enter the name of the holder.");
-    if (!/^\d{16}$/.test(data.number))
-      errors.push("Invalid card number.");
+    if (!data.cardHolder) errors.push("Please enter the name of the holder.");
+    if (!/^\d{16}$/.test(data.number)) errors.push("Invalid card number.");
     if (!data.thruDate || new Date(data.thruDate) <= new Date())
       errors.push("Invalid expiration date.");
     if (!/^\d{3}$/.test(data.cvv)) errors.push("Invalid CVV.");
@@ -212,7 +212,7 @@ const dispatch = useDispatch();
             htmlFor="paymentNetwork"
             className="block text-sm font-medium text-gray-700"
           >
-           Payment network
+            Payment network
           </label>
           <select
             id="paymentNetwork"
@@ -325,9 +325,7 @@ const ReservaPage = () => {
         !paymentData.cardType ||
         !paymentData.paymentNetwork)
     ) {
-      alert(
-        "Please complete all fields on the card before continuing."
-      );
+      alert("Please complete all fields on the card before continuing.");
       return;
     }
 
@@ -377,6 +375,9 @@ const ReservaPage = () => {
     },
   };
 
+  const [nameStand, setName] = useState("");
+  const [descriptionStand, setDescriptionStand] = useState("");
+  const [quantityTicket, setQuantityTicket] = useState("");
   const renderStep = () => {
     return (
       <AnimatePresence mode="wait">
@@ -440,20 +441,47 @@ const ReservaPage = () => {
             {/* Here we use ternary to decide which component to render */}
             {currentStep === 1 &&
               (event.place.id == 1 ? (
-                <CasetaSelector
-                  event={event}
-                  onCasetaSelect={handleCasetaSelection}
-                />
+                <div className="flex flex-col space-y-4">
+                  <CasetaSelector
+                    event={event}
+                    onCasetaSelect={handleCasetaSelection}
+                  />
+                  <div className="bg-gray-100 p-4 rounded-lg flex flex-col shadow-xl gap-2">
+                    <p className="text-center text-2xl font-bold pb-2 ">
+                      Stand details
+                    </p>
+                    <LabelInput
+                      title={"Name del evento"}
+                      onChange={(e) => setName(e.target.value)}
+                    ></LabelInput>
+                    <LabelInput
+                      title={"Description"}
+                      onChange={(e) => setDescriptionStand(e.target.value)}
+                    ></LabelInput>
+                  </div>
+                </div>
               ) : event.place.id == 2 ? (
-                <MusicVenue
-                  event={event}
-                  onVenueSelect={handleVenueSelection}
-                />
+                <div className="flex flex-col justify-center items-center space-y-4">
+                  <MusicVenue
+                    event={event}
+                    onSelect={handleVenueSelection}
+                    quantityNumber={quantityTicket}
+                  />
+
+                  <div className="bg-gray-100 p-4 rounded-lg flex flex-col shadow-xl gap-2 mt-2 w-96 justify-center">
+                    <p className="text-center text-2xl font-bold pb-2">
+                      {" "}
+                      Please indicate the number of tickets to purchase
+                    </p>
+                    <LabelInput
+                      title={"Quantity"}
+                      onChange={(e) => setQuantityTicket(e.target.value)}
+                      type="Number"
+                    ></LabelInput>
+                  </div>
+                </div>
               ) : (
-                <SeatSelector
-                  event={event}
-                  onSeatSelect={handleSeatSelection}
-                />
+                <SeatSelector event={event} onSelect={handleSeatSelection} />
               ))}
 
             {currentStep === 2 && (
@@ -517,8 +545,7 @@ const ReservaPage = () => {
                     Cardholder: {paymentData?.cardHolder}
                   </p>
                   <p className="text-gray-700">
-                    Card Number: **** **** ****{" "}
-                    {paymentData?.number.slice(-4)}
+                    Card Number: **** **** **** {paymentData?.number.slice(-4)}
                   </p>
                   <p className="text-gray-700">
                     Card Type: {paymentData?.cardType}
