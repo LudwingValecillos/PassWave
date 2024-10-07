@@ -31,7 +31,7 @@ function Tide() {
           buttonText="+ Details"
           backgroundColor="#05c7f2"
           fontFamily="'Bebas Neue', sans-serif"
-          hoverText="Tide is a versatile convention hall equipped for a range of events, from trade shows to cultural exhibitions. With ample room for setting up stands, it caters to both vendors and visitors, allowing for general ticket sales and open entry. The space is adaptable to various configurations, whether you're hosting corporate conventions, public expos, or even educational fairs. Tide offers the perfect mix of functionality and accessibility, making it an excellent venue for large-scale gatherings where business and culture come together."
+          hoverText="Tide is a versatile convention hall suitable for various events, including trade shows and cultural exhibitions. It provides ample space for stands and caters to vendors and visitors with general ticket sales and open entry. The hall adapts to different configurations, making it ideal for corporate conventions, public expos, and educational fairs. Tide combines functionality and accessibility, making it an excellent venue for large-scale gatherings where business and culture intersect."
           applyHover={true}
        />
       </div>

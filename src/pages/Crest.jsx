@@ -29,7 +29,7 @@ function Crest() {
           buttonText="+ Info"
           backgroundColor="#04bf9d"
           fontFamily="'Bebas Neue', sans-serif"
-          hoverText="Crest is an open space designed for unstructured music concerts, where attendees can enjoy performances while standing. The area fosters a free-flowing, relaxed environment perfect for spontaneous musical expression. It’s the go-to spot for energetic, outdoor events where the connection between artists and the crowd feels more intimate and interactive, providing a laid-back, fun atmosphere. Crest is ideal for fans who love the freedom of movement and vibrant, immersive experiences that come with informal live performances."
+          hoverText="Crest is an open space for unstructured music concerts, allowing attendees to enjoy performances while standing. It creates a relaxed environment for spontaneous musical expression. This spot is perfect for energetic, outdoor events where the connection between artists and the crowd is intimate and interactive, providing a fun atmosphere. Crest is ideal for fans who love freedom of movement and vibrant, immersive experiences in informal live performances."
           applyHover={true}
       />
       </div>
