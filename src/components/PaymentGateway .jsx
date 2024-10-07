@@ -1,21 +1,79 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
+import { loadEvents } from "../redux/actions/eventsAction";
 
-const PaymentGateway = ({ onPaymentComplete, ticketPrice }) => {
-  const [cardNumber, setCardNumber] = useState('');
-  const [expiryDate, setExpiryDate] = useState('');
-  const [cvv, setCvv] = useState('');
-  const [name, setName] = useState('');
+const PaymentGateway = ({ onPaymentComplete, ticketPrice, event }) => {
+  const [cardNumber, setCardNumber] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
+  const [cvv, setCvv] = useState("");
+  const [name, setName] = useState("");
   const [ticketQuantity, setTicketQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(ticketPrice);
+  const dispatch = useDispatch();
 
   const handleQuantityChange = (quantity) => {
     setTicketQuantity(quantity);
     setTotalPrice(quantity * ticketPrice);
   };
 
+  const alertSuscess = () => {
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Payment Successful",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    alertSuscess();
+
+    const card = {
+      number: cardNumber.replace(/(\d{4})(?=\d)/g, "$1-"),
+      cvv: cvv,
+      thruDate: expiryDate,
+      amount: totalPrice,
+    };
+
+    const dataTickets = {
+      eventId: event.id,
+      quantity: ticketQuantity,
+    };
+
+    console.log(card);
+
+    const token = localStorage.getItem("token");
+
+    axios
+      .post(
+        "https://homebankig.onrender.com/api/cards/clients/current/payment",
+        card
+      )
+      .then((response) => {
+        console.log(response.data);
+        axios
+          .post("http://localhost:8080/api/ticket/apply", dataTickets, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            console.log(response.data);
+            dispatch(loadEvents());
+          })
+          .catch((error) => {
+            console.error("Error making the request:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error making the request:", error);
+      });
+
     setTimeout(() => {
       onPaymentComplete(ticketQuantity);
     }, 1500);
@@ -28,10 +86,17 @@ const PaymentGateway = ({ onPaymentComplete, ticketPrice }) => {
       transition={{ duration: 0.5 }}
       className="max-w-4xl mx-auto bg-white p-8 border-4 border-black rounded-2xl shadow-lg"
     >
-      <h2 className="text-4xl font-bold mb-8 text-center text-yellow-600">Payment Details</h2>
+      <h2 className="text-4xl font-bold mb-8 text-center text-yellow-600">
+        Payment Details
+      </h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="ticketQuantity" className="block text-lg font-medium text-gray-700">Total Tickets</label>
+          <label
+            htmlFor="ticketQuantity"
+            className="block text-lg font-medium text-gray-700"
+          >
+            Total Tickets
+          </label>
           <input
             type="number"
             id="ticketQuantity"
@@ -43,10 +108,17 @@ const PaymentGateway = ({ onPaymentComplete, ticketPrice }) => {
           />
         </div>
         <div className="mt-4">
-          <p className="text-lg font-medium text-gray-700">Total a Pagar: ${totalPrice.toFixed(2)}</p>
+          <p className="text-lg font-medium text-gray-700">
+            Total a Pagar: ${totalPrice.toFixed(2)}
+          </p>
         </div>
         <div>
-          <label htmlFor="cardNumber" className="block text-lg font-medium text-gray-700">Card Number</label>
+          <label
+            htmlFor="cardNumber"
+            className="block text-lg font-medium text-gray-700"
+          >
+            Card Number
+          </label>
           <input
             type="text"
             id="cardNumber"
@@ -59,9 +131,14 @@ const PaymentGateway = ({ onPaymentComplete, ticketPrice }) => {
         </div>
         <div className="flex space-x-4">
           <div className="flex-1">
-            <label htmlFor="expiryDate" className="block text-lg font-medium text-gray-700">Expiry Date</label>
+            <label
+              htmlFor="expiryDate"
+              className="block text-lg font-medium text-gray-700"
+            >
+              Expiry Date
+            </label>
             <input
-              type="text"
+              type="date"
               id="expiryDate"
               value={expiryDate}
               onChange={(e) => setExpiryDate(e.target.value)}
@@ -71,7 +148,12 @@ const PaymentGateway = ({ onPaymentComplete, ticketPrice }) => {
             />
           </div>
           <div className="flex-1">
-            <label htmlFor="cvv" className="block text-lg font-medium text-gray-700">CVV</label>
+            <label
+              htmlFor="cvv"
+              className="block text-lg font-medium text-gray-700"
+            >
+              CVV
+            </label>
             <input
               type="text"
               id="cvv"
@@ -84,7 +166,12 @@ const PaymentGateway = ({ onPaymentComplete, ticketPrice }) => {
           </div>
         </div>
         <div>
-          <label htmlFor="name" className="block text-lg font-medium text-gray-700">Cardholder Name</label>
+          <label
+            htmlFor="name"
+            className="block text-lg font-medium text-gray-700"
+          >
+            Cardholder Name
+          </label>
           <input
             type="text"
             id="name"

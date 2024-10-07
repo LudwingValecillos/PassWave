@@ -1,51 +1,54 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { loadEvents } from '../redux/actions/eventsAction';
-import SketchCardEvent from './SketchCardEvent';
-import Aos from 'aos';
+import React, { useEffect, useState, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loadEvents } from "../redux/actions/eventsAction";
+import SketchCardEvent from "./SketchCardEvent";
+import Aos from "aos";
 
 function PrintCardEvenes(props) {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
-    const dispatch = useDispatch();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
+  const dispatch = useDispatch();
 
-    const events = useSelector((state) => {
-        const filteredEvents = props.id !== 0
-            ? state.events.events.filter((event) => event.place.id == props.id)
-            : state.events.events;
-        return filteredEvents;
-    });
+  const events = useSelector((state) => {
+    const filteredEvents =
+      props.id !== 0
+        ? state.events.events.filter((event) => event.place.id == props.id)
+        : state.events.events;
+    return filteredEvents;
+  });
 
-    useEffect(() => {
-        Aos.init({ duration: 500 });
-    }, []);
+  useEffect(() => {
+    Aos.init({ duration: 500 });
+  }, []);
 
-    useEffect(() => {
-        if (events.length === 0) {
-            dispatch(loadEvents());
-        }
-    }, [dispatch, events.length]);
+  useEffect(() => {
+    if (events.length === 0) {
+      dispatch(loadEvents());
+    }
+  }, [dispatch, events.length]);
 
-    // Debounce para evitar la búsqueda en cada pulsación de tecla
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            setDebouncedSearchTerm(searchTerm);
-        }, 300);
+  // Debounce para evitar la búsqueda en cada pulsación de tecla
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 300);
 
-        return () => {
-            clearTimeout(handler);
-        };
-    }, [searchTerm]);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchTerm]);
 
-    // Filtrar eventos según el término de búsqueda y los favoritos
-    const filteredEvents = useMemo(() => {
-        const favoriteEvents = Array.isArray(props.favorites) ? props.favorites : []; // Verifica si favorites es un arreglo
-        const eventsToFilter = favoriteEvents.length > 0 ? favoriteEvents : events;
+  // Filtrar eventos según el término de búsqueda y los favoritos
+  const filteredEvents = useMemo(() => {
+    const favoriteEvents = Array.isArray(props.favorites)
+      ? props.favorites
+      : []; // Verifica si favorites es un arreglo
+    const eventsToFilter = favoriteEvents.length > 0 ? favoriteEvents : events;
 
-        return eventsToFilter.filter(event =>
-            event.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
-        );
-    }, [events, props.favorites, debouncedSearchTerm]);
+    return eventsToFilter.filter((event) =>
+      event.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+    );
+  }, [events, props.favorites, debouncedSearchTerm]);
 
     return (
         <div>
@@ -79,8 +82,11 @@ function PrintCardEvenes(props) {
                     ))}
                 </div>
             )}
+
         </div>
-    );
+      )}
+    </div>
+  );
 }
 
 export default PrintCardEvenes;
