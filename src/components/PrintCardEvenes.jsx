@@ -56,23 +56,23 @@ function PrintCardEvenes(props) {
         <img
           src="https://png.pngtree.com/png-vector/20230430/ourmid/pngtree-right-arrow-vector-png-image_6745379.png"
           alt=""
-          className="w-[200px] rotate-90"
+          className="w-32 md:w-[200px] rotate-90"
         />
         <input
           type="text"
           placeholder="Search events"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)} // Actualiza el término de búsqueda
-          className="p-4 w-1/3 h-20 border-2 text-center border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rounded-3xl font-bold"
+          className="md:p-4 w-1/3 h-20 border-2 text-center border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rounded-3xl font-bold"
         />
         <img
           src="https://png.pngtree.com/png-vector/20230430/ourmid/pngtree-right-arrow-vector-png-image_6745379.png"
           alt=""
-          className="w-[200px] rotate-90"
+          className="w-32 md:w-[200px] rotate-90"
         />
       </div>
       {filteredEvents.length === 0 ? (
-        <p className="text-center mt-5 py-4 m-20 mx-96 rounded-3xl text-3xl  border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] duration-200 hover:bg-black hover:text-white hover:font-bold">
+        <p className="text-center mt-5 py-4 m-20 md:mx-96 rounded-3xl text-3xl border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] duration-200 hover:bg-black hover:text-white hover:font-bold">
           No events found.
         </p>
       ) : (

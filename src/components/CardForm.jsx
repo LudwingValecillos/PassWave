@@ -48,10 +48,10 @@ const CardForm = () => {
           initial={{ opacity: 0, y: 50 }} 
           animate={{ opacity: 1, y: 0 }}
         >
-          <h2 className="text-xl font-bold mb-4">Ingrese los datos de su tarjeta</h2>
+          <h2 className="text-xl font-bold mb-4">Enter your card details</h2>
           <div className="space-y-4">
             <div>
-              <label htmlFor="cardHolder" className="block text-sm font-medium text-gray-700">Nombre del titular</label>
+              <label htmlFor="cardHolder" className="block text-sm font-medium text-gray-700">Owner's name</label>
               <input
                 id="cardHolder"
                 name="cardHolder"
@@ -62,7 +62,7 @@ const CardForm = () => {
               />
             </div>
             <div>
-              <label htmlFor="number" className="block text-sm font-medium text-gray-700">Número de tarjeta</label>
+              <label htmlFor="number" className="block text-sm font-medium text-gray-700">Card number</label>
               <input
                 id="number"
                 name="number"
@@ -75,7 +75,7 @@ const CardForm = () => {
             </div>
             <div className="flex gap-4">
               <div className="w-1/2">
-                <label htmlFor="thruDate" className="block text-sm font-medium text-gray-700">Fecha de vencimiento</label>
+                <label htmlFor="thruDate" className="block text-sm font-medium text-gray-700">Expiration date</label>
                 <input
                   id="thruDate"
                   name="thruDate"
@@ -100,19 +100,19 @@ const CardForm = () => {
               </div>
             </div>
             <div>
-              <label htmlFor="cardType" className="block text-sm font-medium text-gray-700">Tipo de tarjeta</label>
+              <label htmlFor="cardType" className="block text-sm font-medium text-gray-700">Type card</label>
               <select
                 name="cardType"
                 value={cardData.cardType}
                 onChange={handleSelectChange}
                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-teal-500"
               >
-                <option value="DEBIT">Débito</option>
-                <option value="CREDIT">Crédito</option>
+                <option value="DEBIT">Débit</option>
+                <option value="CREDIT">Crédit</option>
               </select>
             </div>
             <div>
-              <label htmlFor="paymentNetwork" className="block text-sm font-medium text-gray-700">Red de pago</label>
+              <label htmlFor="paymentNetwork" className="block text-sm font-medium text-gray-700">Payment network</label>
               <select
                 name="paymentNetwork"
                 value={cardData.paymentNetwork}
@@ -127,14 +127,14 @@ const CardForm = () => {
               type="submit"
               className="w-full bg-teal-500 text-white py-2 px-4 rounded-lg hover:bg-teal-600"
             >
-              Procesar pago
+              Process payment
             </button>
             <button
               type="button"
               onClick={saveCard}
               className="w-full mt-2 bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600"
             >
-              Guardar tarjeta
+              Save card
             </button>
           </div>
         </motion.div>
@@ -150,11 +150,11 @@ const CardForm = () => {
           <p className="text-xl mb-2">{cardData.number || '**** **** **** ****'}</p>
           <div className="flex justify-between">
             <div>
-              <p className="text-sm">Titular de la tarjeta</p>
+              <p className="text-sm">Cardholder</p>
               <p>{cardData.cardHolder || 'NOMBRE APELLIDO'}</p>
             </div>
             <div>
-              <p className="text-sm">Válida hasta</p>
+              <p className="text-sm">Valid until</p>
               <p>{formatThruDate(cardData.thruDate)}</p>
             </div>
           </div>
@@ -166,7 +166,7 @@ const CardForm = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            <h3 className="text-xl font-bold mb-4">Tarjetas guardadas</h3>
+            <h3 className="text-xl font-bold mb-4">Saved cards</h3>
             {savedCards.map((card, index) => (
               <div key={index} className="bg-gray-100 p-2 mb-2 rounded">
                 {card.paymentNetwork} **** {card.number.slice(-4)}

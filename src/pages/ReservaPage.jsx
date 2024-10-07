@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Aos from "aos";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import CasetaSelector from "../components/CasetaSelector";
 import MusicVenue from "../components/MusicVenue";
@@ -87,7 +87,7 @@ const PaymentForm = ({ onPaymentComplete }) => {
 
   const validateCardData = (data) => {
     const errors = [];
-    if (!data.cardHolder) errors.push("Please enter the name of the holder.");
+    if (!data.cardHolder) errors.push("Please enter the name of the cardholder.");
     if (!/^\d{16}$/.test(data.number)) errors.push("Invalid card number.");
     if (!data.thruDate || new Date(data.thruDate) <= new Date())
       errors.push("Invalid expiration date.");
@@ -111,7 +111,7 @@ const PaymentForm = ({ onPaymentComplete }) => {
             htmlFor="cardHolder"
             className="block text-sm font-medium text-gray-700"
           >
-            Name of the holder
+            Name of the owner
           </label>
           <input
             id="cardHolder"
@@ -250,6 +250,8 @@ const ReservaPage = () => {
 
   const events = useSelector((state) => state.events.events || []);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     Aos.init({ duration: 500 });
@@ -416,7 +418,7 @@ const ReservaPage = () => {
                       Stand details
                     </p>
                     <LabelInput
-                      title={"Name del evento"}
+                      title={"Name of the enterprise"}
                       onChange={(e) => setName(e.target.value)}
                     ></LabelInput>
                     <LabelInput
@@ -528,6 +530,7 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
                   >
                     Confirm Reservation
                   </button>
+                  
                 </motion.div>
               </motion.div>
             )}
@@ -562,10 +565,7 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
       amount: suma,
     };
 
-    console.log(card);
-    console.log(selectedCasetas);
-    console.log(quantityTicket);
-    console.log(selectedSeats);
+
 
     const token = localStorage.getItem("token");
     // Make the POST request
@@ -593,6 +593,9 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
             .then((response) => {
               console.log(response.data);
               dispatch(loadEvents());
+            dispatch(loadClient());
+              navigate("/my-purchases");
+
             })
             .catch((error) => {
               console.error("Error making the request:", error);
@@ -610,6 +613,8 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
             })
             .then((response) => {
               console.log(response.data);
+              navigate("/my-purchases");
+              dispatch(loadClient());
               dispatch(loadEvents());
             })
             .catch((error) => {
@@ -633,6 +638,10 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
             .then((response) => {
               console.log(response.data);
               dispatch(loadEvents());
+
+            dispatch(loadClient());
+              navigate("/my-purchases");
+
             })
             .catch((error) => {
               console.error("Error making the request:", error);
