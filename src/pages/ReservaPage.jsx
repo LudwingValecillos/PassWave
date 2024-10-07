@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Aos from "aos";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import CasetaSelector from "../components/CasetaSelector";
 import MusicVenue from "../components/MusicVenue";
@@ -270,6 +270,8 @@ const ReservaPage = () => {
 
   const events = useSelector((state) => state.events.events || []);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     Aos.init({ duration: 500 });
@@ -569,8 +571,7 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
       amount: suma,
     };
 
-    console.log(card);
-    console.log(selectedCasetas);
+
 
     // Make the POST request
     axios
@@ -580,7 +581,77 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
       )
       .then((response) => {
         alertSuscess();
-        console.log(response.data);
+
+        if (event.place.id == 1) {
+          const data = {
+            enventId: event.id,
+            positions: selectedCasetas,
+            name: nameStand,
+            description: descriptionStand,
+          };
+          axios
+            .post("http://localhost:8080/api/stand/apply", data, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((response) => {
+              console.log(response.data);
+              dispatch(loadEvents());
+            dispatch(loadClient());
+              navigate("/my-purchases");
+
+            })
+            .catch((error) => {
+              console.error("Error making the request:", error);
+            });
+        } else if (event.place.id == 2) {
+          const data = {
+            eventId: event.id,
+            quantity: quantityTicket,
+          };
+          axios
+            .post("http://localhost:8080/api/ticket/apply", data, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((response) => {
+              console.log(response.data);
+              navigate("/my-purchases");
+              dispatch(loadClient());
+              dispatch(loadEvents());
+            })
+            .catch((error) => {
+              console.error("Error making the request:", error);
+            });
+        } else if (event.place.id == 3) {
+          const data1 = {
+            enventId: event.id,
+            positions: selectedSeats,
+            name: "",
+            description: "",
+          };
+          console.log(data1);
+
+          axios
+            .post("http://localhost:8080/api/stand/apply", data1, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((response) => {
+              console.log(response.data);
+              dispatch(loadEvents());
+
+            dispatch(loadClient());
+              navigate("/my-purchases");
+
+            })
+            .catch((error) => {
+              console.error("Error making the request:", error);
+            });
+        }
       })
       .catch((error) => {
         console.error("Error making the request:", error);
