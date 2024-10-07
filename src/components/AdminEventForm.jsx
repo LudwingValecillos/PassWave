@@ -32,7 +32,7 @@ const AdminEventForm = () => {
     const placeId = parseInt(e.target.value); // Convert the radio value to an integer
     setEvent((prev) => ({
       ...prev,
-      place: placeId, // Directly set the place ID from radio value
+      placeId: placeId, // Directly set the place ID from radio value
     }));
   };
 
@@ -99,14 +99,16 @@ const AdminEventForm = () => {
       icon: "success",
     });
   };
+
   const handleSubmit = (e) => {
-if(event.name === '' || event.description === '' || event.artists.length === 0 || event.date === '' || event.ticketPrice === '' || event.images.length === 0){  
-  alerError('All fields are required');
-  return;
-}
-    
-    
     e.preventDefault();
+    
+    // Verificación de campos obligatorios
+    if (event.name === '' || event.description === '' || event.artists.length === 0 || event.date === '' || event.ticketPrice === '' || event.images.length === 0) {  
+      alerError('All fields are required');
+      return;
+    }
+    
     axios.post('http://localhost:8080/api/event/create', event, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -177,7 +179,7 @@ if(event.name === '' || event.description === '' || event.artists.length === 0 |
                 <input
                   type="radio"
                   value="2"
-                  checked={event.place === 2}
+                  checked={event.placeId === 2}
                   onChange={handlePlaceChange}
                   className="form-radio h-5 w-5 text-[#0D0D0D] focus:ring-2 focus:ring-[#0D0D0D]"
                 />
@@ -187,7 +189,7 @@ if(event.name === '' || event.description === '' || event.artists.length === 0 |
                 <input
                   type="radio"
                   value="1"
-                  checked={event.place === 1}
+                  checked={event.placeId === 1}
                   onChange={handlePlaceChange}
                   className="form-radio h-5 w-5 text-[#0D0D0D] focus:ring-2 focus:ring-[#0D0D0D]"
                 />
@@ -197,7 +199,7 @@ if(event.name === '' || event.description === '' || event.artists.length === 0 |
                 <input
                   type="radio"
                   value="3"
-                  checked={event.place === 3}
+                  checked={event.placeId === 3}
                   onChange={handlePlaceChange}
                   className="form-radio h-5 w-5 text-[#0D0D0D] focus:ring-2 focus:ring-[#0D0D0D]"
                 />
@@ -272,18 +274,18 @@ if(event.name === '' || event.description === '' || event.artists.length === 0 |
                 Add Artist
               </button>
             </div>
-          </div>
 
-          <button
-            type="submit"
-            className="w-full bg-[#F2BB13] hover:bg-[#F28D35] text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-[#0D0D0D]"
-          >
-            Create Event
-          </button>
+            <button
+              type="submit"
+              className="mt-4 w-full px-4 py-2 bg-[#0D0D0D] text-white rounded hover:bg-[#1A1A1A]"
+            >
+              Submit
+            </button>
+          </div>
         </form>
-      </div>
-      <div className="w-1/2">
-        <EventPrueba event={event} />
+      </div >
+      <div className='w-1/2'>
+      <EventPrueba event={event} />
       </div>
     </div>
   );

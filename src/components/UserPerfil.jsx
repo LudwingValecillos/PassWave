@@ -169,6 +169,9 @@ export default function PerfilUsuario() {
                           <p className="text-gray-600">
                             Quantity: {ticket.quantity}
                           </p>
+                          <p className="text-gray-600">
+                            Positions: {ticket.positions.join(", ")}
+                          </p>
                         </div>
                         <div>
                           <p className="text-gray-600">
