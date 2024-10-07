@@ -236,7 +236,7 @@ export default function PerfilUsuario() {
                             {new Date(rent.renDate).toLocaleTimeString()}
                           </p>
                           <p className="text-gray-600">
-                            Quantity: {rent.rentedPositions.join(", ") }
+                            Positions: {rent.rentedPositions.join(", ") }
                           </p>
                         </div>
                       </div>
