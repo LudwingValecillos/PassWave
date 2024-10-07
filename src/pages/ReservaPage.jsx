@@ -486,7 +486,7 @@ const ReservaPage = () => {
                       >
                         <span>Booth {caseta}</span>
                         <span className="font-bold">
-                          ${caseta <= 10 ? 10000 : 5000}
+                          ${(caseta <= 10 ? 10000 : 5000).toLocaleString()}
                         </span>
                       </motion.li>
                     ))}
@@ -496,10 +496,10 @@ const ReservaPage = () => {
                     {event.place.id === 1
                       ? selectedCasetas.reduce((sum, caseta) => {
                           return sum + (caseta <= 10 ? 10000 : 5000);
-                        }, 0)
+                        }, 0).toLocaleString()
                       : event.place.id === 2
-                      ? quantityTicket * event.ticketPrice // Lógica para otro lugar
-                      : selectedSeats.length * event.ticketPrice}
+                      ? (quantityTicket * event.ticketPrice).toLocaleString() // Lógica para otro lugar
+                      : (selectedSeats.length * event.ticketPrice).toLocaleString()}
                   </p>
                 </motion.div>
                 <motion.div
