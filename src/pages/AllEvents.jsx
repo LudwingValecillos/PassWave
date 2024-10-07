@@ -46,7 +46,7 @@ function AllEvents() {
           buttonText="Explore"
           backgroundColor="#f20505"
           fontFamily="'Bebas Neue', sans-serif"
-          hoverText="Is the central hub where all upcoming events hosted at the cultural center are displayed. Whether it's concerts, conventions, or theatrical performances, this space offers a comprehensive view of what’s happening across all venues, including Crest, Tide, and Drift. Visitors can browse through a diverse range of entertainment options, with details on each event, schedules, and ticketing information. It's the perfect spot to plan your next cultural experience, ensuring you don’t miss out on any of the exciting activities available at the center."
+          hoverText="This is the central hub displaying all upcoming events at the cultural center. Whether concerts, conventions, or theatrical performances, it provides a comprehensive view of activities across venues like Crest, Tide, and Drift. Visitors can explore a variety of entertainment options with event details, schedules, and ticketing information. It’s the perfect spot to plan your next cultural experience and ensure you don’t miss any exciting activities at the center."
           applyHover={true}
        />
       </div>
