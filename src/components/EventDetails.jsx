@@ -31,6 +31,8 @@ const EventDetails = () => {
   const status = useSelector((state) => state.client.status);
   const client = useSelector((state) => state.client.client);
 
+  console.log(event.stands[0]);
+  
   window.scrollTo(0, 0);
   
   
@@ -206,11 +208,20 @@ const EventDetails = () => {
                     title="Buy Ticket Now!"
                     onClick={handleBuyTicketClick}
                   />
+                  {event.stands[0].locations.length == 0 && event.stands[1].locations.length == 0?
+                 
+                  <> 
+                  <Buttonw title="Sold out" />{" "}
+                  </>
+                   : 
+                   <Link to={`/reserva/${event.id}`}>
+                   <Buttonw title="Rent a Stand!" />{" "}
+                 </Link>
+                 }
+                 
 
-                  <Link to={`/reserva/${event.id}`}>
-                    <Buttonw title="Rent a Stand!" />{" "}
-                  </Link>
                 </>
+
               ) : event.place.id == 2 ? (
                 <>
                   <Link to={`/reserva/${event.id}`}>
