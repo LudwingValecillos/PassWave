@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadClient } from "../redux/actions/clientActions";
-import Swal from "sweetalert2";
 import Aos from "aos";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import download from "../assets/DOWNLOAD.PNG";
-import qrCode from '../assets/qr.png';
-
+import qrCode from "../assets/qr.png";
 
 export default function PerfilUsuario() {
   const dispatch = useDispatch();
@@ -17,8 +15,10 @@ export default function PerfilUsuario() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const events = useSelector((state) => state.events.events || []);
   const ticketRef = useRef(null);
-  console.log(events);
+  const standRef = useRef(null); // Nueva referencia para los stands
 
+  console.log(client);
+  
   const handleMouseMove = (e) => {
     setMousePosition({ x: e.clientX, y: e.clientY });
   };
@@ -32,11 +32,13 @@ export default function PerfilUsuario() {
 
   useEffect(() => {
     Aos.init({ duration: 1000 });
-    dispatch(loadClient());
+    if (client.firstName === "" && localStorage.getItem("token") !== null) {
+      dispatch(loadClient());
+    }
   }, [dispatch]);
 
-  const handleDownloadPDF = async () => {
-    const element = ticketRef.current;
+  const handleDownloadPDF = async (ref) => {
+    const element = ref.current;
     const canvas = await html2canvas(element);
     const imgData = canvas.toDataURL("image/png");
     const pdf = new jsPDF("p", "mm", "a4");
@@ -144,91 +146,120 @@ export default function PerfilUsuario() {
                 <h3 className="text-2xl font-bold text-gray-800 mb-4">
                   Your Reserved Tickets
                 </h3>
-                {client?.orderTickets?.map((ticket) => (
-                  <div
-                    key={ticket.id}
-                    className="bg-gray-50 border-2 border-black  p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
-                    ref={ticketRef}
-                  >
-                    <h4 className="text-xl font-semibold text-blue-600 mb-2">
-                      {ticket.event}
-                    </h4>
-                    <div className="flex items-center justify-between py-2">
-                      <div>
-                        <p className="text-gray-600">
-                          Purchase Date:{" "}
-                          {new Date(ticket.purchaseDate).toLocaleDateString()}
-                        </p>
-                        <p className="text-gray-600">
-                          Purchase Time:{" "}
-                          {new Date(ticket.purchaseDate).toLocaleTimeString()}
-                        </p>
-                        <p className="text-gray-600">
-                        Quantity: {ticket.quantity}
-                      </p>
+                {client?.orderTickets?.length > 0 ? (
+                  client.orderTickets.map((ticket) => (
+                    <div
+                      key={ticket.id}
+                      className="bg-gray-50 border-2 border-black p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
+                      ref={ticketRef}
+                    >
+                      <h4 className="text-xl font-semibold text-blue-600 mb-2">
+                        {ticket.event}
+                      </h4>
+                      <div className="flex items-center justify-between py-2">
+                        <div>
+                          <p className="text-gray-600">
+                            Purchase Date:{" "}
+                            {new Date(ticket.purchaseDate).toLocaleDateString()}
+                          </p>
+                          <p className="text-gray-600">
+                            Purchase Time:{" "}
+                            {new Date(ticket.purchaseDate).toLocaleTimeString()}
+                          </p>
+                          <p className="text-gray-600">
+                            Quantity: {ticket.quantity}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-gray-600">
+                            Event Date:{" "}
+                            {new Date(
+                              events.find((e) => e.id === ticket.eventId).date
+                            ).toLocaleDateString()}
+                          </p>
+                          <p className="text-gray-600">
+                            Event Time:{" "}
+                            {new Date(
+                              events.find(
+                                (e) => e.id === ticket.eventId
+                              ).tickets[0].purchaseDate
+                            ).toLocaleTimeString()}
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-gray-600">
-                          Event Date:{" "}
-                          {new Date(
-                            events.find((e) => e.id === ticket.eventId).date
-                          ).toLocaleDateString()}
-                        </p>
-                        <p className="text-gray-600">
-                          Event Time:{" "}
-                          {new Date(
-                            events.find(
-                              (e) => e.id === ticket.eventId
-                            ).tickets[0].purchaseDate
-                          ).toLocaleTimeString()}
-                        </p>
+                      <div className="flex items-center justify-between">
+                        <div className=" w-24 h-24 rounded-3xl bg-gray-300 flex items-center justify-center shadow-lg">
+                          <img src={qrCode} alt="QR Code" />
+                        </div>
+                        <span className="inline-block mt-2 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                          {ticket.hashCode}
+                        </span>
+                        <button onClick={() => handleDownloadPDF(ticketRef)}>
+                          <img
+                            src={download}
+                            alt="Descargar Ticket"
+                            className="h-24 w-24"
+                          />
+                        </button>
                       </div>
                     </div>
-                    <div className="flex items-center justify-between">
-                    <div className=" w-24 h-24 rounded-3xl bg-gray-300 flex items-center justify-center shadow-lg">
-        <img src={qrCode} alt="QR Code" />
-      </div>
-                      <span className="inline-block mt-2 bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">
-                        {ticket.hashCode}
-                      </span>
-                      <button
-                        onClick={handleDownloadPDF}
-                        className="justify-center items-center"
-                      >
-                        <img
-                          src={download}
-                          alt="Descargar Ticket"
-                          className="h-24 w-24"
-                        />
-                      </button>
-                    </div>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <p className="text-gray-600">No tickets available.</p>
+                )}
               </div>
             )}
 
             {activeTab === "stands" && (
               <div className="space-y-6">
                 <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                  Your Reserved Stands
+                  Your Stands
                 </h3>
-                {client?.rents?.map((stand) => (
-                  <div
-                    key={stand.id}
-                    className="bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
-                  >
-                    <h4 className="text-xl font-semibold text-green-600 mb-2">
-                      {stand.name}
-                    </h4>
-                    <p className="text-gray-600 mb-2">{stand.description}</p>
-                    <p className="text-gray-600">
-                      Positions: {stand.rentedPositions.join(", ")}
-                    </p>
-                    <span className="inline-block mt-2 bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                      {stand.hashCode}
-                    </span>
-                  </div>
-                ))}
+                {client?.rents?.length > 0 ? (
+                  client.rents.map((rent) => (
+                    <div
+                      key={rent.id}
+                      className="bg-gray-50 border-2 border-black p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
+                      ref={standRef}
+                    >
+                      <h4 className="text-xl font-semibold text-green-600 mb-2">
+                        {rent.name}
+                      </h4>
+                      <div className="flex items-center justify-between py-2">
+                        <div>
+                          <p className="text-gray-600">
+                            Rent Date:{" "}
+                            {new Date(rent.renDate).toLocaleDateString()}
+                          </p>
+                          <p className="text-gray-600">
+                            Rent Time:{" "}
+                            {new Date(rent.renDate).toLocaleTimeString()}
+                          </p>
+                          <p className="text-gray-600">
+                            Quantity: {rent.rentedPositions.join(", ") }
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className=" w-24 h-24 rounded-3xl bg-gray-300 flex items-center justify-center shadow-lg">
+                          <img src={qrCode} alt="QR Code" />
+                        </div>
+                        <span className="inline-block mt-2 bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                          {rent.hashCode}
+                        </span>
+                        <button onClick={() => handleDownloadPDF(standRef)}>
+                          <img
+                            src={download}
+                            alt="Descargar Stand"
+                            className="h-24 w-24"
+                          />
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-gray-600">No stands available.</p>
+                )}
               </div>
             )}
           </div>
