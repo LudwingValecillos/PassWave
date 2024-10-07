@@ -47,11 +47,11 @@ const EventCreatorWithBanner = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-2xl font-bold text-center mb-6">Crear Nuevo Evento</h1>
+        <h1 className="text-2xl font-bold text-center mb-6">Create New Event</h1>
 
         <div className="space-y-4">
           <label htmlFor="eventDate" className="block text-sm font-medium text-gray-700">
-            Fecha del Evento
+          Event Date
           </label>
           <input
             type="date"
@@ -65,7 +65,7 @@ const EventCreatorWithBanner = () => {
 
         <div className="space-y-4">
           <label htmlFor="eventStyle" className="block text-sm font-medium text-gray-700">
-            Estilo de Evento
+          Event Style
           </label>
           <input
             id="eventStyle"
@@ -80,7 +80,7 @@ const EventCreatorWithBanner = () => {
 
         <div className="space-y-4">
           <label htmlFor="room" className="block text-sm font-medium text-gray-700">
-            Sala
+          Hall
           </label>
           <select
             id="room"
@@ -90,7 +90,7 @@ const EventCreatorWithBanner = () => {
             className="border rounded-md p-2 w-full"
           >
             <option value="" disabled>
-              Selecciona una sala
+            Select a room
             </option>
             <option value="crest">Crest</option>
             <option value="tide">Tide</option>
@@ -100,7 +100,7 @@ const EventCreatorWithBanner = () => {
 
         <div className="space-y-4">
           <label htmlFor="images" className="block text-sm font-medium text-gray-700">
-            Imágenes del Evento (máximo 5)
+          Images of the Event (maximum 5)
           </label>
           <div className="flex items-center space-x-4">
             <input
@@ -116,15 +116,15 @@ const EventCreatorWithBanner = () => {
               onClick={() => document.getElementById('images').click()}
               className="flex items-center border rounded-md p-2 text-white bg-blue-500 hover:bg-blue-600"
             >
-              Subir Imágenes
+              Upload Images
             </button>
-            <span>{formData.images.length} / 5 imágenes subidas</span>
+            <span>{formData.images.length} / 5 images uploaded</span>
           </div>
         </div>
 
         <div className="space-y-4">
           <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-            Descripción del Evento
+          Event Description
           </label>
           <textarea
             id="description"
@@ -146,13 +146,13 @@ const EventCreatorWithBanner = () => {
             className="h-4 w-4"
           />
           <label htmlFor="hasStands" className="text-sm font-medium text-gray-700">
-            ¿Tendrá stands para subvender?
+          Will you have stands to subsell?
           </label>
         </div>
 
         <div className="space-y-4">
           <label htmlFor="ticketPrice1" className="block text-sm font-medium text-gray-700">
-            Precio de Ticket 1
+          Ticket Price 1
           </label>
           <input
             id="ticketPrice1"
@@ -169,7 +169,7 @@ const EventCreatorWithBanner = () => {
 
         <div className="space-y-4">
           <label htmlFor="ticketPrice2" className="block text-sm font-medium text-gray-700">
-            Precio de Ticket 2
+          Ticket Price 2
           </label>
           <input
             id="ticketPrice2"
@@ -188,7 +188,7 @@ const EventCreatorWithBanner = () => {
           type="submit"
           className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md p-2"
         >
-          Crear Evento
+          Creat event
         </button>
       </motion.form>
 
@@ -198,7 +198,7 @@ const EventCreatorWithBanner = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl font-bold mb-4">Vista Previa del Evento</h2>
+        <h2 className="text-3xl font-bold mb-4">Event Preview</h2>
         <motion.div
           className="space-y-4"
           initial={{ opacity: 0 }}
@@ -212,7 +212,7 @@ const EventCreatorWithBanner = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.3 }}
             >
-              Fecha: {formData.date}
+              Date: {formData.date}
             </motion.p>
           )}
           {formData.style && (
@@ -222,7 +222,7 @@ const EventCreatorWithBanner = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.3, delay: 0.1 }}
             >
-              Estilo: {formData.style}
+              Style: {formData.style}
             </motion.p>
           )}
           {formData.room && (
@@ -232,7 +232,7 @@ const EventCreatorWithBanner = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.3, delay: 0.2 }}
             >
-              Sala: {formData.room}
+              Room: {formData.room}
             </motion.p>
           )}
           {formData.description && (
@@ -242,7 +242,7 @@ const EventCreatorWithBanner = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.3, delay: 0.3 }}
             >
-              Descripción: {formData.description}
+              Descripction: {formData.description}
             </motion.p>
           )}
           {formData.hasStands && (
@@ -252,7 +252,7 @@ const EventCreatorWithBanner = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.3, delay: 0.4 }}
             >
-              ¡Incluye stands para subvender!
+              Includes stands to subsell!
             </motion.p>
           )}
           {(formData.ticketPrice1 || formData.ticketPrice2) && (
@@ -262,7 +262,7 @@ const EventCreatorWithBanner = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.3, delay: 0.5 }}
             >
-              <p>Precios de Tickets:</p>
+              <p>Ticket Prices:</p>
               {formData.ticketPrice1 && <p>Ticket 1: ${formData.ticketPrice1}</p>}
               {formData.ticketPrice2 && <p>Ticket 2: ${formData.ticketPrice2}</p>}
             </motion.div>
@@ -275,7 +275,7 @@ const EventCreatorWithBanner = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.5 }}
           >
-            <p className="text-xl mb-2">Imágenes del Evento:</p>
+            <p className="text-xl mb-2">Images Event:</p>
             <div className="flex flex-wrap gap-2">
               {formData.images.map((image, index) => (
                 <motion.div
