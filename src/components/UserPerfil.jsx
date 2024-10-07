@@ -6,6 +6,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import download from "../assets/DOWNLOAD.PNG";
 import qrCode from "../assets/qr.png";
+import { Armchair, Store, Ticket } from "lucide-react";
 
 export default function PerfilUsuario() {
   const dispatch = useDispatch();
@@ -73,11 +74,11 @@ export default function PerfilUsuario() {
         data-aos="fade-up"
       >
         <div className="relative pb-20 bg-gradient-to-r from-[#caaf5e] to-[#f28d35] text-white">
-          <div className="absolute -bottom-20 left-1/2 transform -translate-x-1/2">
+          <div className="absolute -bottom-20 left-1/2 transform -translate-x-1/2 ">
             <img
               src="https://d3n32ilufxuvd1.cloudfront.net/635fde9e3d2caa0029c91035/4190189/Image-0157de3b-2ef9-45c1-ba67-9bad1e1925fb.gif"
               alt="Wave Center"
-              className="w-40 h-40 rounded-full border-4 border-white object-cover shadow-lg transition-transform duration-300 hover:scale-105"
+              className="w-40 h-40 rounded-full border-4 border-white bg-slate-800 object-cover shadow-lg transition-transform duration-300 hover:scale-105"
             />
           </div>
           <div className="text-center mt-8 p-6">
@@ -155,9 +156,12 @@ export default function PerfilUsuario() {
                       className="bg-gray-50 border-2 border-black p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
                       ref={ticketRef}
                     >
+                      <div className="flex items-center justify-between">
                       <h4 className="text-xl font-semibold text-blue-600 mb-2">
                         {ticket.event}
                       </h4>
+                        <img src="/logoOk.png" alt="" className="w-20"/>
+                        </div>
                       <div className="flex items-center justify-between py-2">
                         <div>
                           <p className="text-gray-600">
@@ -168,12 +172,17 @@ export default function PerfilUsuario() {
                             Purchase Time:{" "}
                             {new Date(ticket.purchaseDate).toLocaleTimeString()}
                           </p>
-                          <p className="text-gray-600">
-                            Quantity: {ticket.quantity}
+                          <p className="flex gap-2 text-gray-600">
+                          <Ticket /> 
+                           Ticket Quantity: {ticket.quantity}
                           </p>
-                          <p className="text-gray-600">
-                            Positions: {ticket?.positions?.join(", ")}
+                          { ticket?.positions?.length > 0 &&
+                            <p className="text-gray-600 flex gap-2">
+                              <Armchair />
+                            Seats: {ticket?.positions?.join(", ")}
                           </p>
+                          }
+                          
                           
                         </div>
                         
@@ -237,11 +246,11 @@ export default function PerfilUsuario() {
                       <p>{rent.description}</p>
                       </div>
                       <div>
-                        <img src="/logoOk.png" alt="" className="w-24"/>
+                        <img src="/logoOk.png" alt="" className="w-20"/>
                       </div>
                       </div>
-                      <div className="flex items-center justify-between py-2">
-                        <div className="flex justify-between items-center w-full">
+                      <div className="flex items-center  justify-between py-2">
+                        <div className="flex justify-between  items-center w-full">
                           <div className="">
                           <p className="text-gray-600">
                             Rent Date:{" "}
@@ -251,7 +260,8 @@ export default function PerfilUsuario() {
                             Rent Time:{" "}
                             {new Date(rent.renDate).toLocaleTimeString()}
                           </p>
-                          <p className="text-gray-600">
+                          <p className="text-gray-600 flex gap-2 mt-2">
+                          <Store />
                             Positions: {rent?.rentedPositions?.join(", ") }
                           </p>
                           </div>

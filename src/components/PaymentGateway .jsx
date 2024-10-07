@@ -4,6 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { loadEvents } from "../redux/actions/eventsAction";
+import { loadClient } from "../redux/actions/clientActions";
 
 const PaymentGateway = ({ onPaymentComplete, ticketPrice, event }) => {
   const [cardNumber, setCardNumber] = useState("");
@@ -66,6 +67,8 @@ const PaymentGateway = ({ onPaymentComplete, ticketPrice, event }) => {
             .then((response) => {
               console.log(response.data);
               dispatch(loadEvents());
+              dispatch(loadClient());
+
             })
             .catch((error) => {
               console.error("Error making the request:", error);
@@ -80,6 +83,7 @@ const PaymentGateway = ({ onPaymentComplete, ticketPrice, event }) => {
             .then((response) => {
               console.log(response.data);
               dispatch(loadEvents());
+              dispatch(loadClient());
             })
             .catch((error) => {
               console.error("Error making the request:", error);
