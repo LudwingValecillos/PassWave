@@ -12,6 +12,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { loadEvents } from "../redux/actions/eventsAction";
 import Swal from "sweetalert2";
+import FormattedNumberInput from "./FormattedNumberInput";
 
 const AdminEventForm = () => {
   const dispatch = useDispatch();
@@ -234,19 +235,16 @@ const AdminEventForm = () => {
                 required
               />
             </div>
+            
 
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 ">
               <DollarSign className="text-[#0D0D0D]" />
-              <input
-                type="text"
-                name="ticketPrice"
-                value={event.ticketPrice}
-                min={1}
-                onChange={handleChange}
-                placeholder="Ticket Price"
-                className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#0D0D0D] border-2 border-black"
-                required
-              />
+              <FormattedNumberInput
+              name="ticketPrice"
+              title="ticketPrice"
+              value={event.ticketPrice}
+              onChange={handleChange}
+            />
             </div>
 
             <div className="flex items-start space-x-2">
