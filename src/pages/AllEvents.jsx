@@ -5,7 +5,7 @@ import { loadEvents } from '../redux/actions/eventsAction';
 import PrintCardEvenes from '../components/PrintCardEvenes';
 import VintageCard from '../components/VintageCard';
 import Shows from "../assets/4.png";
-import { loadClient } from '../redux/actions/clientActions';
+import { loadClient } from '../redux/actions/ClientActions';
 
 
 function AllEvents() {

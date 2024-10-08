@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import Chatbot from "../components/chatBot";
 import { use } from "framer-motion/client";
 import { useDispatch } from "react-redux";
-import { loadClient } from "../redux/actions/clientActions";
+import { loadClient } from '../redux/actions/ClientActions';
 
 export default function MyPurchases() {
   const client = useSelector((state) => state.client.client);

@@ -3,7 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import CardEvent from "../components/CardEvent";
 import { useDispatch, useSelector } from "react-redux";
-import { loadClient } from "../redux/actions/clientActions";
+import { loadClient } from '../redux/actions/ClientActions';
 
 const Events = () => {
   const client = useSelector((state) => state.client.client);

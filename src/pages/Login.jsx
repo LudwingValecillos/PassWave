@@ -6,7 +6,7 @@ import EmailInput from "../components/EmailInput";
 import Aos from "aos";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { loadClient } from "../redux/actions/clientActions";
+import { loadClient } from '../redux/actions/ClientActions';
 import { useDispatch } from "react-redux";
 
 const Login = () => {

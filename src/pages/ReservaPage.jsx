@@ -9,7 +9,7 @@ import MusicVenue from "../components/MusicVenue";
 import SeatSelector from "../components/SeatSelector";
 import { loadEvents } from "../redux/actions/eventsAction";
 import LabelInput from "../components/LabelInput";
-import { loadClient } from "../redux/actions/clientActions";
+import { loadClient } from '../redux/actions/ClientActions';
 import {
   CalendarIcon,
   ChevronLeftIcon,

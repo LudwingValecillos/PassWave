@@ -3,7 +3,7 @@ import PrintCardEvenes from '../components/PrintCardEvenes'
 import VintageCard from '../components/VintageCard'
 import Expositions from "../assets/2.png";
 import { useDispatch, useSelector } from 'react-redux';
-import { loadClient } from '../redux/actions/clientActions';
+import { loadClient } from '../redux/actions/ClientActions';
 
 
 

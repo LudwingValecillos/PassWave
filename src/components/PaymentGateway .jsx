@@ -4,7 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { loadEvents } from "../redux/actions/eventsAction";
-import { loadClient } from "../redux/actions/clientActions";
+import { loadClient } from '../redux/actions/ClientActions';
 
 const PaymentGateway = ({ onPaymentComplete, ticketPrice, event }) => {
   const [cardNumber, setCardNumber] = useState("");

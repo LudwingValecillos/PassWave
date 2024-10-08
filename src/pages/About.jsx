@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Users, Music, Calendar, MapPin, Mail, Github, Linkedin, Star, Zap, Coffee, Code, Puzzle, Play, Send, Share2 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useDispatch, useSelector } from 'react-redux'
-import { loadClient } from '../redux/actions/clientActions'
+import { loadClient } from '../redux/actions/ClientActions';
 
 export default function AboutView() {
   const [activeSection, setActiveSection] = useState('squad')

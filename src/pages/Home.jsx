@@ -8,7 +8,7 @@ import Expositions from "../assets/2.png";
 import Oratory from "../assets/3.png";
 import Shows from "../assets/4.png";
 import { useDispatch, useSelector } from "react-redux";
-import { loadClient } from "../redux/actions/clientActions";
+import { loadClient } from '../redux/actions/ClientActions';
 import Darkened from "../components/Darkened";
 import { Link } from "react-router-dom";
 import SketchCardEvent from "../components/SketchCardEvent";
