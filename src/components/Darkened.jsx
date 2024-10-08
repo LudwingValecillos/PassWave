@@ -19,11 +19,11 @@ function Darkened(props) {
         className="translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100"
       >
         <h2 className="text-5xl font-bold text-white text-center border-b-4 border-white mx-12 mb-9">{props.type} </h2>
-        <p className="text-2xl text-white bg-[#000000a4] p-2 rounded-3xl">
+        <p className=" text-white bg-[#000000a4] p-2 rounded-3xl">
           {
             props.text}
         </p>
-        <p className="text-2xl text-white bg-[#000000ab] p-2 rounded-3xl mt-6">
+        <p className=" text-white bg-[#000000ab] p-2 rounded-3xl mt-6">
           {
             props.text2}
         </p>
