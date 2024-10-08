@@ -6,6 +6,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import qrCode from "../assets/qr.png";
 import { Armchair, Store, Ticket } from "lucide-react";
+import pdf from "../assets/DOWNLOAD.png ";
 
 export default function PerfilUsuario() {
   const dispatch = useDispatch();
@@ -210,7 +211,7 @@ export default function PerfilUsuario() {
                         </span>
                         <button onClick={() => handleDownloadPDF(ticketRef)}>
                           <img
-                            src={"./public/DOWNLOAD.PNG"}
+                            src={pdf}
                             alt="Descargar Ticket"
                             className="h-24 w-24"
                           />
@@ -285,7 +286,7 @@ export default function PerfilUsuario() {
                         </span>
                         <button onClick={() => handleDownloadPDF(standRef)}>
                           <img
-                            src={"./public/DOWNLOAD.PNG"}
+                            src={pdf}
                             alt="Descargar Stand"
                             className="h-24 w-24"
                           />
