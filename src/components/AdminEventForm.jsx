@@ -123,7 +123,7 @@ const AdminEventForm = () => {
       ticketPrice: Number(event.ticketPrice).toLocaleString('en-US'),
     };
     
-    axios.post('https://passwave.onrender.com/api/event/create', formattedEvent, {
+    axios.post('https://back-end-wavecenter.onrender.com/api/event/create', formattedEvent, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       },

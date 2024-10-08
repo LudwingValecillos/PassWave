@@ -585,7 +585,7 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
             description: descriptionStand,
           };
           axios
-            .post("https://passwave.onrender.com/api/stand/apply", data, {
+            .post("https://back-end-wavecenter.onrender.com/api/stand/apply", data, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
@@ -606,7 +606,7 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
             quantity: quantityTicket,
           };
           axios
-            .post("https://passwave.onrender.com/api/ticket/apply", data, {
+            .post("https://back-end-wavecenter.onrender.com/api/ticket/apply", data, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
@@ -630,7 +630,7 @@ d-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus
           console.log(data1);
 
           axios
-            .post("https://passwave.onrender.com/api/stand/apply", data1, {
+            .post("https://back-end-wavecenter.onrender.com/api/stand/apply", data1, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },

@@ -12,7 +12,7 @@ export const loadEvents = createAsyncThunk(
     const token = localStorage.getItem("token");
 
     try {
-      const response = await axios.get("https://passwave.onrender.com/api/event/all");
+      const response = await axios.get("https://back-end-wavecenter.onrender.com/api/event/all");
       return response.data; // Devuelve los datos del cliente directamente
     } catch (error) {
       console.error("Error loading events:", error);

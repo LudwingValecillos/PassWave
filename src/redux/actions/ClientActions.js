@@ -9,7 +9,7 @@ const token = localStorage.getItem("token");
 
     try {
       const response = await axios.get(
-        "https://passwave.onrender.com/api/auth/current",
+        "https://back-end-wavecenter.onrender.com/api/auth/current",
         {
           headers: { Authorization: `Bearer ${token}` },
         }

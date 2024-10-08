@@ -59,7 +59,7 @@ const PaymentGateway = ({ onPaymentComplete, ticketPrice, event }) => {
         console.log(response.data);
         if (event.placeId == 1) {
           axios
-            .post("https://passwave.onrender.com/api/ticket/apply", dataTickets, {
+            .post("https://back-end-wavecenter.onrender.com/api/ticket/apply", dataTickets, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
@@ -75,7 +75,7 @@ const PaymentGateway = ({ onPaymentComplete, ticketPrice, event }) => {
             });
         } else if (event.place.id == 2) {
           axios
-            .post("https://passwave.onrender.com/api/ticket/apply", dataTickets, {
+            .post("https://back-end-wavecenter.onrender.com/api/ticket/apply", dataTickets, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
