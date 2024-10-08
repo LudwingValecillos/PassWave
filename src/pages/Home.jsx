@@ -13,6 +13,7 @@ import Darkened from "../components/Darkened";
 import { Link } from "react-router-dom";
 import SketchCardEvent from "../components/SketchCardEvent";
 import { loadEvents } from "../redux/actions/eventsAction";
+import slogan from "../assets/slogan2.gif";
 
 const Home = () => {
   const events = useSelector((state) => state.events.events);
@@ -75,7 +76,7 @@ const Home = () => {
         </h2>
 
         <img
-          src="/src/assets/slogan2.gif"
+          src={slogan}
           alt="Slogan"
           className="
     w-40       
