@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 import { loadEvents, selectEvent } from "../redux/actions/eventsAction";
-import { loadClient } from "../redux/actions/clientActions";
+import { loadClient } from "../redux/actions/ClientActions";
 
 const EventDetails = () => {
   const [currentImage, setCurrentImage] = useState(0);
