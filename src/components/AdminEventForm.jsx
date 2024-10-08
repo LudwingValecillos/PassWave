@@ -118,12 +118,9 @@ const AdminEventForm = () => {
     }
 
     // Formatear el precio del ticket antes de enviar (con separador de miles)
-    const formattedEvent = {
-      ...event,
-      ticketPrice: Number(event.ticketPrice).toLocaleString('en-US'),
-    };
     
-    axios.post('https://back-end-wavecenter.onrender.com/api/event/create', formattedEvent, {
+    
+    axios.post('https://back-end-wavecenter.onrender.com/api/event/create', event, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`,
       },
