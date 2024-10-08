@@ -17,7 +17,6 @@ export default function PerfilUsuario() {
   const ticketRef = useRef(null);
   const standRef = useRef(null); // Nueva referencia para los stands
 
-  console.log(client);
   
   const handleMouseMove = (e) => {
     setMousePosition({ x: e.clientX, y: e.clientY });
@@ -38,7 +37,7 @@ export default function PerfilUsuario() {
     if (client.firstName === "" && localStorage.getItem("token") !== null) {
       dispatch(loadClient());
     }
-  }, [dispatch]);
+  }, []);
   const handleDownloadPDF = async (ref) => {
     const element = ref.current;
     const canvas = await html2canvas(element);

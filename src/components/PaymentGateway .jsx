@@ -56,7 +56,6 @@ const PaymentGateway = ({ onPaymentComplete, ticketPrice, event }) => {
         card
       )
       .then((response) => {
-        console.log(response.data);
         if (event.placeId == 1) {
           axios
             .post("https://back-end-wavecenter.onrender.com/api/ticket/apply", dataTickets, {
