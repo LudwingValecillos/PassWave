@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import Nav from "../components/Nav";
 import UserMenu from "../components/UserMenu"; 
+import { Link, useLocation } from "react-router-dom"; 
 
 const buttonVariants = {
   rest: { scale: 1 },
@@ -22,6 +22,7 @@ const Header = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const status = useSelector((state) => state.client.status);
 
+  const location = useLocation(); 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -29,9 +30,14 @@ const Header = () => {
   const toggleUserMenu = () => {
     setShowUserMenu(!showUserMenu);
   };
+    // Condiciona el fondo del header basado en la ruta actual
+    const headerBgColor = location.pathname === "/" || location.pathname === "/home"
+    ? "bg-[#F2D22E]"  // Fondo amarillo en Home
+    : "bg-[#F2F2F2]"; // Fondo predeterminado para otras rutas
+
 
   return (
-    <header className="w-full flex h-40 z-50 sticky top-0">
+    <header className={`	w-full flex h-40 z-50 sticky top-0 ${headerBgColor}`}>
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 h-full p-10">
         <div className="flex h-full items-center justify-between p-8 border-black border-4 rounded-3xl bg-[#f5f5f5e5] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
           {/* Logo y menú hamburguesa en pantallas pequeñas */}
