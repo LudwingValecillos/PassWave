@@ -13,35 +13,33 @@ function Darkened(props) {
         className="absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-20 rounded-3xl"
       />
 
-      <div className="relative p-4 sm:p-6 lg:p-8  ">
-      <p className="text-5xl absolute top-36 left-28 font-bold  p-3 uppercase text-center mx-28 tracking-widest bg-black text-white border-b-white border-b-4 border rounded-3xl transition-opacity duration-300 group-hover:opacity-0">
+      <div className="relative p-6 sm:p-6 lg:p-10">
+        <p className="text-5xl absolute top-36 left-28 font-bold p-3 uppercase text-center mx-28 tracking-widest bg-black text-white border-b-white border-b-4 border rounded-3xl transition-opacity duration-300 group-hover:opacity-0">
           {props.title}
         </p>
         <div>
-          <div className="translate-y-8 flex gap-36  flex-col h-full transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
+          <div className="translate-y-8 flex gap-20 flex-col h-full transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
             <div className="flex flex-col justify-start">
-              <h2 className="text-5xl font-bold  text-yellow-400  ">
+              <h2 className="text-5xl font-bold text-yellow-400">
                 {props.title}
               </h2>
 
               <h2 className="text-5xl font-bold text-white">{props.type}</h2>
             </div>
 
-
-    <div className="mt-20  ">
-      <div
-        className="translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100"
-      >
-        <h2 className="text-5xl font-bold text-white text-center border-b-4 border-white mx-12 mb-9">{props.type} </h2>
-        <p className=" text-white bg-[#000000a4] p-2 rounded-3xl">
-          {
-            props.text}
-        </p>
-        <p className=" text-white bg-[#000000ab] p-2 rounded-3xl mt-6">
-          {
-            props.text2}
-        </p>
-
+            <div className="">
+              <div className="translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
+              
+                <p className="text-white text-xl p-2 rounded-3xl">
+                  {props.text}
+                </p>
+                <p className="text-white text-xl p-2 rounded-3xl mt-6">
+                  {props.text2}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </Link>
   );
