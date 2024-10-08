@@ -132,7 +132,7 @@ const Home = () => {
     "
           initial={{ x: "100%" }}
           animate={{ x: ["100%", "-100%"] }}
-          transition={{ duration: 10, ease: "linear", repeat: Infinity }}
+          transition={{ duration: 18, ease: "linear", repeat: Infinity }}
           style={{ fontFamily: "'Rubik Bubbles', cursive" }}
         >
           Catch the Wave of Creativity and Connection—Experience a Fusion of Art
