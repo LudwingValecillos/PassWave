@@ -5,6 +5,8 @@ import UserMenu from "./UserMenu"; // Importamos el menú de usuario
 import { useSelector } from "react-redux";
 import Button2 from "./Button2";
 import Buttonw from "./Buttonw";
+import logoOk from '../assets/logoOk.png';
+
 
 const buttonVariants = {
   rest: { scale: 1 },
@@ -80,7 +82,7 @@ function Nav() {
             <div className="flex-1 md:flex md:items-center md:gap-12">
             <Link to="/home" className="flex justify-center items-center gap-5">
 
-              <img src="/src/assets/logoOk.png" alt="Logo" className="h-28" />
+              <img src={logoOk} alt="Logo" className="h-28" />
 
               {/* <div className="relative inline-block">
                 <img

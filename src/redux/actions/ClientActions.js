@@ -17,6 +17,8 @@ const token = localStorage.getItem("token");
       
       return response.data; // Devuelve los datos del cliente directamente
     } catch (error) {
+      console.log(error.response.data);
+      
       console.error("Error loading client:", error);
       return rejectWithValue(
         error.response ? error.response.data : "Unknown error"
