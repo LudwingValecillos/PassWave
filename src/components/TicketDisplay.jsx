@@ -41,7 +41,7 @@ const TicketDisplay = ({ event, ticketRef, ticketQuantity }) => {
       <p className="text-lg"><strong>Total:</strong> ${event.ticketPrice * ticketQuantity}</p>
       <div className='flex items-center justify-evenly'>
       <button onClick={handleDownloadPDF} className="justify-center items-center">
-        <img src={"./public/DOWNLOAD.PNG"} alt="Descargar Ticket" className="h-24 w-24" />
+        <img src={"https://www.ferrocortes.com.co/wp-content/uploads/2017/06/PDF-download.png"} alt="Descargar Ticket" className="h-24 w-24" />
       </button>
       <div className=" w-32 h-32 bg-gray-300 rounded-md flex items-center justify-center shadow-lg">
         <img src={qrCode} alt="QR Code" />
