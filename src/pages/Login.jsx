@@ -20,6 +20,7 @@ const Login = () => {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerConfirmPassword, setRegisterConfirmPassword] = useState("");
+  const [msg, setMsg] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -30,6 +31,7 @@ const Login = () => {
   const handleMouseMove = (e) => {
     setMousePosition({ x: e.clientX, y: e.clientY });
   };
+  
   useEffect(() => {
     Aos.init({ duration: 1000 });
   }, []);
@@ -63,7 +65,7 @@ const Login = () => {
     { x: window.innerWidth * 0.8, y: window.innerHeight * 0.7 },
   ];
 
-  const alerError = (msg) => {
+  const alertError = (msg) => {
     Swal.fire({
       title: "Oops! Something went wrong.",
       text: msg,
@@ -71,71 +73,71 @@ const Login = () => {
     });
   };
 
-  const alerSuccess = (msg) => {
+  const alertSuccess = (msg) => {
     Swal.fire({
       title: "Success!",
       text: msg,
       icon: "success",
     });
   };
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
     // Validación de email
     if (!loginEmail || !/\S+@\S+\.\S+/.test(loginEmail)) {
-      alerError("Please enter a valid email address.");
+      alertError("Please enter a valid email address.");
       return;
     }
-
-    // Validación de contraseña (mínimo 8 caracteres)
-    // if (!loginPassword || loginPassword.length < 8) {
-    //     alerError("Password must be at least 8 characters long.");
-    //   return;
-    // }
 
     const user = { email: loginEmail, password: loginPassword };
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/auth/login",
-        user
+      const res = await axios.post(
+        "http://localhost:8080/api/auth/login", user
       );
-      alerSuccess(
-        "Login successful. Welcome back to WaveCompany. You can now access your account and enjoy our services."
-      );
-      navigate("/home");
-      console.log(response.data);
+      localStorage.setItem("token", res.data);
+      console.log(res.data);
 
-      localStorage.setItem("token", response.data);
       dispatch(loadClient());
-    } catch (error) {
-      alerError(error.response.data);
+
+      const redirectPath = localStorage.getItem('redirectAfterLogin');
+    
+    if (redirectPath) {
+      localStorage.removeItem('redirectAfterLogin'); 
+      navigate(redirectPath); 
+    } else {
+      navigate("/home");
+    }
+    } catch (err) {
+      alertError(err.response.data);
     }
   };
+
   const handleRegister = async (e) => {
     e.preventDefault();
 
     // First Name validation
     if (!registerFirstName || registerFirstName.length < 2) {
-      alerError("First name must be at least 2 characters long.");
+      alertError("First name must be at least 2 characters long.");
       return;
     }
 
     // Last Name validation
     if (!registerLastName || registerLastName.length < 2) {
-      alerError("Last name must be at least 2 characters long.");
+      alertError("Last name must be at least 2 characters long.");
       return;
     }
 
     // Email validation
     if (!registerEmail || !/\S+@\S+\.\S+/.test(registerEmail)) {
-      alerError("Please enter a valid email address.");
+      alertError("Please enter a valid email address.");
       return;
     }
 
     // Password validation
     if (!registerPassword || registerPassword.length < 8) {
-      alerError(
+      alertError(
         "Password must be at least 8 characters long and include uppercase, lowercase, a number, and a special character."
       );
       return;
@@ -153,20 +155,23 @@ const Login = () => {
         "http://localhost:8080/api/auth/register",
         user
       );
-      alerSuccess("You have successfully registered. You may now log in.");
+      alertSuccess("You have successfully registered. You may now log in.");
       toggleForm();
     } catch (error) {
-      alerError(error.response.data);
+      alertError(error.response.data);
     }
   };
 
+  if(registerConfirmPassword !== registerPassword){
+    
+  }
   return (
     <div
-      className="flex justify-center items-center min-h-screen bg-[#F2F2F2] p-4"
+      className="flex justify-center items-center min-h-screen bg-[#F2F2F2] p-4 "
       data-aos="flip-left"
     >
       <div
-        className="w-full z-10 max-w-3xl bg-white rounded-lg shadow-xl overflow-hidden border-black border-[1px]"
+        className="w-full z-10 max-w-3xl bg-white shadow-2xl rounded-lg overflow-hidden border-black border-[1px]"
         data-aos="flip-right"
       >
         <div className="relative flex flex-col md:flex-row h-[600px] md:h-[500px]">
@@ -259,7 +264,7 @@ const Login = () => {
 
           {/* Image Section */}
           <div
-            className={`absolute inset-y-0 w-full md:w-1/2 transition-transform duration-500 ease-in-out  ${
+            className={`absolute inset-y-0 w-full invisible	 md:visible	  md:w-1/2 transition-transform duration-500 ease-in-out  ${
               isLoginActive ? "translate-x-full" : "translate-x-0"
             }`}
           >
@@ -312,7 +317,7 @@ const Login = () => {
         return (
           <div
             key={index}
-            className="absolute z-0"
+            className="absolute z-0 hidden md:block "
             style={{
               left: position.x,
               top: position.y,
