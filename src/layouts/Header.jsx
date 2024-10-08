@@ -31,7 +31,7 @@ const Header = () => {
     setShowUserMenu(!showUserMenu);
   };
     // Condiciona el fondo del header basado en la ruta actual
-    const headerBgColor = location.pathname === "/home" || location.pathname === "/home"
+    const headerBgColor = location.pathname === "/home" || location.pathname === "/Home"
     ? "bg-[#F2D22E]"  // Fondo amarillo en Home
     : "bg-[#F2F2F2]"; // Fondo predeterminado para otras rutas
 
