@@ -9,7 +9,7 @@ const token = localStorage.getItem("token");
 
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/auth/current",
+        "https://passwave.onrender.com/api/auth/current",
         {
           headers: { Authorization: `Bearer ${token}` },
         }

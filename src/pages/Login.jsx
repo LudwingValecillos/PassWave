@@ -94,7 +94,7 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/auth/login", user
+        "https://passwave.onrender.com/api/auth/login", user
       );
       localStorage.setItem("token", res.data);
       console.log(res.data);
@@ -152,7 +152,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/auth/register",
+        "https://passwave.onrender.com/api/auth/register",
         user
       );
       alertSuccess("You have successfully registered. You may now log in.");
