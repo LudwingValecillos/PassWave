@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import eventReducers from "./reducers/eventReducers";
 import clientReducer from "./reducers/clientReducers";
-import eventReducer from "./reducers/eventReducers";
 const store = configureStore({
   reducer: {
     client: clientReducer, 
-    events: eventReducer
+    events: eventReducers
   },
 });
 
