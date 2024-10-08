@@ -212,7 +212,7 @@ export default function PerfilUsuario() {
                         </span>
                         <button onClick={() => handleDownloadPDF(ticketRef)}>
                           <img
-                            src={download}
+                            src={"./public/DOWNLOAD.PNG"}
                             alt="Descargar Ticket"
                             className="h-24 w-24"
                           />
@@ -287,7 +287,7 @@ export default function PerfilUsuario() {
                         </span>
                         <button onClick={() => handleDownloadPDF(standRef)}>
                           <img
-                            src={download}
+                            src={"./public/DOWNLOAD.PNG"}
                             alt="Descargar Stand"
                             className="h-24 w-24"
                           />
