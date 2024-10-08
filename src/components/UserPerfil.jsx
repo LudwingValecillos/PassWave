@@ -4,7 +4,7 @@ import { loadClient } from '../redux/actions/ClientActions';
 import Aos from "aos";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import download from "../assets/DOWNLOAD.PNG";
+import download from "./DOWNLOAD.PNG";
 import qrCode from "../assets/qr.png";
 import { Armchair, Store, Ticket } from "lucide-react";
 
