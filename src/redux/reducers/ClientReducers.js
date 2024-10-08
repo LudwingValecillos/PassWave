@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { loadClient } from "../actions/clientActions";
+import { loadClient } from "../actions/ClientActions";
 
 
 const initialState = {

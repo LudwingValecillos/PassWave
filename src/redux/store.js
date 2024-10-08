@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import eventReducers from "./reducers/eventReducers";
-import clientReducers from "./reducers/clientReducers";
+import clientReducers from "./reducers/ClientReducers";
 const store = configureStore({
   reducer: {
     client: clientReducers, 
