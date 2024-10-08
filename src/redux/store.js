@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import eventReducers from "./reducers/eventReducers";
-import clientReducer from "./reducers/clientReducers";
+import clientReducers from "./reducers/clientReducers";
 const store = configureStore({
   reducer: {
-    client: clientReducer, 
+    client: clientReducers, 
     events: eventReducers
   },
 });
