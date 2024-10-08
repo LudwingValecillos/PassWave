@@ -127,6 +127,16 @@ const AdminEventForm = () => {
     }).then((response) => {
       alerSuccess();
       dispatch(loadEvents());
+      setEvent({
+        name: '',
+        description: '',
+        artists: [],
+        date: '',
+        ticketPrice: '',
+        hasStand: true,
+        images: [],
+        placeId: null,
+      })
     }).catch((error) => {
       alerError(error.response.data);
     });
