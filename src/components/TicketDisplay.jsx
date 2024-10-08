@@ -3,7 +3,6 @@ import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import qrCode from '../assets/qr.png';
 import logoOk from '../assets/logoOk.png';
-import download from './DOWNLOAD.PNG';
 
 const TicketDisplay = ({ event, ticketRef, ticketQuantity }) => {
   const handleDownloadPDF = async () => {
